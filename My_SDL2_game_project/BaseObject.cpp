@@ -1,58 +1,30 @@
 ﻿#include "BaseObject.h"
+#include <iostream>
 
-BaseObject::BaseObject()
+SDL_Rect createCharacter()
 {
-	p_object_ = NULL;
-	rect_.x = 0;
-	rect_.y = 0;
-	rect_.w = 0;
-	rect_.h = 0;
+    SDL_Rect character = { 23, 38, 10, 10 };
+    character.x = 23; character.y = 38; character.h = 10; character.w = 10;
+    return character;
 }
 
-BaseObject::~BaseObject()
+void moveCharacter(SDL_Rect& character, SDL_Event event)
 {
-	Free();
-}
-
-bool BaseObject::LoadImg(std::string path, SDL_Renderer* screen)
-{
-	SDL_Texture* new_texture = NULL;
-
-	SDL_Surface* load_surface = IMG_Load(path.c_str());
-	if (load_surface != NULL)
-	{
-		//COLOR_KEY: xoá phông ảnh nhân vật (transparent background đi)
-		SDL_SetColorKey(load_surface, SDL_TRUE, SDL_MapRGB(load_surface->format, COLOR_KEY_R, COLOR_KEY_G, COLOR_KEY_B));
-		new_texture = SDL_CreateTextureFromSurface(screen, load_surface);
-		if (new_texture != NULL)
-		{
-			rect_.w = load_surface->w;
-			rect_.h = load_surface->h;
-		}
-
-		SDL_FreeSurface(load_surface);
-	}
-	p_object_ = new_texture;
-	return p_object_ != NULL;
-}
-
-//Hàm để
-//*des: đích khi load ảnh đến
-void BaseObject::Render(SDL_Renderer* des, const SDL_Rect* clip /* = NULL*/)
-{
-	SDL_Rect renderquad = { rect_.x, rect_.y, rect_.w, rect_.h }; //bao gom vị trí & kích thước ảnh
-
-	SDL_RenderCopy(des, p_object_, clip, &renderquad); //đẩy thông số p_object_ lên des, với kích thước & vị trí trong renderquad
-
-}
-
-void BaseObject::Free()
-{
-	if (p_object_ != NULL)
-	{
-		SDL_DestroyTexture(p_object_);
-		p_object_ = NULL;
-		rect_.w = 0;
-		rect_.h = 0;
-	}
+    if (event.type == SDL_KEYDOWN) {
+        switch (event.key.keysym.sym) {
+        case SDLK_UP:
+            character.y -= 10; // Di chuyen len
+            std::cout << "Moving up\n"; std::cout << "y = " << character.y << std::endl;
+            break;
+        case SDLK_DOWN:
+            character.y += 10; // Di chuyen xuong
+            break;
+        case SDLK_LEFT:
+            character.x -= 10; // Sang trai
+            break;
+        case SDLK_RIGHT:
+            character.x += 10; // Sang phai
+            break;
+        }
+    }
 }

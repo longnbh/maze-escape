@@ -1,86 +1,104 @@
+#include <iostream>
+#include <SDL.h>
 #include "CommonFunc.h"
 #include "BaseObject.h"
 
-BaseObject g_background;
+#undef main
 
-bool InitData() // ham thiet lap
-{
-    bool success = true;
-    int ret = SDL_Init(SDL_INIT_VIDEO);
-    if (ret < 0)
-        return false;
+const int MAP_WIDTH = 10;
+const int MAP_HEIGHT = 10;
+int mazeMap[MAP_WIDTH][MAP_HEIGHT] = {
+    {1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+    {1, 0, 0, 0, 0, 0, 0, 0, 1, 1},
+    {0, 0, 1, 1, 0, 1, 0, 1, 1, 0},
+    {1, 1, 1, 1, 0, 0, 0, 1, 0, 0},
+    {1, 1, 1, 0, 0, 1, 0, 0, 0, 1},
+    {1, 1, 1, 0, 1, 1, 1, 1, 0, 1},
+    {1, 0, 1, 0, 0, 0, 0, 1, 0, 1},
+    {1, 0, 1, 1, 1, 1, 0, 1, 0, 1},
+    {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+    {1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
+};
 
-    SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1");
-
-    g_window = SDL_CreateWindow("maze escape!",
-        SDL_WINDOWPOS_UNDEFINED,
-        SDL_WINDOWPOS_UNDEFINED,
-        SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
-    if (g_window == NULL)
-        success = false;
-    else
-    {
-        g_screen = SDL_CreateRenderer(g_window, -1, SDL_RENDERER_ACCELERATED); //tao render cho screen
-        if (g_screen == NULL)
-            success = false;
-        else
-        {
-            SDL_SetRenderDrawColor(g_screen, RENDER_DRAW_COLOR, RENDER_DRAW_COLOR, RENDER_DRAW_COLOR, RENDER_DRAW_COLOR);
-            int imgFlags = IMG_INIT_PNG;
-            if (!(IMG_Init(imgFlags) && imgFlags))
-                success = false;
+void DrawMaze(SDL_Renderer* renderer) {
+    for (int i = 0; i < 10; ++i) {
+        for (int j = 0; j < 10; ++j) {
+            if (mazeMap[i][j] == 1) {
+                // Draw wall
+                SDL_Rect wallRect = { j * CELL_SIZE, i * CELL_SIZE, CELL_SIZE, CELL_SIZE };
+                SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255); // black
+                SDL_RenderFillRect(renderer, &wallRect);
+            }
+            else {
+                // Draw road
+                SDL_Rect pathRect = { j * CELL_SIZE, i * CELL_SIZE, CELL_SIZE, CELL_SIZE };
+                SDL_SetRenderDrawColor(renderer, 255, 223, 142, 255); // white
+                SDL_RenderFillRect(renderer, &pathRect);
+            }
         }
     }
-    return success;
 }
 
-bool LoadBackground()
-{
-    bool ret = g_background.LoadImg("img//maze1.jpg", g_screen);
-    if (ret == false)
-        return false;
-    return true;
-}
-
-void close()
-{
-    g_background.Free();
-
-    SDL_DestroyRenderer(g_screen);
-    g_screen = NULL;
-
-    SDL_DestroyWindow(g_window); g_window = NULL;
-
-    IMG_Quit();
-    SDL_Quit();
-}
-
-
-
-int main(int argc, char* argv[])
-{
-    if (InitData() == false)
-        return -1;
-    if (LoadBackground() == false)
-        return -1;
-
-    bool is_quit = false;
-    while (!is_quit)
-    {
-        while (SDL_PollEvent(&g_event) != 0) //xu ly cac chuoi su kien trong event queue
-        {
-            if (g_event.type == SDL_QUIT)
-                is_quit = true;
-        }
-
-        SDL_SetRenderDrawColor(g_screen, RENDER_DRAW_COLOR, RENDER_DRAW_COLOR, RENDER_DRAW_COLOR, RENDER_DRAW_COLOR);
-        SDL_RenderClear(g_screen);
-
-        g_background.Render(g_screen, NULL);
-
-        SDL_RenderPresent(g_screen);
-
+int main() {
+    // Khoi tao SDL
+    if (!InitSDL()) {
+        return 1;
     }
-    close();
+
+    // Tao cua so
+    SDL_Window* window = CreateWindow("Maze escape", SCREEN_HEIGHT, SCREEN_HEIGHT);
+    if (!window) {
+        return 1;
+    }
+
+    // Tao trinh ket xuat (renderer)
+    SDL_Renderer* renderer = CreateRenderer(window);
+    if (!renderer) {
+        return 1;
+    }
+
+    SDL_Event event;
+    bool quit = false;
+
+    //tao nhan vat
+    SDL_Rect character = createCharacter();
+
+
+    while (!quit)
+    {
+
+        while (SDL_PollEvent(&event)) {
+            if (isEscTapped(event)) {
+                quit = true; // Get out of loop when Esc press
+            }
+            // Thiet lap mau nen
+            SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+
+            // Xoa man hinh
+            SDL_RenderClear(renderer);
+
+            //draw my first maze
+            DrawMaze(renderer);
+
+
+
+            //ve nhan vat   
+            SDL_SetRenderDrawColor(renderer, 255, 165, 0, 255); //orange
+            SDL_RenderFillRect(renderer, &character);
+
+
+
+
+            // Cap nhat man hinh
+            SDL_RenderPresent(renderer);
+
+            //di chuyen nhan vat
+            moveCharacter(character, event);
+        }
+    }
+
+    // Destroy SDL
+    QuitSDL();
+
     return 0;
 }
