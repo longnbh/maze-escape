@@ -7,6 +7,8 @@
 const int SCREEN_WIDTH = 800;
 const int SCREEN_HEIGHT = 600;
 const int CELL_SIZE = 20; //size of each cell in the maze
+const int MAP_WIDTH = 10;
+const int MAP_HEIGHT = 10;
 
 
 bool InitSDL();
