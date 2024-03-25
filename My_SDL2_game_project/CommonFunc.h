@@ -6,7 +6,7 @@
 #include <SDL.h>
 const int SCREEN_WIDTH = 800;
 const int SCREEN_HEIGHT = 600;
-const int CELL_SIZE = 20; //size of each cell in the maze
+const int CELL_SIZE = 30; //size of each cell in the maze
 const int MAP_WIDTH = 10;
 const int MAP_HEIGHT = 10;
 
@@ -18,5 +18,5 @@ void HandleEvents();
 void DrawGraphics();
 void QuitSDL();
 bool isEscTapped(SDL_Event& event);
-
+void render();
 #endif

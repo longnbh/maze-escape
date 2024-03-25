@@ -1,5 +1,6 @@
 #include <iostream>
 #include <SDL.h>
+#include <SDL_image.h>
 #include "CommonFunc.h"
 #include "BaseObject.h"
 
@@ -10,23 +11,33 @@ int mazeMap[MAP_WIDTH][MAP_HEIGHT] = {
     {1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
     {1, 0, 0, 0, 0, 0, 0, 0, 1, 1},
     {0, 0, 1, 1, 0, 1, 0, 1, 1, 0},
-    {1, 1, 1, 1, 0, 0, 0, 1, 0, 0},
-    {1, 1, 1, 0, 0, 1, 0, 0, 0, 1},
+    {1, 0, 0, 1, 0, 0, 0, 1, 0, 0},
+    {1, 0, 0, 0, 0, 1, 0, 0, 0, 1},
     {1, 1, 1, 0, 1, 1, 1, 1, 0, 1},
     {1, 0, 1, 0, 0, 0, 0, 1, 0, 1},
     {1, 0, 1, 1, 1, 1, 0, 1, 0, 1},
-    {1, 0, 0, 0, 0, 0, 0, 0, 0, 1}, 
+    {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
     {1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
 };
 
 void DrawMaze(SDL_Renderer* renderer) {
-    for (int i = 0; i < 10; ++i) {
-        for (int j = 0; j < 10; ++j) {
+
+    SDL_Texture* wallTexture;
+    wallTexture = IMG_LoadTexture(renderer, "img/wall1.png");
+    if (!wallTexture)
+    {
+        std::cout << "Couldnt load image : " << SDL_GetError() << std::endl;
+    }
+    for (int i = 0; i < MAP_HEIGHT; ++i) {
+        for (int j = 0; j < MAP_WIDTH; ++j) {
             if (mazeMap[i][j] == 1) {
                 // Draw wall
+                //SDL_Rect wallRect = { j * CELL_SIZE, i * CELL_SIZE, CELL_SIZE, CELL_SIZE };
+                //SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255); // black
+                //SDL_RenderFillRect(renderer, &wallRect);
+
                 SDL_Rect wallRect = { j * CELL_SIZE, i * CELL_SIZE, CELL_SIZE, CELL_SIZE };
-                SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255); // black
-                SDL_RenderFillRect(renderer, &wallRect);
+                SDL_RenderCopy(renderer, wallTexture, NULL, &wallRect);
             }
             else {
                 // Draw road
@@ -79,7 +90,8 @@ int main() {
             //draw my first maze
             DrawMaze(renderer);
 
-
+            SDL_Texture* wallTexture;
+            wallTexture = IMG_LoadTexture(renderer, "image/wall1.png");
 
             //ve nhan vat   
             SDL_SetRenderDrawColor(renderer, 255, 165, 0, 255); //orange

@@ -1,4 +1,4 @@
-﻿#include "baseObject.h"
+﻿#include "BaseObject.h"
 #include "CommonFunc.h"
 #include <iostream>
 #include <SDL.h>

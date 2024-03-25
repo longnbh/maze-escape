@@ -1,4 +1,5 @@
 ﻿#include "CommonFunc.h"
+#include "BaseObject.h"
 
 SDL_Renderer* renderer = nullptr;
 SDL_Window* window = nullptr;
@@ -50,8 +51,10 @@ bool isEscTapped(SDL_Event& event)
     return false;
 }
 
+
+
 void QuitSDL() {
-    // Destroy SDL
+    // Clean up SDL & exit program  
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
     SDL_Quit();
