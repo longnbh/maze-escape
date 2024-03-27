@@ -1,11 +1,13 @@
-﻿#include "BaseObject.h"
+﻿#include "map.h"
+#include "BaseObject.h"
 #include "CommonFunc.h"
+
 #include <iostream>
 #include <SDL.h>
 const int PLAYER_WIDTH = 10;
 const int PLAYER_HEIGHT = 10;
-const int PLAYER_START_X = 23;
-const int PLAYER_START_Y = 38;
+const int PLAYER_START_X = 31;
+const int PLAYER_START_Y = 31;
 
 
 SDL_Rect createCharacter()
@@ -15,61 +17,37 @@ SDL_Rect createCharacter()
     return character;
 }
 
-void moveCharacter(SDL_Rect& character, SDL_Event& event, const int(&mazeMap)[MAP_WIDTH][MAP_HEIGHT]) {
-    switch (event.type) {
-    case SDL_KEYDOWN:
-        switch (event.key.keysym.sym)
-        {
-        case SDLK_UP:
-            // Move character up
-            character.y -= PLAYER_HEIGHT;
-            std::cout << "y = " << character.y << ", x = " << character.x << std::endl;
-            // Check collision with walls
-            if (character.y < 0 || mazeMap[character.y / CELL_SIZE][character.x / CELL_SIZE] == 1
-                || mazeMap[(character.y + PLAYER_HEIGHT) / CELL_SIZE][(character.x + PLAYER_HEIGHT) / CELL_SIZE] == 1) {
-                character.y += PLAYER_HEIGHT; // Undo the movement
-            }
-            break;
-        case SDLK_DOWN:
-            // Move character down
-            character.y += PLAYER_HEIGHT;
-            std::cout << "y = " << character.y << ", x = " << character.x << std::endl;
-            // Check collision with walls
-            if (character.y + character.h > SCREEN_HEIGHT || mazeMap[(character.y + PLAYER_HEIGHT) / CELL_SIZE][character.x / CELL_SIZE] == 1
-                || mazeMap[(character.y + PLAYER_HEIGHT) / CELL_SIZE][(character.x + PLAYER_WIDTH) / CELL_SIZE] == 1
-                || mazeMap[character.y / CELL_SIZE][character.x / CELL_SIZE] == 1
-                || mazeMap[character.y / CELL_SIZE][(character.x + PLAYER_WIDTH) / CELL_SIZE] == 1) {
-                character.y -= PLAYER_HEIGHT; // Undo the movement
-            }
-            break;
-        case SDLK_LEFT:
-            // Move character left
-            character.x -= PLAYER_HEIGHT;
-            std::cout << "y = " << character.y << ", x = " << character.x << std::endl;
-            // Check collision with walls
-            if (character.x < 0 || mazeMap[(character.y + PLAYER_HEIGHT) / CELL_SIZE][character.x / CELL_SIZE] == 1
-                || mazeMap[(character.y + PLAYER_HEIGHT) / CELL_SIZE][(character.x + PLAYER_WIDTH) / CELL_SIZE] == 1
-                || mazeMap[character.y / CELL_SIZE][character.x / CELL_SIZE] == 1
-                || mazeMap[character.y / CELL_SIZE][(character.x + PLAYER_WIDTH) / CELL_SIZE] == 1) {
-                character.x += PLAYER_HEIGHT; // Undo the movement
-            }
-            break;
-        case SDLK_RIGHT:
-            // Move character right
-            character.x += PLAYER_HEIGHT;
-            std::cout << "y = " << character.y << ", x = " << character.x << std::endl;
-            // Check collision with walls
-            if (character.x + character.w > SCREEN_WIDTH || mazeMap[character.y / CELL_SIZE][(character.x + character.w) / CELL_SIZE] == 1
-                || mazeMap[(character.y + PLAYER_HEIGHT) / CELL_SIZE][(character.x + PLAYER_HEIGHT) / CELL_SIZE] == 1) {
-                character.x -= PLAYER_HEIGHT; // Undo the movement
-            }
-            break;
-        default:
-            break;
+void moveCharacter(SDL_Rect& character, SDL_Event& event)
+{
+    if (event.type != SDL_KEYDOWN) return;
+
+    const int(*mazeMap)[MAP_WIDTH] = Map::getMazeMap();
+
+    switch (event.key.keysym.sym) {
+    case SDLK_UP:
+    case SDLK_DOWN: {
+        int dir = (event.key.keysym.sym == SDLK_DOWN) ? 1 : -1;
+        int checkY = character.y + dir * PLAYER_HEIGHT;
+        if (checkY < 0 || checkY >= SCREEN_HEIGHT || mazeMap[checkY / CELL_SIZE][character.x / CELL_SIZE] == 1) {
+            character.y -= dir * PLAYER_HEIGHT;
+            return;
         }
-        break;
-    default:
+        character.y += (event.key.keysym.sym == SDLK_DOWN) ? PLAYER_HEIGHT : -PLAYER_HEIGHT;
         break;
     }
-}
+    case SDLK_LEFT:
+    case SDLK_RIGHT: {
+        int dir = (event.key.keysym.sym == SDLK_RIGHT) ? 1 : -1;
+        int checkX = character.x + dir * PLAYER_WIDTH;
+        if (checkX < 0 || checkX >= SCREEN_WIDTH || mazeMap[character.y / CELL_SIZE][checkX / CELL_SIZE] == 1) {
+            character.x -= dir * PLAYER_HEIGHT;
+            return;
+        }
+        character.x += dir * PLAYER_HEIGHT;
+        break;
+    }
+    }
 
+    // In vi tri nhan vat
+    std::cout << "y = " << character.y << ", x = " << character.x << std::endl;
+}

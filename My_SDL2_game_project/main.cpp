@@ -3,51 +3,10 @@
 #include <SDL_image.h>
 #include "CommonFunc.h"
 #include "BaseObject.h"
+#include "map.h"
+
 
 #undef main
-
-
-int mazeMap[MAP_WIDTH][MAP_HEIGHT] = {
-    {1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-    {1, 0, 0, 0, 0, 0, 0, 0, 1, 1},
-    {0, 0, 1, 1, 0, 1, 0, 1, 1, 0},
-    {1, 0, 0, 1, 0, 0, 0, 1, 0, 0},
-    {1, 0, 0, 0, 0, 1, 0, 0, 0, 1},
-    {1, 1, 1, 0, 1, 1, 1, 1, 0, 1},
-    {1, 0, 1, 0, 0, 0, 0, 1, 0, 1},
-    {1, 0, 1, 1, 1, 1, 0, 1, 0, 1},
-    {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-    {1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
-};
-
-void DrawMaze(SDL_Renderer* renderer) {
-
-    SDL_Texture* wallTexture;
-    wallTexture = IMG_LoadTexture(renderer, "img/wall1.png");
-    if (!wallTexture)
-    {
-        std::cout << "Couldnt load image : " << SDL_GetError() << std::endl;
-    }
-    for (int i = 0; i < MAP_HEIGHT; ++i) {
-        for (int j = 0; j < MAP_WIDTH; ++j) {
-            if (mazeMap[i][j] == 1) {
-                // Draw wall
-                //SDL_Rect wallRect = { j * CELL_SIZE, i * CELL_SIZE, CELL_SIZE, CELL_SIZE };
-                //SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255); // black
-                //SDL_RenderFillRect(renderer, &wallRect);
-
-                SDL_Rect wallRect = { j * CELL_SIZE, i * CELL_SIZE, CELL_SIZE, CELL_SIZE };
-                SDL_RenderCopy(renderer, wallTexture, NULL, &wallRect);
-            }
-            else {
-                // Draw road
-                SDL_Rect pathRect = { j * CELL_SIZE, i * CELL_SIZE, CELL_SIZE, CELL_SIZE };
-                SDL_SetRenderDrawColor(renderer, 255, 223, 142, 255); // white
-                SDL_RenderFillRect(renderer, &pathRect);
-            }
-        }
-    }
-}
 
 int main() {
     // Khoi tao SDL
@@ -57,7 +16,8 @@ int main() {
 
     // Tao cua so
     SDL_Window* window = CreateWindow("Maze escape", SCREEN_HEIGHT, SCREEN_HEIGHT);
-    if (!window) {
+    if (!window)
+    {
         return 1;
     }
 
@@ -73,7 +33,7 @@ int main() {
     //tao nhan vat
     SDL_Rect character = createCharacter();
 
-
+    //vong lap game
     while (!quit)
     {
 
@@ -87,24 +47,37 @@ int main() {
             // Xoa man hinh
             SDL_RenderClear(renderer);
 
-            //draw my first maze
-            DrawMaze(renderer);
+            /*       // Define the map file path
+                   const char* mapFilePath = "map1.txt";
 
-            SDL_Texture* wallTexture;
-            wallTexture = IMG_LoadTexture(renderer, "image/wall1.png");
+
+                   // Load the map
+                   int mapSuccess = loadMap(mapFilePath);
+
+                   if (mapSuccess != 0) {
+                       std::cout << "Error loading map!" << std::endl;
+                       return 1;
+                   }
+
+                   //draw my first maze
+                   DrawMaze(renderer);
+           */
+
+            Map gameMap;
+            gameMap.loadMap("map/map1.txt");
+
+            gameMap.drawMap(renderer);
 
             //ve nhan vat   
             SDL_SetRenderDrawColor(renderer, 255, 165, 0, 255); //orange
             SDL_RenderFillRect(renderer, &character);
 
 
-
-
             // Cap nhat man hinh
             SDL_RenderPresent(renderer);
 
             //di chuyen nhan vat
-            moveCharacter(character, event, mazeMap);
+            moveCharacter(character, event);
         }
     }
 
