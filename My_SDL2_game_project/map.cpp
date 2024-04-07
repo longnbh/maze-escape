@@ -19,7 +19,7 @@ void Map::loadMap(const char* name) {
 }
 
 void Map::drawMap(SDL_Renderer* renderer) {
-    SDL_Texture* wallTexture = IMG_LoadTexture(renderer, "img/wall1.png");
+    SDL_Texture* wallTexture = IMG_LoadTexture(renderer, "img/wall2.png");
     if (!wallTexture) {
         std::cout << "Couldnt load image : " << SDL_GetError() << std::endl;
     }

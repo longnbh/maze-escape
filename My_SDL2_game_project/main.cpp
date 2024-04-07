@@ -70,7 +70,7 @@ int main() {
            */
 
             Map gameMap;
-            gameMap.loadMap("map/map1.txt");
+            gameMap.loadMap("map/map3.txt");
 
             gameMap.drawMap(renderer);
 

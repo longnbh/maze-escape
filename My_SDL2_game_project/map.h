@@ -4,13 +4,22 @@
 #include <SDL.h>
 #include <iostream>
 #include <fstream>
-const int MAP_WIDTH = 10;
-const int MAP_HEIGHT = 10;
+const int MAP_WIDTH = 15;
+const int MAP_HEIGHT = 15;
 
 class Map
 {
 public:
-	Map() { ; }
+	Map() 
+	{ 
+		/*srand(time(NULL));
+
+			std::vector<std::string> imageFiles = { "img/wall1.png", "img/wall2.png" };
+			int randIdx = rand() % imageFiles.size();
+			path = imageFiles[randIdx];*/
+	
+	
+	}
 	~Map() { ; }
 
 	static const int(*getMazeMap())[MAP_WIDTH];
@@ -20,6 +29,7 @@ public:
 
 private:
 	static int mazeMap[MAP_WIDTH][MAP_HEIGHT];
+	//std::string path;
 };
 
 #endif
