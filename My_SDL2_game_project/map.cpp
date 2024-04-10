@@ -1,5 +1,6 @@
 #include "map.h"
 #include <SDL_image.h>
+#include<string>
 #include "CommonFunc.h"
 
 int Map::mazeMap[MAP_WIDTH][MAP_HEIGHT];
@@ -19,6 +20,7 @@ void Map::loadMap(const char* name) {
 }
 
 void Map::drawMap(SDL_Renderer* renderer) {
+
     SDL_Texture* wallTexture = IMG_LoadTexture(renderer, "img/wall2.png");
     if (!wallTexture) {
         std::cout << "Couldnt load image : " << SDL_GetError() << std::endl;

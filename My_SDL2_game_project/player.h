@@ -5,37 +5,55 @@
 #include "CommonFunc.h"
 #include "map.h"
 
-const int PLAYER_WIDTH = 10;
-const int PLAYER_HEIGHT = 10;
-const int PLAYER_START_X = 31;
-const int PLAYER_START_Y = 31;
+const int PLAYER_WIDTH = 30;
+const int PLAYER_HEIGHT = 30;
+const int PLAYER_START_X = 45;
+const int PLAYER_START_Y = 45;
+const int numFrame = 12;
 
 
 class player
 {
 
 public:
-	player() { ; }
-	~player() { ; }
+	player() {
+		spritesheet = nullptr;
+		currentFrame = 0;
+		/*fWidth = 0;
+		fHeight = 0;*/
+		pos.x = PLAYER_START_X;
+		pos.y = PLAYER_START_Y;
+		pos.w = PLAYER_WIDTH;
+		pos.h = PLAYER_HEIGHT;
+	}
+	~player() {
+		if (spritesheet != nullptr) {
+			SDL_DestroyTexture(spritesheet);
+		}
+	}
 
 	//declare function to create a character
-	SDL_Rect createCharacter();
+	void createCharacter(SDL_Renderer* renderer, const char* spritePath);
 
-	void moveCharacter(SDL_Rect& character, SDL_Event& event);
+	void moveCharacter(SDL_Event& event);
+	void updateAnimation();
 
-	//Handle input events
-	void handleInput();
-
-
-	//update game state
-	void updateGame();
 
 	//render graphics
-	void render();
+	void render(SDL_Renderer* renderer);
 
 	void DrawMaze(SDL_Renderer* renderer);
 
 private:
+	SDL_Texture* spritesheet;
+	SDL_Rect frame_clip[numFrame];
+	int currentFrame;
+	int dirX; //luu tru huong di chuyen theo truc X
+	int dirY;//luu tru huong di chuyen theo truc Y
+	int fWidth = 384;
+	int fHeight = 32;
+
+	SDL_Rect pos;
 };
 
 #endif

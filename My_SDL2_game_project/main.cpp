@@ -30,14 +30,16 @@ int main() {
         return 1;
     }
 
+    //tao nhan vat
+    player nhanvat;
+    nhanvat.createCharacter(renderer, "img/player_right.PNG");
+
     SDL_Event event;
     bool quit = false;
 
-    //tao nhan vat
-    player nhanvat;
 
-    SDL_Rect character = nhanvat.createCharacter();
-
+    Map gameMap;
+    gameMap.loadMap("map/map4.txt");
 
     //vong lap game
     while (!quit)
@@ -53,37 +55,18 @@ int main() {
             // Xoa man hinh
             SDL_RenderClear(renderer);
 
-            /*       // Define the map file path
-                   const char* mapFilePath = "map1.txt";
 
-
-                   // Load the map
-                   int mapSuccess = loadMap(mapFilePath);
-
-                   if (mapSuccess != 0) {
-                       std::cout << "Error loading map!" << std::endl;
-                       return 1;
-                   }
-
-                   //draw my first maze
-                   DrawMaze(renderer);
-           */
-
-            Map gameMap;
-            gameMap.loadMap("map/map3.txt");
 
             gameMap.drawMap(renderer);
 
-            //ve nhan vat   
-            SDL_SetRenderDrawColor(renderer, 255, 165, 0, 255); //orange
-            SDL_RenderFillRect(renderer, &character);
+            //di chuyen nhan vat
+            nhanvat.render(renderer);
+            nhanvat.moveCharacter(event);
+            nhanvat.updateAnimation();
 
 
             // Cap nhat man hinh
             SDL_RenderPresent(renderer);
-
-            //di chuyen nhan vat
-            nhanvat.moveCharacter(character, event);
         }
     }
 

@@ -2,6 +2,9 @@
 #define MAP_H
 
 #include <SDL.h>
+#include <cstdlib> //for rand() and srand()
+#include<vector>
+#include<ctime>
 #include <iostream>
 #include <fstream>
 const int MAP_WIDTH = 15;
@@ -10,15 +13,14 @@ const int MAP_HEIGHT = 15;
 class Map
 {
 public:
-	Map() 
-	{ 
+	Map()
+	{
 		/*srand(time(NULL));
 
-			std::vector<std::string> imageFiles = { "img/wall1.png", "img/wall2.png" };
-			int randIdx = rand() % imageFiles.size();
-			path = imageFiles[randIdx];*/
-	
-	
+		std::vector<std::string> imageFiles = { "img/wall1.png", "img/wall2.png" };
+		int randIdx = rand() % imageFiles.size();
+		path = imageFiles[randIdx];*/
+
 	}
 	~Map() { ; }
 
