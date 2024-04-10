@@ -1,4 +1,5 @@
 #include "map.h"
+#include "player.h"
 #include <SDL_image.h>
 #include<string>
 #include "CommonFunc.h"
@@ -41,4 +42,17 @@ void Map::drawMap(SDL_Renderer* renderer) {
 
 const int(*Map::getMazeMap()) [MAP_WIDTH] {
     return mazeMap;
+    }
+
+    void Map::loadRandomMap()
+    {
+        //thiet lap seed cho rand
+        std::srand(std::time(0));
+        int randomMapIdx = std::rand() % numMap + 1;
+
+        std::string mapName = "map/map" + std::to_string(randomMapIdx) + ".txt";
+
+        loadMap(mapName.c_str());
+
+
     }

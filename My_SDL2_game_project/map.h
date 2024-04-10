@@ -9,6 +9,7 @@
 #include <fstream>
 const int MAP_WIDTH = 15;
 const int MAP_HEIGHT = 15;
+const int numMap = 4;
 
 class Map
 {
@@ -28,6 +29,7 @@ public:
 
 	void loadMap(const char* name);
 	void drawMap(SDL_Renderer* renderer);
+	void loadRandomMap(); //chon ngau nhien 1 map moi
 
 private:
 	static int mazeMap[MAP_WIDTH][MAP_HEIGHT];

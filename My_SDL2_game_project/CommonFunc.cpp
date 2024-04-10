@@ -10,12 +10,16 @@ bool Game::InitSDL() {
         SDL_Log("Failed to initialize SDL: %s", SDL_GetError());
         return false;
     }
+    if (TTF_Init() != 0) {
+        SDL_Log("Failed to initialize SDL_TTF: %s", TTF_GetError());
+        return false;
+    }
     return true;
 }
 
 SDL_Window* Game::CreateWindow(const char* title, int width, int height) {
     // Tao cua so
-    SDL_Window* window = SDL_CreateWindow(title, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, SDL_WINDOW_SHOWN);
+    window = SDL_CreateWindow(title, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, SDL_WINDOW_SHOWN);
     if (window == nullptr) {
         SDL_Log("Failed to create a window: %s", SDL_GetError());
         return nullptr;
@@ -25,7 +29,7 @@ SDL_Window* Game::CreateWindow(const char* title, int width, int height) {
 
 SDL_Renderer* Game::CreateRenderer(SDL_Window* window) {
     //Tao renderer
-    SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+    renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
     if (renderer == nullptr) {
         SDL_Log("Failed to create a renderer: %s", SDL_GetError());
         return nullptr;
@@ -51,9 +55,81 @@ bool Game::outGame(SDL_Event& event)
     return false;
 }
 
+void Game::handleEndMaze(SDL_Renderer* renderer) {
+    SDL_Event e;
+    bool running = true;
+
+    SDL_Rect continueButton = { 100, 100, 200, 50 };
+    SDL_Rect exitButton = { 100, 200, 200, 50 };
+
+    // Mở font ngoài vòng lặp
+    TTF_Font* font = TTF_OpenFont("fonts/tahoma.ttf", 24);
+    if (!font) {
+        // Xử lý lỗi khi không thể mở font
+        SDL_Log("Failed to load font: %s", TTF_GetError());
+        return;
+    }
+
+    while (running) {
+        while (SDL_PollEvent(&e)) {
+            if (e.type == SDL_QUIT) {
+                SDL_Quit();
+                exit(0);
+            }
+            if (e.type == SDL_MOUSEBUTTONDOWN) {
+                int x, y;
+                SDL_GetMouseState(&x, &y);
+                if (x >= continueButton.x && x <= continueButton.x + continueButton.w &&
+                    y >= continueButton.y && y <= continueButton.y + continueButton.h) {
+                    // Xử lý khi người chơi chọn "Continue"
+                    running = false; // Thoát khỏi vòng lặp
+                    break;
+                }
+                else if (x >= exitButton.x && x <= exitButton.x + exitButton.w &&
+                    y >= exitButton.y && y <= exitButton.y + exitButton.h) {
+                    // Xử lý khi người chơi chọn "Exit"
+                    SDL_Quit();
+                    exit(0);
+                }
+            }
+        }
+
+        // Vẽ hộp thoại và nút
+        SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+        SDL_RenderFillRect(renderer, &continueButton);
+        SDL_RenderFillRect(renderer, &exitButton);
+        SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+        SDL_RenderDrawRect(renderer, &continueButton);
+        SDL_RenderDrawRect(renderer, &exitButton);
+
+        SDL_Color textColor = { 0, 0, 0 };
+        SDL_Surface* textSurface = TTF_RenderText_Solid(font, "Continue", textColor);
+        SDL_Texture* textTexture = SDL_CreateTextureFromSurface(renderer, textSurface);
+        SDL_Rect textRect = { continueButton.x + 50, continueButton.y + 10, textSurface->w, textSurface->h };
+        SDL_RenderCopy(renderer, textTexture, NULL, &textRect);
+        SDL_FreeSurface(textSurface);
+        SDL_DestroyTexture(textTexture);
+
+        textSurface = TTF_RenderText_Solid(font, "Exit", textColor);
+        textTexture = SDL_CreateTextureFromSurface(renderer, textSurface);
+        textRect = { exitButton.x + 70, exitButton.y + 10, textSurface->w, textSurface->h };
+        SDL_RenderCopy(renderer, textTexture, NULL, &textRect);
+        SDL_FreeSurface(textSurface);
+        SDL_DestroyTexture(textTexture);
+
+        SDL_RenderPresent(renderer);
+    }
+
+    // Đóng font sau khi sử dụng
+    TTF_CloseFont(font);
+}
+
+
 
 
 void Game::QuitGame() {
+
+    TTF_Quit();
     // Clean up SDL & exit program  
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);

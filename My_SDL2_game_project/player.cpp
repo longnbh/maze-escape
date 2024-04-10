@@ -5,8 +5,6 @@
 #include <iostream>
 #include <SDL.h>
 
-
-
 void player::createCharacter(SDL_Renderer* renderer, const char* spritePath)
 {
     SDL_Surface* loadedSurface = IMG_Load(spritePath);
@@ -36,15 +34,16 @@ void player::createCharacter(SDL_Renderer* renderer, const char* spritePath)
 
 void player::render(SDL_Renderer* renderer)
 {//render nhan vat dua tren frame hien tai
-    SDL_Rect* currentClip = &frame_clip[currentFrame / (fWidth / numFrame)];
+    //SDL_Rect* currentClip = &frame_clip[currentFrame / (fWidth / numFrame)];
     //srand(0);
     bool standing = false;
-
     SDL_RenderCopy(renderer, spritesheet, &frame_clip[rand() % 12], &pos);
 
 }
 
-void player::moveCharacter(SDL_Event& event)
+
+
+void player::moveCharacter(SDL_Renderer* renderer, SDL_Event& event)
 {
     if (event.type != SDL_KEYDOWN) return;
 
@@ -61,6 +60,13 @@ void player::moveCharacter(SDL_Event& event)
             pos.y -= dirY * PLAYER_HEIGHT / 6;
             return;
         }
+        /*if (mazeMap[checkY / CELL_SIZE][pos.x / CELL_SIZE] == 4) {
+            // Neu nguoi choi den vi tri ket thuc
+            std::cout << "Game over!" << std::endl;
+            exit(0); // Ket thuc chuong trinh
+        }*/
+
+        denCuoi(renderer, checkY, pos.x);
         pos.y += (event.key.keysym.sym == SDLK_DOWN) ? PLAYER_HEIGHT / 6 : -PLAYER_HEIGHT / 6;
         break;
     }
@@ -73,6 +79,14 @@ void player::moveCharacter(SDL_Event& event)
             pos.x -= dirX * PLAYER_HEIGHT / 6;
             return;
         }
+
+        /*if (mazeMap[pos.y / CELL_SIZE][checkX / CELL_SIZE] == 4) {
+            // 4 la ket thuc
+            std::cout << "Game over!" << std::endl;
+            exit(0); // End program
+        }*/
+
+        denCuoi(renderer, checkX, pos.y);
         pos.x += dirX * PLAYER_HEIGHT / 6;
         break;
     }
@@ -85,7 +99,7 @@ void player::moveCharacter(SDL_Event& event)
 void player::updateAnimation() {
     // cap nhat frame dua tren huong di chuyen
     if (dirX == 0 && dirY == 0) {
-        currentFrame = 0; // Nhân vật đứng yên
+        currentFrame = 0; // Nhan vat dung yen
     }
     else {
         // tinh toan frame dua tren huong di chuyen

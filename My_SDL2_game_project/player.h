@@ -14,7 +14,6 @@ const int numFrame = 12;
 
 class player
 {
-
 public:
 	player() {
 		spritesheet = nullptr;
@@ -26,7 +25,8 @@ public:
 		pos.w = PLAYER_WIDTH;
 		pos.h = PLAYER_HEIGHT;
 	}
-	~player() {
+	~player()
+	{
 		if (spritesheet != nullptr) {
 			SDL_DestroyTexture(spritesheet);
 		}
@@ -35,14 +35,23 @@ public:
 	//declare function to create a character
 	void createCharacter(SDL_Renderer* renderer, const char* spritePath);
 
-	void moveCharacter(SDL_Event& event);
+	void moveCharacter(SDL_Renderer* renderer, SDL_Event& event);
 	void updateAnimation();
 
 
 	//render graphics
 	void render(SDL_Renderer* renderer);
 
-	void DrawMaze(SDL_Renderer* renderer);
+	static void denCuoi(SDL_Renderer* renderer, const int checkY, const int checkX) {
+		const int(*mazeMap)[MAP_WIDTH] = Map::getMazeMap();
+
+		if (mazeMap[checkY / CELL_SIZE][checkX / CELL_SIZE] == 4) {
+			// so 4 la ket thuc, trong mang 2 chieu
+			std::cout << "Ket thuc man choi!" << std::endl;
+			Game::handleEndMaze(renderer); // ket thuc chuong trinh
+		}
+	}
+
 
 private:
 	SDL_Texture* spritesheet;

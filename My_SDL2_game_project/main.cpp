@@ -19,16 +19,11 @@ int main() {
 
     // Tao cua so
     SDL_Window* window = trochoi.CreateWindow("Maze escape", SCREEN_HEIGHT, SCREEN_HEIGHT);
-    if (!window)
-    {
-        return 1;
-    }
+    if (!window) { return 1; }
 
     // Tao trinh ket xuat (renderer)
     SDL_Renderer* renderer = trochoi.CreateRenderer(window);
-    if (!renderer) {
-        return 1;
-    }
+    if (!renderer) { return 1; }
 
     //tao nhan vat
     player nhanvat;
@@ -61,8 +56,9 @@ int main() {
 
             //di chuyen nhan vat
             nhanvat.render(renderer);
-            nhanvat.moveCharacter(event);
+            nhanvat.moveCharacter(renderer, event);
             nhanvat.updateAnimation();
+
 
 
             // Cap nhat man hinh
