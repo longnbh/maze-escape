@@ -1,7 +1,8 @@
-﻿  player.cpp
-  CommonFunc.cpp
+﻿  CommonFunc.cpp
   main.cpp
   map.cpp
-C:\Users\Admin\Desktop\My_SDL2_game_project\My_SDL2_game_project\map.cpp(50,29): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Users\Admin\Desktop\My_SDL2_game_project\My_SDL2_game_project\map.cpp(60,29): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+  player.cpp
+  sound.cpp
   Generating Code...
   My_SDL2_game_project.vcxproj -> C:\Users\Admin\Desktop\My_SDL2_game_project\Debug\My_SDL2_game_project.exe

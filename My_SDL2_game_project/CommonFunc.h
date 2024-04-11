@@ -3,6 +3,7 @@
 #ifndef COMMON_FUNCTION_H_
 #define COMMON_FUNCTION_H_
 #include<SDL_ttf.h>
+#include<SDL_mixer.h>
 #include <SDL.h>
 
 const int SCREEN_WIDTH = 600;

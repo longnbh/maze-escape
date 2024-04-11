@@ -65,7 +65,7 @@ public:
 	//render graphics
 	void render(SDL_Renderer* renderer);
 
-	static void denCuoi(SDL_Renderer* renderer, const int checkY, const int checkX);
+	bool denCuoi(SDL_Renderer* renderer);
 
 
 private:
@@ -77,6 +77,8 @@ private:
 	int fWidth = 384;
 	int fHeight = 32;
 
+	int checkX;
+	int checkY;
 	SDL_Rect pos;
 };
 

@@ -22,7 +22,9 @@ void Map::loadMap(const char* name) {
 
 void Map::drawMap(SDL_Renderer* renderer) {
 
-    SDL_Texture* wallTexture = IMG_LoadTexture(renderer, "img/wall2.png");
+    SDL_Texture* wallTexture = IMG_LoadTexture(renderer, "img/wall4.png");
+    SDL_Texture* startTexture = IMG_LoadTexture(renderer, "img/batdau.png");
+    SDL_Texture* endTexture = IMG_LoadTexture(renderer, "img/ketthuc.png");
     if (!wallTexture) {
         std::cout << "Couldnt load image : " << SDL_GetError() << std::endl;
     }
@@ -33,9 +35,17 @@ void Map::drawMap(SDL_Renderer* renderer) {
                 SDL_Rect wallRect = { j * CELL_SIZE, i * CELL_SIZE, CELL_SIZE, CELL_SIZE };
                 SDL_RenderCopy(renderer, wallTexture, NULL, &wallRect);
             }
-            else {
-                // Draw path (same as before)
+            if (mazeMap[i][j] == 3)
+            {
+                SDL_Rect wallRect = { j * CELL_SIZE, i * CELL_SIZE, CELL_SIZE, CELL_SIZE };
+                SDL_RenderCopy(renderer, startTexture, NULL, &wallRect);
             }
+            if (mazeMap[i][j] == 4)
+            {
+                SDL_Rect wallRect = { j * CELL_SIZE, i * CELL_SIZE, CELL_SIZE, CELL_SIZE }; //vi tri & kich thuoc cua anh
+                SDL_RenderCopy(renderer, endTexture, NULL, &wallRect);
+            }
+
         }
     }
 }

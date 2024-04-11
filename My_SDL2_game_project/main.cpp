@@ -4,18 +4,19 @@
 #include "CommonFunc.h"
 #include "player.h"
 #include "map.h"
-
+#include "sound.h"
 
 #undef main
 
 int main() {
 
     Game trochoi;
+    Sound sound;
 
     // Khoi tao SDL
-    if (!trochoi.InitSDL()) {
-        return 1;
-    }
+    if (!trochoi.InitSDL()) { return 1; }
+
+    if (!sound.khoiTaoSound()) { return 1; }
 
     // Tao cua so
     SDL_Window* window = trochoi.CreateWindow("Maze escape", SCREEN_HEIGHT, SCREEN_HEIGHT);
@@ -24,6 +25,8 @@ int main() {
     // Tao trinh ket xuat (renderer)
     SDL_Renderer* renderer = trochoi.CreateRenderer(window);
     if (!renderer) { return 1; }
+
+
 
     //tao nhan vat
     player nhanvat;
@@ -34,7 +37,7 @@ int main() {
 
 
     Map gameMap;
-    gameMap.loadMap("map/map4.txt");
+    gameMap.loadMap("map/map1.txt");
 
     //vong lap game
     while (!quit)
@@ -57,8 +60,15 @@ int main() {
             //di chuyen nhan vat
             nhanvat.render(renderer);
             nhanvat.moveCharacter(renderer, event);
+            if (nhanvat.denCuoi(renderer))
+            {
+                if (!sound.loadSound("sound/congrats.wav")) {
+                    return 1;
+                }
+                sound.playSound();
+                Game::handleEndMaze(renderer);
+            }
             nhanvat.updateAnimation();
-
 
 
             // Cap nhat man hinh

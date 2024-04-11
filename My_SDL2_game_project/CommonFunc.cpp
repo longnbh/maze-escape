@@ -1,12 +1,13 @@
 ﻿#include "CommonFunc.h"
 #include "player.h"
+#include "map.h"
 
 SDL_Renderer* renderer = nullptr;
 SDL_Window* window = nullptr;
 
 bool Game::InitSDL() {
     // Khoi tao SDL
-    if (SDL_Init(SDL_INIT_VIDEO) != 0) {
+    if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) != 0) {
         SDL_Log("Failed to initialize SDL: %s", SDL_GetError());
         return false;
     }
@@ -55,24 +56,28 @@ bool Game::outGame(SDL_Event& event)
     return false;
 }
 
-void Game::handleEndMaze(SDL_Renderer* renderer) {
+void Game::handleEndMaze(SDL_Renderer* renderer)
+{
     SDL_Event e;
     bool running = true;
 
     SDL_Rect continueButton = { 100, 100, 200, 50 };
     SDL_Rect exitButton = { 100, 200, 200, 50 };
 
-    // Mở font ngoài vòng lặp
+    // Mo font ngoai vong lap
     TTF_Font* font = TTF_OpenFont("fonts/tahoma.ttf", 24);
     if (!font) {
-        // Xử lý lỗi khi không thể mở font
+        // Xu ly khi khong mo duoc font
         SDL_Log("Failed to load font: %s", TTF_GetError());
         return;
     }
 
-    while (running) {
-        while (SDL_PollEvent(&e)) {
-            if (e.type == SDL_QUIT) {
+    while (running)
+    {
+        while (SDL_PollEvent(&e))
+        {
+            if (e.type == SDL_QUIT)
+            {
                 SDL_Quit();
                 exit(0);
             }
@@ -94,7 +99,7 @@ void Game::handleEndMaze(SDL_Renderer* renderer) {
             }
         }
 
-        // Vẽ hộp thoại và nút
+        // Draw box and button
         SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
         SDL_RenderFillRect(renderer, &continueButton);
         SDL_RenderFillRect(renderer, &exitButton);
@@ -120,16 +125,13 @@ void Game::handleEndMaze(SDL_Renderer* renderer) {
         SDL_RenderPresent(renderer);
     }
 
-    // Đóng font sau khi sử dụng
+    // Dong font sau khi dung
     TTF_CloseFont(font);
 }
 
-
-
-
 void Game::QuitGame() {
 
-    TTF_Quit();
+    TTF_Quit(); Mix_CloseAudio();
     // Clean up SDL & exit program  
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
