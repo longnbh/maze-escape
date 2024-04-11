@@ -18,12 +18,35 @@ public:
 	player() {
 		spritesheet = nullptr;
 		currentFrame = 0;
-		/*fWidth = 0;
-		fHeight = 0;*/
-		pos.x = PLAYER_START_X;
-		pos.y = PLAYER_START_Y;
 		pos.w = PLAYER_WIDTH;
 		pos.h = PLAYER_HEIGHT;
+		/*fWidth = 0;
+		fHeight = 0;*/
+		/*pos.x = PLAYER_START_X;
+		pos.y = PLAYER_START_Y;*/
+
+		const int(*mazeMap)[MAP_WIDTH] = Map::getMazeMap();
+		bool foundStartPos = false;
+		int i = 0;
+		//for (int i = 0; i < MAP_HEIGHT; ++i) {
+		for (int j = 0; j < MAP_WIDTH; ++j) {
+			if (mazeMap[i][j] == 3) {
+				pos.x = j * CELL_SIZE; // Tính toán vị trí x
+				pos.y = i * CELL_SIZE; // Tính toán vị trí y
+				foundStartPos = true;
+				break;  //Kết thúc vòng lặp khi tìm thấy vị trí 3
+				//break;
+			}
+
+		}
+		//return; break;
+	//}
+	/*pos.x = PLAYER_START_X;
+	pos.y = PLAYER_START_Y;*/
+		if (!foundStartPos) {
+			pos.x = PLAYER_START_X;
+			pos.y = PLAYER_START_Y;
+		}
 	}
 	~player()
 	{
@@ -42,15 +65,7 @@ public:
 	//render graphics
 	void render(SDL_Renderer* renderer);
 
-	static void denCuoi(SDL_Renderer* renderer, const int checkY, const int checkX) {
-		const int(*mazeMap)[MAP_WIDTH] = Map::getMazeMap();
-
-		if (mazeMap[checkY / CELL_SIZE][checkX / CELL_SIZE] == 4) {
-			// so 4 la ket thuc, trong mang 2 chieu
-			std::cout << "Ket thuc man choi!" << std::endl;
-			Game::handleEndMaze(renderer); // ket thuc chuong trinh
-		}
-	}
+	static void denCuoi(SDL_Renderer* renderer, const int checkY, const int checkX);
 
 
 private:

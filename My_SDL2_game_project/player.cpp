@@ -56,17 +56,15 @@ void player::moveCharacter(SDL_Renderer* renderer, SDL_Event& event)
         dirY = (event.key.keysym.sym == SDLK_DOWN) ? 1 : -1;
         int checkY = pos.y + dirY * PLAYER_HEIGHT / 6;
         if (checkY < 0 || checkY >= SCREEN_HEIGHT || mazeMap[checkY / CELL_SIZE][pos.x / CELL_SIZE] == 1
-            || mazeMap[(checkY + PLAYER_HEIGHT) / CELL_SIZE][pos.x / CELL_SIZE] == 1) {
-            pos.y -= dirY * PLAYER_HEIGHT / 6;
+            || mazeMap[(checkY + PLAYER_HEIGHT) / CELL_SIZE][pos.x / CELL_SIZE] == 1
+            || mazeMap[checkY / CELL_SIZE][(pos.x + PLAYER_WIDTH) / CELL_SIZE] == 1
+            || mazeMap[(checkY + PLAYER_HEIGHT) / CELL_SIZE][(pos.x + PLAYER_WIDTH) / CELL_SIZE] == 1) { // xu ly 4 goc hinh
+            //pos.y -= dirY * PLAYER_HEIGHT/6;
+            pos.y += 0;
             return;
         }
-        /*if (mazeMap[checkY / CELL_SIZE][pos.x / CELL_SIZE] == 4) {
-            // Neu nguoi choi den vi tri ket thuc
-            std::cout << "Game over!" << std::endl;
-            exit(0); // Ket thuc chuong trinh
-        }*/
 
-        denCuoi(renderer, checkY, pos.x);
+        denCuoi(renderer, checkY, pos.x); //neu nguoi choi den vi tri ket thuc
         pos.y += (event.key.keysym.sym == SDLK_DOWN) ? PLAYER_HEIGHT / 6 : -PLAYER_HEIGHT / 6;
         break;
     }
@@ -75,8 +73,11 @@ void player::moveCharacter(SDL_Renderer* renderer, SDL_Event& event)
         dirX = (event.key.keysym.sym == SDLK_RIGHT) ? 1 : -1;
         int checkX = pos.x + dirX * PLAYER_WIDTH / 6;
         if (checkX < 0 || checkX >= SCREEN_WIDTH || mazeMap[pos.y / CELL_SIZE][checkX / CELL_SIZE] == 1
-            || mazeMap[pos.y / CELL_SIZE][(checkX + PLAYER_WIDTH) / CELL_SIZE] == 1) {
-            pos.x -= dirX * PLAYER_HEIGHT / 6;
+            || mazeMap[(pos.y + PLAYER_HEIGHT) / CELL_SIZE][checkX / CELL_SIZE] == 1
+            || mazeMap[pos.y / CELL_SIZE][(checkX + PLAYER_WIDTH) / CELL_SIZE] == 1
+            || mazeMap[(pos.y + PLAYER_HEIGHT) / CELL_SIZE][(checkX + PLAYER_WIDTH) / CELL_SIZE] == 1) { // xu ly 4 goc hinh
+            pos.x += 0;
+            //pos.x -= dirX * PLAYER_HEIGHT/6;
             return;
         }
 
@@ -94,6 +95,17 @@ void player::moveCharacter(SDL_Renderer* renderer, SDL_Event& event)
 
     // In vi tri nhan vat
     //std::cout << "y = " << character.y << ", x = " << character.x << std::endl;
+}
+
+void player::denCuoi(SDL_Renderer* renderer, const int checkY, const int checkX)
+{
+    const int(*mazeMap)[MAP_WIDTH] = Map::getMazeMap();
+
+    if (mazeMap[checkY / CELL_SIZE][checkX / CELL_SIZE] == 4) {
+        // so 4 la ket thuc, trong mang 2 chieu
+        std::cout << "Ket thuc man choi!" << std::endl;
+        Game::handleEndMaze(renderer); // ket thuc chuong trinh
+    }
 }
 
 void player::updateAnimation() {
