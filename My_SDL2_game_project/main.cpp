@@ -27,6 +27,8 @@ int main() {
     if (!renderer) { return 1; }
 
 
+    Map gameMap;
+    gameMap.loadMap("map/map2.txt");
 
     //tao nhan vat
     player nhanvat;
@@ -35,18 +37,17 @@ int main() {
     SDL_Event event;
     bool quit = false;
 
-
-    Map gameMap;
-    gameMap.loadMap("map/map1.txt");
-
     //vong lap game
     while (!quit)
     {
 
-        while (SDL_PollEvent(&event)) {
-            if (trochoi.outGame(event)) {
+        while (SDL_PollEvent(&event))
+        {
+            if (trochoi.outGame(event))
+            {
                 quit = true; // Get out of loop when Esc press
             }
+
             // Thiet lap mau nen
             SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
 
@@ -54,12 +55,12 @@ int main() {
             SDL_RenderClear(renderer);
 
 
-
             gameMap.drawMap(renderer);
 
             //di chuyen nhan vat
-            nhanvat.render(renderer);
             nhanvat.moveCharacter(renderer, event);
+            nhanvat.render(renderer);
+
             if (nhanvat.denCuoi(renderer))
             {
                 if (!sound.loadSound("sound/congrats.wav")) {
@@ -74,6 +75,7 @@ int main() {
             // Cap nhat man hinh
             SDL_RenderPresent(renderer);
         }
+
     }
 
     // Destroy SDL
