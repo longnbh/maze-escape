@@ -141,12 +141,14 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="map.cpp" />
     <ClCompile Include="sound.cpp" />
+    <ClCompile Include="textObject.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="player.h" />
     <ClInclude Include="CommonFunc.h" />
     <ClInclude Include="map.h" />
     <ClInclude Include="sound.h" />
+    <ClInclude Include="textObject.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

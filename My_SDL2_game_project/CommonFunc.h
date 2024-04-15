@@ -6,8 +6,8 @@
 #include<SDL_mixer.h>
 #include <SDL.h>
 
-const int SCREEN_WIDTH = 600;
-const int SCREEN_HEIGHT = 600;
+const int SCREEN_WIDTH = 800;
+const int SCREEN_HEIGHT = 700;
 const int CELL_SIZE = 40; //size of each cell in the maze
 
 class Game
