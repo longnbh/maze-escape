@@ -1,5 +1,5 @@
 ﻿#include "CommonFunc.h"
-
+#include "textObject.h"
 
 SDL_Renderer* renderer = nullptr;
 SDL_Window* window = nullptr;
@@ -55,7 +55,7 @@ bool Game::outGame(SDL_Event& event)
     return false;
 }
 
-void Game::handleEndMaze(SDL_Renderer* renderer, Map& gameMap, player& nhanvat, int& countdown_time, int& last_time)
+void Game::handleEndMaze(SDL_Renderer* renderer, Map& gameMap, player& nhanvat, int& countdown_time, int& last_time, SDL_Texture*& wallTexture)
 {
     SDL_Event e;
     bool running = true;
@@ -84,13 +84,16 @@ void Game::handleEndMaze(SDL_Renderer* renderer, Map& gameMap, player& nhanvat, 
                 int x, y;
                 SDL_GetMouseState(&x, &y);
                 if (x >= continueButton.x && x <= continueButton.x + continueButton.w &&
-                    y >= continueButton.y && y <= continueButton.y + continueButton.h) {
+                    y >= continueButton.y && y <= continueButton.y + continueButton.h)
+                {
                     // Xu ly khi nguoi chon "Continue"
                     running = false; // Thoát khỏi vòng lặp
-                    countdown_time = 30;
+                    countdown_time = TIME_LIMIT;
                     last_time = SDL_GetTicks();
-                    gameMap.loadRandomMap();
+                    wallTexture = gameMap.loadRandomMap(renderer);
                     nhanvat.resetPosition();
+                    gameMap.drawMap(renderer, wallTexture);
+
                     break;
                 }
                 else if (x >= exitButton.x && x <= exitButton.x + exitButton.w &&

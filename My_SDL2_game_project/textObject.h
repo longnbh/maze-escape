@@ -5,7 +5,7 @@
 #include "CommonFunc.h"
 #include<SDL_ttf.h>
 #include <string>
-
+const int TIME_LIMIT = 30;
 
 class Text
 {
@@ -24,7 +24,7 @@ public:
 	void CreateGameText(TTF_Font* font, SDL_Renderer* renderer, int x, int y);
 	void UpdateText(TTF_Font* font, SDL_Renderer* renderer, int x, int y, int time);
 private:
-	std::string str_val_;
+	std::string str_val_ = "Time: ";
 	SDL_Color text_color_;
 	SDL_Surface* text_surface_;
 };

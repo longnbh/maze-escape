@@ -21,9 +21,9 @@ void Map::loadMap(const char* name) {
     input.close();
 }
 
-void Map::drawMap(SDL_Renderer* renderer) {
+void Map::drawMap(SDL_Renderer* renderer, SDL_Texture* wallTexture) {
 
-    SDL_Texture* wallTexture = IMG_LoadTexture(renderer, "img/wall4.png");
+    //SDL_Texture* wallTexture = IMG_LoadTexture(renderer, "img/wall4.png");
     SDL_Texture* startTexture = IMG_LoadTexture(renderer, "img/batdau.png");
     SDL_Texture* endTexture = IMG_LoadTexture(renderer, "img/ketthuc.png");
     if (!wallTexture || !startTexture || !endTexture) {
@@ -32,7 +32,8 @@ void Map::drawMap(SDL_Renderer* renderer) {
 
     for (int i = 0; i < MAP_HEIGHT; ++i) {
         for (int j = 0; j < MAP_WIDTH; ++j) {
-            if (mazeMap[i][j] == 1) {
+            if (mazeMap[i][j] == 1)
+            {
                 SDL_Rect wallRect = { j * CELL_SIZE, i * CELL_SIZE, CELL_SIZE, CELL_SIZE };
                 SDL_RenderCopy(renderer, wallTexture, NULL, &wallRect);
             }
@@ -49,21 +50,29 @@ void Map::drawMap(SDL_Renderer* renderer) {
 
         }
     }
+
+    //SDL_DestroyTexture(startTexture);
+    //SDL_DestroyTexture(endTexture);
 }
 
 const int(*Map::getMazeMap()) [MAP_WIDTH] {
     return mazeMap;
     }
 
-    void Map::loadRandomMap()
+    SDL_Texture* Map::loadRandomMap(SDL_Renderer* renderer)
     {
         //thiet lap seed cho rand
         srand(time(0));
         int randomMapIdx = rand() % numMap + 1;
 
         string mapName = "map/map" + to_string(randomMapIdx) + ".txt";
-
         loadMap(mapName.c_str());
 
+        int randomWall = rand() % numWall + 1;
+        string wallName = "img/wall" + to_string(randomWall) + ".png";
+        SDL_Texture* newWallTexture = IMG_LoadTexture(renderer, wallName.c_str());
+        //drawMap(renderer, newWallTexture);
 
+        return newWallTexture;
+        //SDL_DestroyTexture(newWallTexture);
     }

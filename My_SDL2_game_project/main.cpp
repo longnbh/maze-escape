@@ -29,6 +29,7 @@ int main() {
 
     Map gameMap;
     gameMap.loadMap("map/map2.txt");
+    SDL_Texture* wallTexture = IMG_LoadTexture(renderer, "img/wall2.png");
 
     //tao nhan vat
     player nhanvat;
@@ -38,7 +39,7 @@ int main() {
     bool quit = false;
 
     // Khởi tạo thời gian đếm ngược
-    int countdown_time = 30;
+    int countdown_time = TIME_LIMIT;
     int last_time = SDL_GetTicks(); //take current time
     TTF_Font* font = TTF_OpenFont("fonts/tahoma.ttf", 20); // Thay đổi đường dẫn và kích thước phù hợp
 
@@ -69,7 +70,7 @@ int main() {
 
         if (countdown_time <= 0)
         {
-            Game::handleEndMaze(renderer, gameMap, nhanvat, countdown_time, last_time);
+            Game::handleEndMaze(renderer, gameMap, nhanvat, countdown_time, last_time, wallTexture);
             quit = true; // Thoát khỏi vòng lặp sự kiện
             break; // Thoát khỏi vòng lặp game
         }
@@ -88,7 +89,9 @@ int main() {
             SDL_RenderClear(renderer);
             countdown_text.UpdateText(font, renderer, text_x, text_y, countdown_time);
 
-            gameMap.drawMap(renderer);
+
+            //SDL_Texture* wallTexture = IMG_LoadTexture(renderer, "img/wall2.png");
+            gameMap.drawMap(renderer, wallTexture);
 
             //di chuyen nhan vat
             nhanvat.moveCharacter(renderer, event);
@@ -101,7 +104,7 @@ int main() {
                     return 1;
                 }
                 sound.playSound();
-                Game::handleEndMaze(renderer, gameMap, nhanvat, countdown_time, last_time);
+                Game::handleEndMaze(renderer, gameMap, nhanvat, countdown_time, last_time, wallTexture);
             }
             nhanvat.updateAnimation();
 

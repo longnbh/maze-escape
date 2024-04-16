@@ -26,7 +26,7 @@ public:
 	void render();
 	void QuitGame();
 
-	static void handleEndMaze(SDL_Renderer* renderer, Map& gameMap, player& nhanvat, int& countdown_time, int& last_time);
+	static void handleEndMaze(SDL_Renderer* renderer, Map& gameMap, player& nhanvat, int& countdown_time, int& last_time, SDL_Texture*& wallTexture);
 
 protected:
 	SDL_Renderer* renderer;

@@ -11,6 +11,7 @@ const int MAP_WIDTH = 15;
 const int MAP_HEIGHT = 15;
 const int numMap = 6;
 const int CELL_SIZE = 40; //size of each cell in the maze;
+const int numWall = 6;
 
 class Map
 {
@@ -29,8 +30,8 @@ public:
 	static const int(*getMazeMap())[MAP_WIDTH];
 
 	void loadMap(const char* name);
-	void drawMap(SDL_Renderer* renderer);
-	void loadRandomMap(); //chon ngau nhien 1 map moi
+	void drawMap(SDL_Renderer* renderer, SDL_Texture* wallTexture);
+	SDL_Texture* loadRandomMap(SDL_Renderer* renderer); //chon ngau nhien 1 map moi
 
 private:
 	static int mazeMap[MAP_WIDTH][MAP_HEIGHT];
