@@ -3,11 +3,12 @@
 #include <SDL_image.h>
 #include<string>
 #include "CommonFunc.h"
+using namespace std;
 
 int Map::mazeMap[MAP_WIDTH][MAP_HEIGHT];
 
 void Map::loadMap(const char* name) {
-    std::ifstream input(name);
+    ifstream input(name);
     if (!input) return;
 
     for (int i = 0; i < MAP_HEIGHT; ++i) {
@@ -25,8 +26,8 @@ void Map::drawMap(SDL_Renderer* renderer) {
     SDL_Texture* wallTexture = IMG_LoadTexture(renderer, "img/wall4.png");
     SDL_Texture* startTexture = IMG_LoadTexture(renderer, "img/batdau.png");
     SDL_Texture* endTexture = IMG_LoadTexture(renderer, "img/ketthuc.png");
-    if (!wallTexture) {
-        std::cout << "Couldnt load image : " << SDL_GetError() << std::endl;
+    if (!wallTexture || !startTexture || !endTexture) {
+        cout << "Couldnt load image : " << SDL_GetError() << endl;
     }
 
     for (int i = 0; i < MAP_HEIGHT; ++i) {
@@ -57,10 +58,10 @@ const int(*Map::getMazeMap()) [MAP_WIDTH] {
     void Map::loadRandomMap()
     {
         //thiet lap seed cho rand
-        std::srand(std::time(0));
-        int randomMapIdx = std::rand() % numMap + 1;
+        srand(time(0));
+        int randomMapIdx = rand() % numMap + 1;
 
-        std::string mapName = "map/map" + std::to_string(randomMapIdx) + ".txt";
+        string mapName = "map/map" + to_string(randomMapIdx) + ".txt";
 
         loadMap(mapName.c_str());
 

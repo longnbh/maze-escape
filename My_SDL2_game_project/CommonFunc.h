@@ -5,10 +5,10 @@
 #include<SDL_ttf.h>
 #include<SDL_mixer.h>
 #include <SDL.h>
-
-const int SCREEN_WIDTH = 800;
+#include "player.h"
+#include "map.h"
+const int SCREEN_WIDTH = 700;
 const int SCREEN_HEIGHT = 700;
-const int CELL_SIZE = 40; //size of each cell in the maze
 
 class Game
 {
@@ -26,9 +26,9 @@ public:
 	void render();
 	void QuitGame();
 
-	static void handleEndMaze(SDL_Renderer* renderer);
+	static void handleEndMaze(SDL_Renderer* renderer, Map& gameMap, player& nhanvat, int& countdown_time, int& last_time);
 
-private:
+protected:
 	SDL_Renderer* renderer;
 	SDL_Window* window;
 };

@@ -9,7 +9,8 @@
 #include <fstream>
 const int MAP_WIDTH = 15;
 const int MAP_HEIGHT = 15;
-const int numMap = 4;
+const int numMap = 6;
+const int CELL_SIZE = 40; //size of each cell in the maze;
 
 class Map
 {
@@ -18,7 +19,7 @@ public:
 	{
 		/*srand(time(NULL));
 
-		std::vector<std::string> imageFiles = { "img/wall1.png", "img/wall2.png" };
+		vector<string> imageFiles = { "img/wall1.png", "img/wall2.png" };
 		int randIdx = rand() % imageFiles.size();
 		path = imageFiles[randIdx];*/
 
@@ -33,7 +34,7 @@ public:
 
 private:
 	static int mazeMap[MAP_WIDTH][MAP_HEIGHT];
-	//std::string path;
+	//string path;
 };
 
 #endif

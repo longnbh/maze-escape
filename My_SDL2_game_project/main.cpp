@@ -28,7 +28,7 @@ int main() {
 
 
     Map gameMap;
-    gameMap.loadMap("map/map1.txt");
+    gameMap.loadMap("map/map2.txt");
 
     //tao nhan vat
     player nhanvat;
@@ -38,9 +38,10 @@ int main() {
     bool quit = false;
 
     // Khởi tạo thời gian đếm ngược
-    int countdown_time = 15;
+    int countdown_time = 30;
     int last_time = SDL_GetTicks(); //take current time
     TTF_Font* font = TTF_OpenFont("fonts/tahoma.ttf", 20); // Thay đổi đường dẫn và kích thước phù hợp
+
     if (font == nullptr)
     {
         std::cerr << "Failed to load font! SDL_ttf Error: " << TTF_GetError() << std::endl;
@@ -68,7 +69,7 @@ int main() {
 
         if (countdown_time <= 0)
         {
-            Game::handleEndMaze(renderer);
+            Game::handleEndMaze(renderer, gameMap, nhanvat, countdown_time, last_time);
             quit = true; // Thoát khỏi vòng lặp sự kiện
             break; // Thoát khỏi vòng lặp game
         }
@@ -100,7 +101,7 @@ int main() {
                     return 1;
                 }
                 sound.playSound();
-                Game::handleEndMaze(renderer);
+                Game::handleEndMaze(renderer, gameMap, nhanvat, countdown_time, last_time);
             }
             nhanvat.updateAnimation();
 

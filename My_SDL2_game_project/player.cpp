@@ -9,7 +9,7 @@ void player::createCharacter(SDL_Renderer* renderer, const char* spritePath)
 {
     SDL_Surface* loadedSurface = IMG_Load(spritePath);
     if (loadedSurface == nullptr) {
-        std::cout << "Could not load surface: " << SDL_GetError() << std::endl;
+        cout << "Could not load surface: " << SDL_GetError() << endl;
         return;
     }
 
@@ -17,7 +17,7 @@ void player::createCharacter(SDL_Renderer* renderer, const char* spritePath)
     SDL_FreeSurface(loadedSurface);
 
     if (spritesheet == nullptr) {
-        std::cout << "Could not load texture from surface: " << SDL_GetError() << std::endl;
+        cout << "Could not load texture from surface: " << SDL_GetError() << endl;
         return;
     }
 
@@ -52,49 +52,49 @@ void player::moveCharacter(SDL_Renderer* renderer, SDL_Event& event)
     case SDLK_UP:
     case SDLK_DOWN: {
         dirY = (event.key.keysym.sym == SDLK_DOWN) ? 1 : -1;
-        checkY = pos.y + dirY * PLAYER_HEIGHT / 6;
+        checkY = pos.y + dirY * disMove;
         checkX = pos.x;
         if (checkY < 0 || checkY >= SCREEN_HEIGHT || mazeMap[checkY / CELL_SIZE][pos.x / CELL_SIZE] == 1
             || mazeMap[(checkY + PLAYER_HEIGHT) / CELL_SIZE][pos.x / CELL_SIZE] == 1
             || mazeMap[checkY / CELL_SIZE][(pos.x + PLAYER_WIDTH) / CELL_SIZE] == 1
             || mazeMap[(checkY + PLAYER_HEIGHT) / CELL_SIZE][(pos.x + PLAYER_WIDTH) / CELL_SIZE] == 1) { // xu ly 4 goc hinh
-            //pos.y -= dirY * PLAYER_HEIGHT/6;
+            //pos.y -= dirY * disMove;
             pos.y += 0;
             return;
         }
 
         denCuoi(renderer); //neu nguoi choi den vi tri ket thuc
-        pos.y += (event.key.keysym.sym == SDLK_DOWN) ? PLAYER_HEIGHT / 6 : -PLAYER_HEIGHT / 6;
+        pos.y += (event.key.keysym.sym == SDLK_DOWN) ? disMove : -disMove;
         break;
     }
     case SDLK_LEFT:
     case SDLK_RIGHT: {
         dirX = (event.key.keysym.sym == SDLK_RIGHT) ? 1 : -1;
-        checkX = pos.x + dirX * PLAYER_WIDTH / 6;
+        checkX = pos.x + dirX * disMove;
         checkY = pos.y;
         if (checkX < 0 || checkX >= SCREEN_WIDTH || mazeMap[pos.y / CELL_SIZE][checkX / CELL_SIZE] == 1
             || mazeMap[(pos.y + PLAYER_HEIGHT) / CELL_SIZE][checkX / CELL_SIZE] == 1
             || mazeMap[pos.y / CELL_SIZE][(checkX + PLAYER_WIDTH) / CELL_SIZE] == 1
             || mazeMap[(pos.y + PLAYER_HEIGHT) / CELL_SIZE][(checkX + PLAYER_WIDTH) / CELL_SIZE] == 1) { // xu ly 4 goc hinh
             pos.x += 0;
-            //pos.x -= dirX * PLAYER_HEIGHT/6;
+            //pos.x -= dirX * disMove;
             return;
         }
 
         /*if (mazeMap[pos.y / CELL_SIZE][checkX / CELL_SIZE] == 4) {
             // 4 la ket thuc
-            std::cout << "Game over!" << std::endl;
+            cout << "Game over!" << endl;
             exit(0); // End program
         }*/
 
         denCuoi(renderer);
-        pos.x += dirX * PLAYER_HEIGHT / 6;
+        pos.x += dirX * disMove;
         break;
     }
     }
 
     // In vi tri nhan vat
-    //std::cout << "y = " << character.y << ", x = " << character.x << std::endl;
+    //cout << "y = " << character.y << ", x = " << character.x << endl;
 }
 
 bool player::denCuoi(SDL_Renderer* renderer)
@@ -105,7 +105,7 @@ bool player::denCuoi(SDL_Renderer* renderer)
     if (mazeMap[checkY / CELL_SIZE][checkX / CELL_SIZE] == 4) {
         // so 4 la ket thuc, trong mang 2 chieu
         endReach = true;
-        std::cout << "Ket thuc man choi!" << std::endl;
+        cout << "Ket thuc man choi!" << endl;
         //Game::handleEndMaze(renderer); // ket thuc man choi
     }
     return endReach;
@@ -121,6 +121,19 @@ void player::updateAnimation() {
         currentFrame++;
         if (currentFrame / (fWidth / numFrame) >= numFrame) {
             currentFrame = 0;
+        }
+    }
+}
+
+void player::resetPosition()
+{
+    const int(*mazeMap)[MAP_WIDTH] = Map::getMazeMap();
+    for (int i = 0; i < MAP_HEIGHT; ++i) {
+        for (int j = 0; j < MAP_WIDTH; ++j) {
+            if (mazeMap[i][j] == 3) {
+                pos.x = j * CELL_SIZE; // Tính toán vị trí x
+                pos.y = i * CELL_SIZE; return;
+            }
         }
     }
 }

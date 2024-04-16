@@ -1,6 +1,5 @@
 ﻿#include "CommonFunc.h"
-#include "player.h"
-#include "map.h"
+
 
 SDL_Renderer* renderer = nullptr;
 SDL_Window* window = nullptr;
@@ -56,13 +55,13 @@ bool Game::outGame(SDL_Event& event)
     return false;
 }
 
-void Game::handleEndMaze(SDL_Renderer* renderer)
+void Game::handleEndMaze(SDL_Renderer* renderer, Map& gameMap, player& nhanvat, int& countdown_time, int& last_time)
 {
     SDL_Event e;
     bool running = true;
 
-    SDL_Rect continueButton = { 100, 100, 200, 50 };
-    SDL_Rect exitButton = { 100, 200, 200, 50 };
+    SDL_Rect continueButton = { 350, 150, 200, 50 };
+    SDL_Rect exitButton = { 350, 250, 200, 50 };
 
     // Mo font ngoai vong lap
     TTF_Font* font = TTF_OpenFont("fonts/tahoma.ttf", 24);
@@ -86,13 +85,17 @@ void Game::handleEndMaze(SDL_Renderer* renderer)
                 SDL_GetMouseState(&x, &y);
                 if (x >= continueButton.x && x <= continueButton.x + continueButton.w &&
                     y >= continueButton.y && y <= continueButton.y + continueButton.h) {
-                    // Xử lý khi người chơi chọn "Continue"
+                    // Xu ly khi nguoi chon "Continue"
                     running = false; // Thoát khỏi vòng lặp
+                    countdown_time = 30;
+                    last_time = SDL_GetTicks();
+                    gameMap.loadRandomMap();
+                    nhanvat.resetPosition();
                     break;
                 }
                 else if (x >= exitButton.x && x <= exitButton.x + exitButton.w &&
                     y >= exitButton.y && y <= exitButton.y + exitButton.h) {
-                    // Xử lý khi người chơi chọn "Exit"
+                    // Xu ly khi nguoi chon "Exit"
                     SDL_Quit();
                     exit(0);
                 }
