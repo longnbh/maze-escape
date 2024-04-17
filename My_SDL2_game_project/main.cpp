@@ -31,6 +31,7 @@ int main() {
     gameMap.loadMap("map/map2.txt");
     SDL_Texture* wallTexture = IMG_LoadTexture(renderer, "img/wall2.png");
 
+
     //tao nhan vat
     player nhanvat;
     nhanvat.createCharacter(renderer, "img/player_right.PNG");

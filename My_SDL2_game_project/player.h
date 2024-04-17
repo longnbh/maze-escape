@@ -9,6 +9,7 @@ const int PLAYER_WIDTH = 30;
 const int PLAYER_HEIGHT = 30;
 const int PLAYER_START_X = 45;
 const int PLAYER_START_Y = 45;
+const int safeDis = PLAYER_HEIGHT - 3;
 const int numFrame = 12;
 const int disMove = PLAYER_WIDTH / 3;
 
@@ -27,8 +28,10 @@ public:
 		bool foundStartPos = false;
 
 		// Lặp qua toàn bộ bản đồ để tìm vị trí xuất hiện của nhân vật (giá trị 3)
-		for (int i = 0; i < MAP_HEIGHT; ++i) {
-			for (int j = 0; j < MAP_WIDTH; ++j) {
+		for (int i = 0; i < MAP_HEIGHT; ++i) 
+		{
+			for (int j = 0; j < MAP_WIDTH; ++j) 
+			{
 				if (mazeMap[i][j] == 3) {
 					pos.x = j * CELL_SIZE; // Tính toán vị trí x
 					pos.y = i * CELL_SIZE; // Tính toán vị trí y
@@ -59,13 +62,13 @@ public:
 	void moveCharacter(SDL_Renderer* renderer, SDL_Event& event);
 	void updateAnimation();
 
-
 	//render graphics
 	void render(SDL_Renderer* renderer);
-
+	//void move(int dx, int dy, SDL_Renderer* renderer);
 	bool denCuoi(SDL_Renderer* renderer);
 
 	void resetPosition();
+
 
 private:
 	SDL_Texture* spritesheet;

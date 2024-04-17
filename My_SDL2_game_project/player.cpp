@@ -24,7 +24,8 @@ void player::createCharacter(SDL_Renderer* renderer, const char* spritePath)
     SDL_QueryTexture(spritesheet, NULL, NULL, &fWidth, &fHeight);
 
     // tinh toan cac frame clips
-    for (int i = 0; i < numFrame; ++i) {
+    for (int i = 0; i < numFrame; ++i)
+    {
         frame_clip[i].x = i * (fWidth / numFrame);
         frame_clip[i].y = 0;
         frame_clip[i].w = fWidth / numFrame;
@@ -50,14 +51,15 @@ void player::moveCharacter(SDL_Renderer* renderer, SDL_Event& event)
     switch (event.key.keysym.sym)
     {
     case SDLK_UP:
-    case SDLK_DOWN: {
+    case SDLK_DOWN:
+    {
         dirY = (event.key.keysym.sym == SDLK_DOWN) ? 1 : -1;
         checkY = pos.y + dirY * disMove;
         checkX = pos.x;
         if (checkY < 0 || checkY >= SCREEN_HEIGHT || mazeMap[checkY / CELL_SIZE][pos.x / CELL_SIZE] == 1
-            || mazeMap[(checkY + PLAYER_HEIGHT) / CELL_SIZE][pos.x / CELL_SIZE] == 1
-            || mazeMap[checkY / CELL_SIZE][(pos.x + PLAYER_WIDTH) / CELL_SIZE] == 1
-            || mazeMap[(checkY + PLAYER_HEIGHT) / CELL_SIZE][(pos.x + PLAYER_WIDTH) / CELL_SIZE] == 1) { // xu ly 4 goc hinh
+            || mazeMap[(checkY + safeDis) / CELL_SIZE][pos.x / CELL_SIZE] == 1
+            || mazeMap[checkY / CELL_SIZE][(pos.x + safeDis) / CELL_SIZE] == 1
+            || mazeMap[(checkY + PLAYER_HEIGHT) / CELL_SIZE][(pos.x + safeDis) / CELL_SIZE] == 1) { // xu ly 4 goc hinh
             //pos.y -= dirY * disMove;
             pos.y += 0;
             return;
@@ -68,14 +70,15 @@ void player::moveCharacter(SDL_Renderer* renderer, SDL_Event& event)
         break;
     }
     case SDLK_LEFT:
-    case SDLK_RIGHT: {
+    case SDLK_RIGHT:
+    {
         dirX = (event.key.keysym.sym == SDLK_RIGHT) ? 1 : -1;
         checkX = pos.x + dirX * disMove;
         checkY = pos.y;
         if (checkX < 0 || checkX >= SCREEN_WIDTH || mazeMap[pos.y / CELL_SIZE][checkX / CELL_SIZE] == 1
-            || mazeMap[(pos.y + PLAYER_HEIGHT) / CELL_SIZE][checkX / CELL_SIZE] == 1
-            || mazeMap[pos.y / CELL_SIZE][(checkX + PLAYER_WIDTH) / CELL_SIZE] == 1
-            || mazeMap[(pos.y + PLAYER_HEIGHT) / CELL_SIZE][(checkX + PLAYER_WIDTH) / CELL_SIZE] == 1) { // xu ly 4 goc hinh
+            || mazeMap[(pos.y + safeDis) / CELL_SIZE][checkX / CELL_SIZE] == 1
+            || mazeMap[pos.y / CELL_SIZE][(checkX + safeDis) / CELL_SIZE] == 1
+            || mazeMap[(pos.y + safeDis) / CELL_SIZE][(checkX + safeDis) / CELL_SIZE] == 1) { // xu ly 4 goc hinh
             pos.x += 0;
             //pos.x -= dirX * disMove;
             return;
