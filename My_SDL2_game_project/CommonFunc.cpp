@@ -4,6 +4,25 @@
 SDL_Renderer* renderer = nullptr;
 SDL_Window* window = nullptr;
 
+SDL_Texture* LoadImage(SDL_Renderer* renderer, const std::string& file_path)
+{
+    SDL_Surface* surface = IMG_Load(file_path.c_str());
+    if (!surface) {
+        std::cerr << "Failed to load image: " << file_path << ". Error: " << IMG_GetError() << std::endl;
+        return nullptr;
+    }
+
+    SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, surface);
+    SDL_FreeSurface(surface);
+
+    if (!texture) {
+        std::cerr << "Failed to create texture from surface! Error: " << SDL_GetError() << std::endl;
+        return nullptr;
+    }
+
+    return texture;
+}
+
 bool Game::InitSDL() {
     // Khoi tao SDL
     if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) != 0) {
@@ -37,15 +56,72 @@ SDL_Renderer* Game::CreateRenderer(SDL_Window* window) {
     return renderer;
 }
 
-void Game::HandleEvents()
+bool Game::ShowMenu(SDL_Renderer* renderer)
 {
+    // Load ảnh làm nền cho menu
+    SDL_Texture* menuBackground = LoadImage(renderer, "img/menu.jpg");
+    if (!menuBackground) 
+    {
+        std::cerr << "Failed to load menu background image!" << std::endl;
+        return -1;
+    }
 
+    // Load ảnh cho nút "Play game" và "Exit"
+    SDL_Texture* playButtonTexture = LoadImage(renderer, "img/play_button.png");
+    SDL_Texture* exitButtonTexture = LoadImage(renderer, "img/exit_button.png");
+
+    if (!playButtonTexture || !exitButtonTexture) 
+    {
+        std::cerr << "Failed to load button images!" << std::endl;
+        return -1;
+    }
+
+    bool startGame = false; //check if player want to start the game
+
+    bool inMenu = true;
+    while (inMenu) 
+    {
+        SDL_Event event;
+        while (SDL_PollEvent(&event)) 
+        {
+            if (event.type == SDL_QUIT) { inMenu = false; break; }
+            else if (event.type == SDL_MOUSEBUTTONDOWN) 
+            {
+                int mouseX, mouseY;
+                SDL_GetMouseState(&mouseX, &mouseY);
+                if (mouseX >= PLAY_BUTTON_X && mouseX <= PLAY_BUTTON_X + BUTTON_WIDTH &&
+                    mouseY >= PLAY_BUTTON_Y && mouseY <= PLAY_BUTTON_Y + BUTTON_HEIGHT) {
+                    // player chose "Play game"
+                    startGame = true;
+                    inMenu = false;
+                    break;
+                }
+                else if (mouseX >= EXIT_BUTTON_X && mouseX <= EXIT_BUTTON_X + BUTTON_WIDTH &&
+                    mouseY >= EXIT_BUTTON_Y && mouseY <= EXIT_BUTTON_Y + BUTTON_HEIGHT) {
+                    // Người chơi nhấn vào nút "Exit"
+                    return false; // Thoát khỏi hàm và kết thúc chương trình
+                }
+            }
+        }
+
+        // Vẽ menu lên màn hình
+        SDL_RenderClear(renderer);
+        SDL_RenderCopy(renderer, menuBackground, NULL, NULL);
+        SDL_Rect playButtonRect = { PLAY_BUTTON_X, PLAY_BUTTON_Y, BUTTON_WIDTH, BUTTON_HEIGHT };
+        SDL_RenderCopy(renderer, playButtonTexture, NULL, &playButtonRect);
+        SDL_Rect exitButtonRect = { EXIT_BUTTON_X, EXIT_BUTTON_Y, BUTTON_WIDTH, BUTTON_HEIGHT };
+        SDL_RenderCopy(renderer, exitButtonTexture, NULL, &exitButtonRect);
+        SDL_RenderPresent(renderer);
+    }
+
+    // Giải phóng bộ nhớ khi đã sử dụng xong
+    SDL_DestroyTexture(menuBackground);
+    SDL_DestroyTexture(playButtonTexture);
+    SDL_DestroyTexture(exitButtonTexture);
+
+    return startGame;
 }
 
-void Game::DrawGraphics(SDL_Renderer* renderer)
-{
-
-}
 
 bool Game::outGame(SDL_Event& event)
 {

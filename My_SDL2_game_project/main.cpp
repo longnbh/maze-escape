@@ -19,22 +19,23 @@ int main() {
     if (!sound.khoiTaoSound()) { return 1; }
 
     // Tao cua so
-    SDL_Window* window = trochoi.CreateWindow("Maze escape", SCREEN_HEIGHT, SCREEN_HEIGHT);
-    if (!window) { return 1; }
+    SDL_Window* window = trochoi.CreateWindow("Maze escape", SCREEN_HEIGHT, SCREEN_HEIGHT); if (!window) { return 1; }
 
     // Tao trinh ket xuat (renderer)
-    SDL_Renderer* renderer = trochoi.CreateRenderer(window);
-    if (!renderer) { return 1; }
+    SDL_Renderer* renderer = trochoi.CreateRenderer(window);if (!renderer) { return 1; }
+
+    bool startGame = trochoi.ShowMenu(renderer);
+
+    if (!startGame) { trochoi.QuitGame(); return 0; }
 
 
     Map gameMap;
     gameMap.loadMap("map/map2.txt");
     SDL_Texture* wallTexture = IMG_LoadTexture(renderer, "img/wall2.png");
 
-
     //tao nhan vat
     player nhanvat;
-    nhanvat.createCharacter(renderer, "img/player_right.PNG");
+    nhanvat.createCharacter(renderer, "img/player3.PNG");
 
     SDL_Event event;
     bool quit = false;

@@ -4,11 +4,16 @@
 #define COMMON_FUNCTION_H_
 #include<SDL_ttf.h>
 #include<SDL_mixer.h>
+#include <SDL_image.h>
 #include <SDL.h>
 #include "player.h"
 #include "map.h"
 const int SCREEN_WIDTH = 700;
 const int SCREEN_HEIGHT = 700;
+const int PLAY_BUTTON_X = 300; const int PLAY_BUTTON_Y = 250;const int EXIT_BUTTON_X = 300;const int EXIT_BUTTON_Y = 300;
+const int BUTTON_WIDTH = 100;
+const int BUTTON_HEIGHT = 43;
+
 
 class Game
 {
@@ -20,7 +25,7 @@ public:
 	SDL_Window* CreateWindow(const char* title, int width, int height);
 	SDL_Renderer* CreateRenderer(SDL_Window* window);
 	void HandleEvents();
-	void DrawGraphics(SDL_Renderer* renderer);
+	bool ShowMenu(SDL_Renderer* renderer);
 
 	bool outGame(SDL_Event& event);
 	void render();
@@ -32,5 +37,7 @@ protected:
 	SDL_Renderer* renderer;
 	SDL_Window* window;
 };
+
+SDL_Texture* LoadImage(SDL_Renderer* renderer, const std::string& file_path);
 
 #endif
