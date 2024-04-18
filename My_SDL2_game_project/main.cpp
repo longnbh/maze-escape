@@ -34,7 +34,7 @@ int main() {
 
     //tao nhan vat
     player nhanvat;
-    nhanvat.createCharacter(renderer, "img/player_right.PNG");
+    nhanvat.createCharacter(renderer, "img/player3.PNG");
 
     SDL_Event event;
     bool quit = false;
