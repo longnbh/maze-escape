@@ -61,19 +61,31 @@ bool Game::ShowMenu(SDL_Renderer* renderer)
 {
     // Load ảnh làm nền cho menu
     SDL_Texture* menuBackground = LoadImage(renderer, "img/menu.jpg");
-    if (!menuBackground) {
-        std::cerr << "Failed to load menu background image!" << std::endl;
-        return -1;
-    }
+    if (!menuBackground) {std::cerr << "Failed to load menu background image!" << std::endl;return -1;}
 
     // Load ảnh cho nút "Play game" và "Exit"
     SDL_Texture* playButtonTexture = LoadImage(renderer, "img/play_button.png");
     SDL_Texture* exitButtonTexture = LoadImage(renderer, "img/exit_button.png");
 
-    if (!playButtonTexture || !exitButtonTexture) {
-        std::cerr << "Failed to load button images!" << std::endl;
-        return -1;
-    }
+    if (!playButtonTexture || !exitButtonTexture) {std::cerr << "Failed to load button images!" << std::endl;return -1;}
+
+    //load font for Game name & My name
+    TTF_Font* font = TTF_OpenFont("fonts/SNAP.ttf", 36); // choose size
+    if (!font) {std::cerr << "Failed to load font: " << TTF_GetError() << std::endl;return -1;}
+
+    //create surface contains Game name
+    SDL_Color textColor = { 255, 255, 255 };
+    SDL_Surface* gameNameSurface = TTF_RenderText_Solid(font, "MAZE ESCAPE GAME!", textColor);
+    if (!gameNameSurface) {std::cerr << "Failed to render game name text: " << TTF_GetError() << std::endl;return -1;}
+    SDL_Texture* gameNameTexture = SDL_CreateTextureFromSurface(renderer, gameNameSurface);
+    if (!gameNameTexture) {std::cerr << "Failed to create texture from game name surface: " << SDL_GetError() << std::endl;return -1;}
+
+    // create surface contains My name
+    SDL_Surface* myNameSurface = TTF_RenderText_Solid(font, "By NBHL", textColor);
+    if (!myNameSurface) {std::cerr << "Failed to render your name text: " << TTF_GetError() << std::endl;return -1;}
+    SDL_Texture* myNameTexture = SDL_CreateTextureFromSurface(renderer, myNameSurface);
+    if (!myNameTexture) {std::cerr << "Failed to create texture from your name surface: " << SDL_GetError() << std::endl;return -1;    }
+
 
     bool startGame = false; //check if player want to start the game
 
@@ -81,10 +93,7 @@ bool Game::ShowMenu(SDL_Renderer* renderer)
     while (inMenu) {
         SDL_Event event;
         while (SDL_PollEvent(&event)) {
-            if (event.type == SDL_QUIT) {
-                inMenu = false;
-                break;
-            }
+            if (event.type == SDL_QUIT) { inMenu = false;break; }
             else if (event.type == SDL_MOUSEBUTTONDOWN) {
                 int mouseX, mouseY;
                 SDL_GetMouseState(&mouseX, &mouseY);
@@ -103,13 +112,20 @@ bool Game::ShowMenu(SDL_Renderer* renderer)
             }
         }
 
-        // Vẽ menu lên màn hình
+        // Draw menu on screen
         SDL_RenderClear(renderer);
         SDL_RenderCopy(renderer, menuBackground, NULL, NULL);
         SDL_Rect playButtonRect = { PLAY_BUTTON_X, PLAY_BUTTON_Y, BUTTON_WIDTH, BUTTON_HEIGHT };
         SDL_RenderCopy(renderer, playButtonTexture, NULL, &playButtonRect);
         SDL_Rect exitButtonRect = { EXIT_BUTTON_X, EXIT_BUTTON_Y, BUTTON_WIDTH, BUTTON_HEIGHT };
         SDL_RenderCopy(renderer, exitButtonTexture, NULL, &exitButtonRect);
+        //Draw credits on screen
+        SDL_Rect gameNameRect = { 100, 50, gameNameSurface->w, gameNameSurface->h };
+        SDL_RenderCopy(renderer, gameNameTexture, NULL, &gameNameRect);
+        int nameX = (EXIT_BUTTON_X + BUTTON_WIDTH / 2) - (myNameSurface->w / 2);
+        SDL_Rect NameRect = { nameX, 100, myNameSurface->w, myNameSurface->h };
+        SDL_RenderCopy(renderer, myNameTexture, NULL, &NameRect);
+
         SDL_RenderPresent(renderer);
     }
 
@@ -117,6 +133,12 @@ bool Game::ShowMenu(SDL_Renderer* renderer)
     SDL_DestroyTexture(menuBackground);
     SDL_DestroyTexture(playButtonTexture);
     SDL_DestroyTexture(exitButtonTexture);
+    SDL_DestroyTexture(gameNameTexture);
+    SDL_DestroyTexture(myNameTexture);
+    SDL_FreeSurface(gameNameSurface);
+    SDL_FreeSurface(myNameSurface);
+    TTF_CloseFont(font);
+
 
     return startGame;
 }
