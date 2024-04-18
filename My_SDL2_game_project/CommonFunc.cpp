@@ -7,7 +7,8 @@ SDL_Window* window = nullptr;
 SDL_Texture* LoadImage(SDL_Renderer* renderer, const std::string& file_path)
 {
     SDL_Surface* surface = IMG_Load(file_path.c_str());
-    if (!surface) {
+    if (!surface)
+    {
         std::cerr << "Failed to load image: " << file_path << ". Error: " << IMG_GetError() << std::endl;
         return nullptr;
     }
@@ -15,11 +16,11 @@ SDL_Texture* LoadImage(SDL_Renderer* renderer, const std::string& file_path)
     SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, surface);
     SDL_FreeSurface(surface);
 
-    if (!texture) {
+    if (!texture)
+    {
         std::cerr << "Failed to create texture from surface! Error: " << SDL_GetError() << std::endl;
         return nullptr;
     }
-
     return texture;
 }
 
@@ -60,8 +61,7 @@ bool Game::ShowMenu(SDL_Renderer* renderer)
 {
     // Load ảnh làm nền cho menu
     SDL_Texture* menuBackground = LoadImage(renderer, "img/menu.jpg");
-    if (!menuBackground) 
-    {
+    if (!menuBackground) {
         std::cerr << "Failed to load menu background image!" << std::endl;
         return -1;
     }
@@ -70,8 +70,7 @@ bool Game::ShowMenu(SDL_Renderer* renderer)
     SDL_Texture* playButtonTexture = LoadImage(renderer, "img/play_button.png");
     SDL_Texture* exitButtonTexture = LoadImage(renderer, "img/exit_button.png");
 
-    if (!playButtonTexture || !exitButtonTexture) 
-    {
+    if (!playButtonTexture || !exitButtonTexture) {
         std::cerr << "Failed to load button images!" << std::endl;
         return -1;
     }
@@ -79,14 +78,14 @@ bool Game::ShowMenu(SDL_Renderer* renderer)
     bool startGame = false; //check if player want to start the game
 
     bool inMenu = true;
-    while (inMenu) 
-    {
+    while (inMenu) {
         SDL_Event event;
-        while (SDL_PollEvent(&event)) 
-        {
-            if (event.type == SDL_QUIT) { inMenu = false; break; }
-            else if (event.type == SDL_MOUSEBUTTONDOWN) 
-            {
+        while (SDL_PollEvent(&event)) {
+            if (event.type == SDL_QUIT) {
+                inMenu = false;
+                break;
+            }
+            else if (event.type == SDL_MOUSEBUTTONDOWN) {
                 int mouseX, mouseY;
                 SDL_GetMouseState(&mouseX, &mouseY);
                 if (mouseX >= PLAY_BUTTON_X && mouseX <= PLAY_BUTTON_X + BUTTON_WIDTH &&
@@ -98,7 +97,7 @@ bool Game::ShowMenu(SDL_Renderer* renderer)
                 }
                 else if (mouseX >= EXIT_BUTTON_X && mouseX <= EXIT_BUTTON_X + BUTTON_WIDTH &&
                     mouseY >= EXIT_BUTTON_Y && mouseY <= EXIT_BUTTON_Y + BUTTON_HEIGHT) {
-                    // Người chơi nhấn vào nút "Exit"
+                    // player chose "Exit"
                     return false; // Thoát khỏi hàm và kết thúc chương trình
                 }
             }
@@ -125,23 +124,22 @@ bool Game::ShowMenu(SDL_Renderer* renderer)
 
 bool Game::outGame(SDL_Event& event)
 {
-    if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE) {
-        return true;
-    }
+    if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE) { return true; }
     return false;
 }
 
-void Game::handleEndMaze(SDL_Renderer* renderer, Map& gameMap, player& nhanvat, int& countdown_time, int& last_time, SDL_Texture*& wallTexture)
+void Game::handleEndMaze(SDL_Renderer* renderer, Map& gameMap, player& nhanvat, int& countdown_time, int& last_time, SDL_Texture*& wallTexture, SDL_Texture*& roadTexture)
 {
     SDL_Event e;
     bool running = true;
 
-    SDL_Rect continueButton = { 350, 150, 200, 50 };
-    SDL_Rect exitButton = { 350, 250, 200, 50 };
+    SDL_Rect continueButton = { 300, 250, 200, 50 };
+    SDL_Rect exitButton = { 300, 350, 200, 50 };
 
     // Mo font ngoai vong lap
     TTF_Font* font = TTF_OpenFont("fonts/tahoma.ttf", 24);
-    if (!font) {
+    if (!font)
+    {
         // Xu ly khi khong mo duoc font
         SDL_Log("Failed to load font: %s", TTF_GetError());
         return;
@@ -166,9 +164,10 @@ void Game::handleEndMaze(SDL_Renderer* renderer, Map& gameMap, player& nhanvat, 
                     running = false; // Thoát khỏi vòng lặp
                     countdown_time = TIME_LIMIT;
                     last_time = SDL_GetTicks();
-                    wallTexture = gameMap.loadRandomMap(renderer);
+                    wallTexture = gameMap.loadRandomMapAndWall(renderer);
                     nhanvat.resetPosition();
-                    gameMap.drawMap(renderer, wallTexture);
+                    roadTexture = gameMap.loadRandomRoad(renderer);
+                    gameMap.drawMap(renderer, wallTexture, roadTexture);
 
                     break;
                 }
@@ -211,8 +210,79 @@ void Game::handleEndMaze(SDL_Renderer* renderer, Map& gameMap, player& nhanvat, 
     TTF_CloseFont(font);
 }
 
-void Game::QuitGame() {
 
+void Game::handleEndTime(SDL_Renderer* renderer)
+{
+    SDL_Event e;
+    bool running = true;
+
+    SDL_Rect exitButton = { 225, 400, 200, 50 };
+
+    // Load font
+    TTF_Font* font = TTF_OpenFont("fonts/tahoma.ttf", 24);
+    if (!font) {
+        SDL_Log("Failed to load font: %s", TTF_GetError());
+        return;
+    }
+
+    // Load game over image
+    SDL_Texture* gameOverTexture = LoadImage(renderer, "img/game_over.png");
+    if (!gameOverTexture) {
+        std::cerr << "Failed to load game over image!" << std::endl;
+        return;
+    }
+
+    while (running)
+    {
+        while (SDL_PollEvent(&e))
+        {
+            if (e.type == SDL_QUIT) { running = false;break; }
+            if (e.type == SDL_MOUSEBUTTONDOWN)
+            {
+                int x, y;
+                SDL_GetMouseState(&x, &y);
+                if (x >= exitButton.x && x <= exitButton.x + exitButton.w &&
+                    y >= exitButton.y && y <= exitButton.y + exitButton.h) {
+                    // Handle Exit button
+                    running = false;
+                    break;
+                }
+            }
+        }
+
+        // Clear the renderer
+        SDL_RenderClear(renderer);
+
+        // Render game over image
+        SDL_Rect gameOverRect = { GAME_OVER_X, GAME_OVER_Y, GAME_OVER_WIDTH, GAME_OVER_HEIGHT };
+        SDL_RenderCopy(renderer, gameOverTexture, NULL, &gameOverRect);
+
+        // Render exit button
+        SDL_SetRenderDrawColor(renderer, 96, 96, 86, 255);
+        SDL_RenderFillRect(renderer, &exitButton);
+        SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+        SDL_RenderDrawRect(renderer, &exitButton);
+
+        // Render exit button text
+        SDL_Color color_exit = { 0, 0, 0 };
+        SDL_Surface* textSurface = TTF_RenderText_Solid(font, "Exit", color_exit);
+        SDL_Texture* textTexture = SDL_CreateTextureFromSurface(renderer, textSurface);
+        SDL_Rect textRect = { exitButton.x + 70, exitButton.y + 10, textSurface->w, textSurface->h };
+        SDL_RenderCopy(renderer, textTexture, NULL, &textRect);
+        SDL_FreeSurface(textSurface);
+        SDL_DestroyTexture(textTexture);
+
+        // Present everything on the screen
+        SDL_RenderPresent(renderer);
+    }
+
+    // Free resources
+    SDL_DestroyTexture(gameOverTexture);
+    TTF_CloseFont(font);
+}
+
+void Game::QuitGame()
+{
     TTF_Quit(); Mix_CloseAudio();
     // Clean up SDL & exit program  
     SDL_DestroyRenderer(renderer);

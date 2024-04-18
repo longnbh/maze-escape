@@ -21,11 +21,12 @@ void Map::loadMap(const char* name) {
     input.close();
 }
 
-void Map::drawMap(SDL_Renderer* renderer, SDL_Texture* wallTexture) {
-
+void Map::drawMap(SDL_Renderer* renderer, SDL_Texture* wallTexture, SDL_Texture* roadTexture)
+{
     //SDL_Texture* wallTexture = IMG_LoadTexture(renderer, "img/wall4.png");
     SDL_Texture* startTexture = IMG_LoadTexture(renderer, "img/batdau.png");
     SDL_Texture* endTexture = IMG_LoadTexture(renderer, "img/ketthuc.png");
+    //SDL_Texture* roadTexture = IMG_LoadTexture(renderer, "img/road1.png");
     if (!wallTexture || !startTexture || !endTexture) {
         cout << "Couldnt load image : " << SDL_GetError() << endl;
     }
@@ -36,6 +37,11 @@ void Map::drawMap(SDL_Renderer* renderer, SDL_Texture* wallTexture) {
             {
                 SDL_Rect wallRect = { j * CELL_SIZE, i * CELL_SIZE, CELL_SIZE, CELL_SIZE };
                 SDL_RenderCopy(renderer, wallTexture, NULL, &wallRect);
+            }
+            if (mazeMap[i][j] == 0)
+            {
+                SDL_Rect wallRect = { j * CELL_SIZE, i * CELL_SIZE, CELL_SIZE, CELL_SIZE };
+                SDL_RenderCopy(renderer, roadTexture, NULL, &wallRect);
             }
             if (mazeMap[i][j] == 3)
             {
@@ -59,7 +65,7 @@ const int(*Map::getMazeMap()) [MAP_WIDTH] {
     return mazeMap;
     }
 
-    SDL_Texture* Map::loadRandomMap(SDL_Renderer* renderer)
+    SDL_Texture* Map::loadRandomMapAndWall(SDL_Renderer* renderer)
     {
         //thiet lap seed cho rand
         srand(time(0));
@@ -68,6 +74,7 @@ const int(*Map::getMazeMap()) [MAP_WIDTH] {
         string mapName = "map/map" + to_string(randomMapIdx) + ".txt";
         loadMap(mapName.c_str());
 
+        srand(time(0));
         int randomWall = rand() % numWall + 1;
         string wallName = "img/wall" + to_string(randomWall) + ".png";
         SDL_Texture* newWallTexture = IMG_LoadTexture(renderer, wallName.c_str());
@@ -75,4 +82,13 @@ const int(*Map::getMazeMap()) [MAP_WIDTH] {
 
         return newWallTexture;
         //SDL_DestroyTexture(newWallTexture);
+    }
+
+    SDL_Texture* Map::loadRandomRoad(SDL_Renderer* renderer)
+    {
+        srand(time(0));
+        int randomRoadIdx = rand() % numRoad + 1;
+        string roadName = "img/road" + to_string(randomRoadIdx) + ".png";
+        SDL_Texture* newRoadTexture = IMG_LoadTexture(renderer, roadName.c_str());
+        return newRoadTexture;
     }

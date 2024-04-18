@@ -32,7 +32,7 @@ int main() {
     Map gameMap;
     gameMap.loadMap("map/map2.txt");
     SDL_Texture* wallTexture = IMG_LoadTexture(renderer, "img/wall2.png");
-
+    SDL_Texture* roadTexture = IMG_LoadTexture(renderer, "img/road2.png");
     //tao nhan vat
     player nhanvat;
     nhanvat.createCharacter(renderer, "img/player3.PNG");
@@ -72,7 +72,8 @@ int main() {
 
         if (countdown_time <= 0)
         {
-            Game::handleEndMaze(renderer, gameMap, nhanvat, countdown_time, last_time, wallTexture);
+            //Game::handleEndMaze(renderer,gameMap,nhanvat, countdown_time, last_time, wallTexture);
+            trochoi.handleEndTime(renderer);
             quit = true; // Thoát khỏi vòng lặp sự kiện
             break; // Thoát khỏi vòng lặp game
         }
@@ -93,7 +94,7 @@ int main() {
 
 
             //SDL_Texture* wallTexture = IMG_LoadTexture(renderer, "img/wall2.png");
-            gameMap.drawMap(renderer, wallTexture);
+            gameMap.drawMap(renderer, wallTexture, roadTexture);
 
             //di chuyen nhan vat
             nhanvat.moveCharacter(renderer, event);
@@ -102,11 +103,9 @@ int main() {
 
             if (nhanvat.denCuoi(renderer))
             {
-                if (!sound.loadSound("sound/congrats.wav")) {
-                    return 1;
-                }
+                if (!sound.loadSound("sound/congrats.wav")) { return 1; }
                 sound.playSound();
-                Game::handleEndMaze(renderer, gameMap, nhanvat, countdown_time, last_time, wallTexture);
+                Game::handleEndMaze(renderer, gameMap, nhanvat, countdown_time, last_time, wallTexture, roadTexture);
             }
             nhanvat.updateAnimation();
 
