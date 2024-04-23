@@ -183,14 +183,15 @@ void Game::handleEndMaze(SDL_Renderer* renderer, Map& gameMap, player& nhanvat, 
                     y >= continueButton.y && y <= continueButton.y + continueButton.h)
                 {
                     // Xu ly khi nguoi chon "Continue"
-                    running = false; // Thoát khỏi vòng lặp
+                    //running = false; // Thoát khỏi vòng lặp
                     countdown_time = TIME_LIMIT;
                     last_time = SDL_GetTicks();
                     wallTexture = gameMap.loadRandomMapAndWall(renderer);
-                    nhanvat.resetPosition();
+                    //nhanvat.resetPosition();
                     roadTexture = gameMap.loadRandomRoad(renderer);
+                    nhanvat.resetPosition();
                     gameMap.drawMap(renderer, wallTexture, roadTexture);
-
+                    running = false;
                     break;
                 }
                 else if (x >= exitButton.x && x <= exitButton.x + exitButton.w &&
@@ -204,6 +205,15 @@ void Game::handleEndMaze(SDL_Renderer* renderer, Map& gameMap, player& nhanvat, 
 
         // Draw box and button
         SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+        SDL_RenderClear(renderer); // Xóa màn hình trước khi vẽ
+
+
+        SDL_Texture* winBgr = LoadImage(renderer, "img/win.jpg");
+        if (!winBgr) { std::cerr << "Failed to load winner's image!" << std::endl;return; }
+        SDL_RenderCopy(renderer, winBgr, NULL, NULL);
+
+
+        //Ve cac nutz
         SDL_RenderFillRect(renderer, &continueButton);
         SDL_RenderFillRect(renderer, &exitButton);
         SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
@@ -211,25 +221,25 @@ void Game::handleEndMaze(SDL_Renderer* renderer, Map& gameMap, player& nhanvat, 
         SDL_RenderDrawRect(renderer, &exitButton);
 
         SDL_Color textColor = { 0, 0, 0 };
-        SDL_Surface* textSurface = TTF_RenderText_Solid(font, "Continue", textColor);
-        SDL_Texture* textTexture = SDL_CreateTextureFromSurface(renderer, textSurface);
-        SDL_Rect textRect = { continueButton.x + 50, continueButton.y + 10, textSurface->w, textSurface->h };
-        SDL_RenderCopy(renderer, textTexture, NULL, &textRect);
-        SDL_FreeSurface(textSurface);
-        SDL_DestroyTexture(textTexture);
-
-        textSurface = TTF_RenderText_Solid(font, "Exit", textColor);
-        textTexture = SDL_CreateTextureFromSurface(renderer, textSurface);
-        textRect = { exitButton.x + 70, exitButton.y + 10, textSurface->w, textSurface->h };
-        SDL_RenderCopy(renderer, textTexture, NULL, &textRect);
-        SDL_FreeSurface(textSurface);
-        SDL_DestroyTexture(textTexture);
-
+        renderText(renderer, font, "Continue", textColor, continueButton);
+        renderText(renderer, font, "Exit", textColor, exitButton);
         SDL_RenderPresent(renderer);
+        SDL_DestroyTexture(winBgr);
     }
 
     // Dong font sau khi dung
     TTF_CloseFont(font);
+
+}
+
+void Game::renderText(SDL_Renderer* renderer, TTF_Font* font, const char* text, SDL_Color textColor, SDL_Rect button)
+{
+    SDL_Surface* textSurface = TTF_RenderText_Solid(font, text, textColor);
+    SDL_Texture* textTexture = SDL_CreateTextureFromSurface(renderer, textSurface);
+    SDL_Rect textRect = { button.x + (button.w - textSurface->w) / 2, button.y + (button.h - textSurface->h) / 2, textSurface->w, textSurface->h };
+    SDL_RenderCopy(renderer, textTexture, NULL, &textRect);
+    SDL_FreeSurface(textSurface);
+    SDL_DestroyTexture(textTexture);
 }
 
 //xu ly khi het thoi gian

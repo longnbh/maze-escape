@@ -65,7 +65,7 @@ void player::moveCharacter(SDL_Renderer* renderer, SDL_Event& event)
             return;
         }
 
-        denCuoi(renderer); //neu nguoi choi den vi tri ket thuc
+        //denCuoi(renderer); //neu nguoi choi den vi tri ket thuc
         pos.y += (event.key.keysym.sym == SDLK_DOWN) ? disMove : -disMove;
         break;
     }
@@ -78,7 +78,8 @@ void player::moveCharacter(SDL_Renderer* renderer, SDL_Event& event)
         if (checkX < 0 || checkX >= SCREEN_WIDTH || mazeMap[pos.y / CELL_SIZE][checkX / CELL_SIZE] == 1
             || mazeMap[(pos.y + safeDis) / CELL_SIZE][checkX / CELL_SIZE] == 1
             || mazeMap[pos.y / CELL_SIZE][(checkX + safeDis) / CELL_SIZE] == 1
-            || mazeMap[(pos.y + safeDis) / CELL_SIZE][(checkX + safeDis) / CELL_SIZE] == 1) { // xu ly 4 goc hinh
+            || mazeMap[(pos.y + safeDis) / CELL_SIZE][(checkX + safeDis) / CELL_SIZE] == 1) 
+        { // xu ly 4 goc hinh
             pos.x += 0;
             //pos.x -= dirX * disMove;
             return;
@@ -90,7 +91,7 @@ void player::moveCharacter(SDL_Renderer* renderer, SDL_Event& event)
             exit(0); // End program
         }*/
 
-        denCuoi(renderer);
+        //denCuoi(renderer)
         pos.x += dirX * disMove;
         break;
     }
