@@ -31,11 +31,11 @@ int main() {
 
     Map gameMap;
     gameMap.loadMap("map/map2.txt");
-    SDL_Texture* wallTexture = IMG_LoadTexture(renderer, "img/wall2.png");
-    SDL_Texture* roadTexture = IMG_LoadTexture(renderer, "img/road2.png");
+    SDL_Texture* wallTexture = IMG_LoadTexture(renderer, "img/wall/wall2.png");
+    SDL_Texture* roadTexture = IMG_LoadTexture(renderer, "img/road/road2.png");
     //tao nhan vat
     player nhanvat;
-    nhanvat.createCharacter(renderer, "img/player3.PNG");
+    nhanvat.createCharacter(renderer, "img/player/player3.PNG");
 
     SDL_Event event;
     bool quit = false;

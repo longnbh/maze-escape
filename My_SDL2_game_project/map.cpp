@@ -76,7 +76,7 @@ const int(*Map::getMazeMap()) [MAP_WIDTH] {
 
         srand(time(0));
         int randomWall = rand() % numWall + 1;
-        string wallName = "img/wall" + to_string(randomWall) + ".png";
+        string wallName = "img/wall/wall" + to_string(randomWall) + ".png";
         SDL_Texture* newWallTexture = IMG_LoadTexture(renderer, wallName.c_str());
         //drawMap(renderer, newWallTexture);
 
@@ -88,7 +88,7 @@ const int(*Map::getMazeMap()) [MAP_WIDTH] {
     {
         srand(time(0));
         int randomRoadIdx = rand() % numRoad + 1;
-        string roadName = "img/road" + to_string(randomRoadIdx) + ".png";
+        string roadName = "img/road/road" + to_string(randomRoadIdx) + ".png";
         SDL_Texture* newRoadTexture = IMG_LoadTexture(renderer, roadName.c_str());
         return newRoadTexture;
     }

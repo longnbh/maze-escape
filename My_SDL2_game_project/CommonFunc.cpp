@@ -155,8 +155,8 @@ void Game::handleEndMaze(SDL_Renderer* renderer, Map& gameMap, player& nhanvat, 
     SDL_Event e;
     bool running = true;
 
-    SDL_Rect continueButton = { 300, 250, 200, 50 };
-    SDL_Rect exitButton = { 300, 350, 200, 50 };
+    SDL_Rect continueButton = { 150, 550, 200, 50 };
+    SDL_Rect exitButton = { 400, 550, 200, 50 };
 
     // Mo font ngoai vong lap
     TTF_Font* font = TTF_OpenFont("fonts/tahoma.ttf", 24);
