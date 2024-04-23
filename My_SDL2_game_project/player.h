@@ -28,9 +28,9 @@ public:
 		bool foundStartPos = false;
 
 		// Lặp qua toàn bộ bản đồ để tìm vị trí xuất hiện của nhân vật (giá trị 3)
-		for (int i = 0; i < MAP_HEIGHT; ++i) 
+		for (int i = 0; i < MAP_HEIGHT; ++i)
 		{
-			for (int j = 0; j < MAP_WIDTH; ++j) 
+			for (int j = 0; j < MAP_WIDTH; ++j)
 			{
 				if (mazeMap[i][j] == 3) {
 					pos.x = j * CELL_SIZE; // Tính toán vị trí x

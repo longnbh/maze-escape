@@ -125,7 +125,7 @@ bool Game::ShowMenu(SDL_Renderer* renderer)
         int nameX = (EXIT_BUTTON_X + BUTTON_WIDTH / 2) - (myNameSurface->w / 2);
         SDL_Rect NameRect = { nameX, 100, myNameSurface->w, myNameSurface->h };
         SDL_RenderCopy(renderer, myNameTexture, NULL, &NameRect);
-
+        //cap nhat man hinh
         SDL_RenderPresent(renderer);
     }
 
