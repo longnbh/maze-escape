@@ -15,8 +15,9 @@ public:
 		RED_TEXT = 0,
 		WHITE_TEXT = 1,
 		GREEN_TEXT = 2,
+		PURPLE_TEXT = 3,
 	};
-	Text();
+	Text(const std::string& prefix = "") : prefix_(prefix), str_val_("") {}
 	~Text();
 
 	void SetText(const std::string& text) { str_val_ = text; }
@@ -25,6 +26,7 @@ public:
 	void UpdateText(TTF_Font* font, SDL_Renderer* renderer, int x, int y, int time);
 private:
 	std::string str_val_ = "Time: ";
+	std::string prefix_;
 	SDL_Color text_color_;
 	SDL_Surface* text_surface_;
 };

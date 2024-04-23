@@ -1,6 +1,6 @@
 ﻿#include "textObject.h"
 
-Text::Text() {}
+//Text::Text() {}
 
 Text::~Text()
 {
@@ -10,14 +10,9 @@ Text::~Text()
 
 void Text::SetColor(const int& type)
 {
-    if (type == RED_TEXT)
-    {
-        text_color_ = { 255, 0, 0 };
-    }
-    else if (type == WHITE_TEXT)
-    {
-        text_color_ = { 255, 255, 255 };
-    }
+    if (type == RED_TEXT) { text_color_ = { 255, 0, 0 }; }
+    else if (type == WHITE_TEXT) { text_color_ = { 255, 255, 255 }; }
+    else if (type == PURPLE_TEXT) { text_color_ = { 131 , 0 , 196 }; }
     else
     {
         text_color_ = { 0, 0, 0 };
@@ -51,10 +46,10 @@ void Text::CreateGameText(TTF_Font* font, SDL_Renderer* renderer, int x, int y)
     }
 }
 
-void Text::UpdateText(TTF_Font* font, SDL_Renderer* renderer, int x, int y, int time)
+void Text::UpdateText(TTF_Font* font, SDL_Renderer* renderer, int x, int y, int value)
 {
     // Cập nhật văn bản với thời gian đếm ngược mới
-    std::string time_str = "Time left: " + std::to_string(time);
-    SetText(time_str);
+    std::string full_str = prefix_ + std::to_string(value);
+    SetText(full_str);
     CreateGameText(font, renderer, x, y);
 }

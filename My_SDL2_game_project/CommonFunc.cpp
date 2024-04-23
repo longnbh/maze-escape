@@ -61,30 +61,30 @@ bool Game::ShowMenu(SDL_Renderer* renderer)
 {
     // Load ảnh làm nền cho menu
     SDL_Texture* menuBackground = LoadImage(renderer, "img/menu.jpg");
-    if (!menuBackground) {std::cerr << "Failed to load menu background image!" << std::endl;return -1;}
+    if (!menuBackground) { std::cerr << "Failed to load menu background image!" << std::endl;return -1; }
 
     // Load ảnh cho nút "Play game" và "Exit"
     SDL_Texture* playButtonTexture = LoadImage(renderer, "img/play_button.png");
     SDL_Texture* exitButtonTexture = LoadImage(renderer, "img/exit_button.png");
 
-    if (!playButtonTexture || !exitButtonTexture) {std::cerr << "Failed to load button images!" << std::endl;return -1;}
+    if (!playButtonTexture || !exitButtonTexture) { std::cerr << "Failed to load button images!" << std::endl;return -1; }
 
     //load font for Game name & My name
     TTF_Font* font = TTF_OpenFont("fonts/SNAP.ttf", 36); // choose size
-    if (!font) {std::cerr << "Failed to load font: " << TTF_GetError() << std::endl;return -1;}
+    if (!font) { std::cerr << "Failed to load font: " << TTF_GetError() << std::endl;return -1; }
 
     //create surface contains Game name
     SDL_Color textColor = { 255, 255, 255 };
     SDL_Surface* gameNameSurface = TTF_RenderText_Solid(font, "MAZE ESCAPE GAME!", textColor);
-    if (!gameNameSurface) {std::cerr << "Failed to render game name text: " << TTF_GetError() << std::endl;return -1;}
+    if (!gameNameSurface) { std::cerr << "Failed to render game name text: " << TTF_GetError() << std::endl;return -1; }
     SDL_Texture* gameNameTexture = SDL_CreateTextureFromSurface(renderer, gameNameSurface);
-    if (!gameNameTexture) {std::cerr << "Failed to create texture from game name surface: " << SDL_GetError() << std::endl;return -1;}
+    if (!gameNameTexture) { std::cerr << "Failed to create texture from game name surface: " << SDL_GetError() << std::endl;return -1; }
 
     // create surface contains My name
     SDL_Surface* myNameSurface = TTF_RenderText_Solid(font, "By NBHL", textColor);
-    if (!myNameSurface) {std::cerr << "Failed to render your name text: " << TTF_GetError() << std::endl;return -1;}
+    if (!myNameSurface) { std::cerr << "Failed to render your name text: " << TTF_GetError() << std::endl;return -1; }
     SDL_Texture* myNameTexture = SDL_CreateTextureFromSurface(renderer, myNameSurface);
-    if (!myNameTexture) {std::cerr << "Failed to create texture from your name surface: " << SDL_GetError() << std::endl;return -1;    }
+    if (!myNameTexture) { std::cerr << "Failed to create texture from your name surface: " << SDL_GetError() << std::endl;return -1; }
 
 
     bool startGame = false; //check if player want to start the game
@@ -232,7 +232,7 @@ void Game::handleEndMaze(SDL_Renderer* renderer, Map& gameMap, player& nhanvat, 
     TTF_CloseFont(font);
 }
 
-
+//xu ly khi het thoi gian
 void Game::handleEndTime(SDL_Renderer* renderer)
 {
     SDL_Event e;
@@ -250,9 +250,10 @@ void Game::handleEndTime(SDL_Renderer* renderer)
     // Load game over image
     SDL_Texture* gameOverTexture = LoadImage(renderer, "img/game_over.png");
     if (!gameOverTexture) {
-        std::cerr << "Failed to load game over image!" << std::endl;
-        return;
+        std::cerr << "Failed to load game over image!" << std::endl; return;
     }
+    Sound endSound; if (!endSound.khoiTaoSound()) { return; } if (!endSound.loadSound("sound/game_over.wav")) { return; }
+    endSound.playSound();
 
     while (running)
     {
@@ -280,13 +281,13 @@ void Game::handleEndTime(SDL_Renderer* renderer)
         SDL_RenderCopy(renderer, gameOverTexture, NULL, &gameOverRect);
 
         // Render exit button
-        SDL_SetRenderDrawColor(renderer, 96, 96, 86, 255);
+        SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
         SDL_RenderFillRect(renderer, &exitButton);
         SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
         SDL_RenderDrawRect(renderer, &exitButton);
 
         // Render exit button text
-        SDL_Color color_exit = { 0, 0, 0 };
+        SDL_Color color_exit = { 255, 255, 0 };
         SDL_Surface* textSurface = TTF_RenderText_Solid(font, "Exit", color_exit);
         SDL_Texture* textTexture = SDL_CreateTextureFromSurface(renderer, textSurface);
         SDL_Rect textRect = { exitButton.x + 70, exitButton.y + 10, textSurface->w, textSurface->h };

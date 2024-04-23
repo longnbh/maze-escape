@@ -1,2 +1,17 @@
-﻿  textObject.cpp
+﻿  CommonFunc.cpp
+C:\Users\Admin\Desktop\My_SDL2_game_project\My_SDL2_game_project\CommonFunc.cpp(64,102): warning C4305: 'return': truncation from 'int' to 'bool'
+C:\Users\Admin\Desktop\My_SDL2_game_project\My_SDL2_game_project\CommonFunc.cpp(70,119): warning C4305: 'return': truncation from 'int' to 'bool'
+C:\Users\Admin\Desktop\My_SDL2_game_project\My_SDL2_game_project\CommonFunc.cpp(74,94): warning C4305: 'return': truncation from 'int' to 'bool'
+C:\Users\Admin\Desktop\My_SDL2_game_project\My_SDL2_game_project\CommonFunc.cpp(79,117): warning C4305: 'return': truncation from 'int' to 'bool'
+C:\Users\Admin\Desktop\My_SDL2_game_project\My_SDL2_game_project\CommonFunc.cpp(81,133): warning C4305: 'return': truncation from 'int' to 'bool'
+C:\Users\Admin\Desktop\My_SDL2_game_project\My_SDL2_game_project\CommonFunc.cpp(85,115): warning C4305: 'return': truncation from 'int' to 'bool'
+C:\Users\Admin\Desktop\My_SDL2_game_project\My_SDL2_game_project\CommonFunc.cpp(87,131): warning C4305: 'return': truncation from 'int' to 'bool'
+  main.cpp
+  map.cpp
+C:\Users\Admin\Desktop\My_SDL2_game_project\My_SDL2_game_project\map.cpp(71,19): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Users\Admin\Desktop\My_SDL2_game_project\My_SDL2_game_project\map.cpp(77,19): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Users\Admin\Desktop\My_SDL2_game_project\My_SDL2_game_project\map.cpp(89,19): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+  player.cpp
+  textObject.cpp
+  Generating Code...
   My_SDL2_game_project.vcxproj -> C:\Users\Admin\Desktop\My_SDL2_game_project\Debug\My_SDL2_game_project.exe
