@@ -7,11 +7,13 @@
 #include <SDL_image.h>
 #include <SDL.h>
 #include "sound.h"
+#include "highScore.h"
 #include "player.h"
 #include "map.h"
 const int SCREEN_WIDTH = 630;
 const int SCREEN_HEIGHT = 700;
 const int PLAY_BUTTON_X = 270; const int PLAY_BUTTON_Y = 250;const int EXIT_BUTTON_X = 270;const int EXIT_BUTTON_Y = 300;
+const int HS_BUTTON_X = 270; const int HS_BUTTON_Y = 320;
 const int GAME_OVER_X = 200, GAME_OVER_Y = 200, GAME_OVER_WIDTH = 250, GAME_OVER_HEIGHT = 197;
 const int BUTTON_WIDTH = 100;
 const int BUTTON_HEIGHT = 43;

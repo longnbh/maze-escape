@@ -136,6 +136,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="highScore.cpp" />
     <ClCompile Include="player.cpp" />
     <ClCompile Include="CommonFunc.cpp" />
     <ClCompile Include="main.cpp" />
@@ -144,6 +145,7 @@
     <ClCompile Include="textObject.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="highScore.h" />
     <ClInclude Include="player.h" />
     <ClInclude Include="CommonFunc.h" />
     <ClInclude Include="map.h" />

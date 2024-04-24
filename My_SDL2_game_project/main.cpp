@@ -79,7 +79,9 @@ int main() {
         {
             //Game::handleEndMaze(renderer,gameMap,nhanvat, countdown_time, last_time, wallTexture);
             trochoi.handleEndTime(renderer);
+            hs.update(playerScore);
             quit = true; // Thoát khỏi vòng lặp sự kiện
+            
             break; // Thoát khỏi vòng lặp game
         }
 
@@ -121,7 +123,7 @@ int main() {
             // Cap nhat man hinh
             SDL_RenderPresent(renderer);
         }
-        hs.update(playerScore);
+        
     }
 
     // Destroy SDL

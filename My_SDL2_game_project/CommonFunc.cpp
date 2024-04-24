@@ -66,8 +66,9 @@ bool Game::ShowMenu(SDL_Renderer* renderer)
     // Load ảnh cho nút "Play game" và "Exit"
     SDL_Texture* playButtonTexture = LoadImage(renderer, "img/play_button.png");
     SDL_Texture* exitButtonTexture = LoadImage(renderer, "img/exit_button.png");
+    SDL_Texture* highScoreTexture = LoadImage(renderer, "img/highscore_button.png");
 
-    if (!playButtonTexture || !exitButtonTexture) { std::cerr << "Failed to load button images!" << std::endl;return -1; }
+    if (!playButtonTexture || !exitButtonTexture || !highScoreTexture) { std::cerr << "Failed to load button images!" << std::endl;return -1; }
 
     //load font for Game name & My name
     TTF_Font* font = TTF_OpenFont("fonts/SNAP.ttf", 36); // choose size
@@ -90,15 +91,18 @@ bool Game::ShowMenu(SDL_Renderer* renderer)
     bool startGame = false; //check if player want to start the game
 
     bool inMenu = true;
-    while (inMenu) {
+    while (inMenu) 
+    {
         SDL_Event event;
-        while (SDL_PollEvent(&event)) {
+        while (SDL_PollEvent(&event)) 
+        {
             if (event.type == SDL_QUIT) { inMenu = false;break; }
             else if (event.type == SDL_MOUSEBUTTONDOWN) {
                 int mouseX, mouseY;
                 SDL_GetMouseState(&mouseX, &mouseY);
                 if (mouseX >= PLAY_BUTTON_X && mouseX <= PLAY_BUTTON_X + BUTTON_WIDTH &&
-                    mouseY >= PLAY_BUTTON_Y && mouseY <= PLAY_BUTTON_Y + BUTTON_HEIGHT) {
+                    mouseY >= PLAY_BUTTON_Y && mouseY <= PLAY_BUTTON_Y + BUTTON_HEIGHT) 
+                {
                     // player chose "Play game"
                     startGame = true;
                     inMenu = false;
@@ -119,6 +123,12 @@ bool Game::ShowMenu(SDL_Renderer* renderer)
         SDL_RenderCopy(renderer, playButtonTexture, NULL, &playButtonRect);
         SDL_Rect exitButtonRect = { EXIT_BUTTON_X, EXIT_BUTTON_Y, BUTTON_WIDTH, BUTTON_HEIGHT };
         SDL_RenderCopy(renderer, exitButtonTexture, NULL, &exitButtonRect);
+
+        //Draw high score on screen
+        SDL_Rect hsButtonRect = { HS_BUTTON_X, HS_BUTTON_Y, 100, 100 };
+        SDL_RenderCopy(renderer, highScoreTexture, NULL, &hsButtonRect);
+        
+
         //Draw credits on screen
         SDL_Rect gameNameRect = { 85, 50, gameNameSurface->w, gameNameSurface->h };
         SDL_RenderCopy(renderer, gameNameTexture, NULL, &gameNameRect);
@@ -133,6 +143,7 @@ bool Game::ShowMenu(SDL_Renderer* renderer)
     SDL_DestroyTexture(menuBackground);
     SDL_DestroyTexture(playButtonTexture);
     SDL_DestroyTexture(exitButtonTexture);
+    SDL_DestroyTexture(highScoreTexture);
     SDL_DestroyTexture(gameNameTexture);
     SDL_DestroyTexture(myNameTexture);
     SDL_FreeSurface(gameNameSurface);
