@@ -92,3 +92,4 @@ const int(*Map::getMazeMap()) [MAP_WIDTH] {
         SDL_Texture* newRoadTexture = IMG_LoadTexture(renderer, roadName.c_str());
         return newRoadTexture;
     }
+

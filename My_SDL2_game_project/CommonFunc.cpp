@@ -161,7 +161,8 @@ bool Game::outGame(SDL_Event& event)
     return false;
 }
 
-void Game::handleEndMaze(SDL_Event e, SDL_Renderer* renderer, Map& gameMap, player& nhanvat, int& countdown_time, int& last_time, SDL_Texture*& wallTexture, SDL_Texture*& roadTexture)
+void Game::handleEndMaze(SDL_Event e, SDL_Renderer* renderer, Map& gameMap, player& nhanvat, int& countdown_time, int& last_time, SDL_Texture*& wallTexture, SDL_Texture*& roadTexture
+, highScore& hs, int score)
 {
     //SDL_Event e;
     bool running = true;
@@ -206,8 +207,10 @@ void Game::handleEndMaze(SDL_Event e, SDL_Renderer* renderer, Map& gameMap, play
                     break;
                 }
                 else if (x >= exitButton.x && x <= exitButton.x + exitButton.w &&
-                    y >= exitButton.y && y <= exitButton.y + exitButton.h) {
+                    y >= exitButton.y && y <= exitButton.y + exitButton.h) 
+                {
                     // Xu ly khi nguoi chon "Exit"
+                    hs.update(score);
                     SDL_Quit();
                     exit(0);
                 }
@@ -254,7 +257,7 @@ void Game::renderText(SDL_Renderer* renderer, TTF_Font* font, const char* text, 
 }
 
 //xu ly khi het thoi gian
-void Game::handleEndTime(SDL_Renderer* renderer)
+void Game::handleEndTime(SDL_Renderer* renderer, highScore& hs, int score)
 {
     SDL_Event e;
     bool running = true;
@@ -286,7 +289,9 @@ void Game::handleEndTime(SDL_Renderer* renderer)
                 int x, y;
                 SDL_GetMouseState(&x, &y);
                 if (x >= exitButton.x && x <= exitButton.x + exitButton.w &&
-                    y >= exitButton.y && y <= exitButton.y + exitButton.h) {
+                    y >= exitButton.y && y <= exitButton.y + exitButton.h) 
+                {
+                    hs.update(score);
                     // Handle Exit button
                     running = false;
                     break;

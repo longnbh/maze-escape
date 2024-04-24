@@ -78,8 +78,7 @@ int main() {
         if (countdown_time <= 0)
         {
             //Game::handleEndMaze(renderer,gameMap,nhanvat, countdown_time, last_time, wallTexture);
-            trochoi.handleEndTime(renderer);
-            hs.update(playerScore);
+            trochoi.handleEndTime(renderer,hs,playerScore);
             quit = true; // Thoát khỏi vòng lặp sự kiện
             
             break; // Thoát khỏi vòng lặp game
@@ -113,8 +112,8 @@ int main() {
                 if (!sound.loadSound("sound/congrats.wav")) { return 1; }
                 sound.playSound();
 
-                Game::handleEndMaze(event,renderer, gameMap, nhanvat, countdown_time, last_time, wallTexture, roadTexture);
                 playerScore++;
+                Game::handleEndMaze(event,renderer, gameMap, nhanvat, countdown_time, last_time, wallTexture, roadTexture, hs, playerScore);
                 
                 scoreText.UpdateText(font, renderer, score_x, score_y, playerScore);
             }

@@ -25,7 +25,8 @@ void highScore::loadScores()
     std::sort(scores.rbegin(), scores.rend()); // Sort scores in descending order
 }
 
-void highScore::update(int newScore) {
+void highScore::update(int newScore) 
+{
     scores.push_back(newScore);
     std::sort(scores.rbegin(), scores.rend()); // Sort scores in descending order
 
