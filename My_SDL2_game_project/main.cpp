@@ -2,6 +2,7 @@
 #include <SDL.h>
 #include <SDL_image.h>
 #include "CommonFunc.h"
+#include "highScore.h"
 #include "player.h"
 #include "map.h"
 #include "sound.h"
@@ -12,14 +13,14 @@ int main() {
 
     Game trochoi;
     Sound sound;
-
+    highScore hs("highScore/highscores.txt");
     // Khoi tao SDL
     if (!trochoi.InitSDL()) { return 1; }
 
     if (!sound.khoiTaoSound()) { return 1; }
 
     // Tao cua so
-    SDL_Window* window = trochoi.CreateWindow("Maze escape", SCREEN_HEIGHT, SCREEN_HEIGHT); if (!window) { return 1; }
+    SDL_Window* window = trochoi.CreateWindow("Maze escape", SCREEN_WIDTH, SCREEN_HEIGHT); if (!window) { return 1; }
 
     // Tao trinh ket xuat (renderer)
     SDL_Renderer* renderer = trochoi.CreateRenderer(window);if (!renderer) { return 1; }
@@ -109,8 +110,10 @@ int main() {
             {
                 if (!sound.loadSound("sound/congrats.wav")) { return 1; }
                 sound.playSound();
-                Game::handleEndMaze(renderer, gameMap, nhanvat, countdown_time, last_time, wallTexture, roadTexture);
+
+                Game::handleEndMaze(event,renderer, gameMap, nhanvat, countdown_time, last_time, wallTexture, roadTexture);
                 playerScore++;
+                
                 scoreText.UpdateText(font, renderer, score_x, score_y, playerScore);
             }
             nhanvat.updateAnimation();
@@ -118,7 +121,7 @@ int main() {
             // Cap nhat man hinh
             SDL_RenderPresent(renderer);
         }
-
+        hs.update(playerScore);
     }
 
     // Destroy SDL

@@ -120,7 +120,7 @@ bool Game::ShowMenu(SDL_Renderer* renderer)
         SDL_Rect exitButtonRect = { EXIT_BUTTON_X, EXIT_BUTTON_Y, BUTTON_WIDTH, BUTTON_HEIGHT };
         SDL_RenderCopy(renderer, exitButtonTexture, NULL, &exitButtonRect);
         //Draw credits on screen
-        SDL_Rect gameNameRect = { 100, 50, gameNameSurface->w, gameNameSurface->h };
+        SDL_Rect gameNameRect = { 85, 50, gameNameSurface->w, gameNameSurface->h };
         SDL_RenderCopy(renderer, gameNameTexture, NULL, &gameNameRect);
         int nameX = (EXIT_BUTTON_X + BUTTON_WIDTH / 2) - (myNameSurface->w / 2);
         SDL_Rect NameRect = { nameX, 100, myNameSurface->w, myNameSurface->h };
@@ -150,13 +150,13 @@ bool Game::outGame(SDL_Event& event)
     return false;
 }
 
-void Game::handleEndMaze(SDL_Renderer* renderer, Map& gameMap, player& nhanvat, int& countdown_time, int& last_time, SDL_Texture*& wallTexture, SDL_Texture*& roadTexture)
+void Game::handleEndMaze(SDL_Event e, SDL_Renderer* renderer, Map& gameMap, player& nhanvat, int& countdown_time, int& last_time, SDL_Texture*& wallTexture, SDL_Texture*& roadTexture)
 {
-    SDL_Event e;
+    //SDL_Event e;
     bool running = true;
 
-    SDL_Rect continueButton = { 150, 550, 200, 50 };
-    SDL_Rect exitButton = { 400, 550, 200, 50 };
+    SDL_Rect continueButton = { 120, 550, 200, 50 };
+    SDL_Rect exitButton = { 370, 550, 200, 50 };
 
     // Mo font ngoai vong lap
     TTF_Font* font = TTF_OpenFont("fonts/tahoma.ttf", 24);

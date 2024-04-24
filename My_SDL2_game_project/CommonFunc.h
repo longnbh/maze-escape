@@ -9,9 +9,9 @@
 #include "sound.h"
 #include "player.h"
 #include "map.h"
-const int SCREEN_WIDTH = 700;
+const int SCREEN_WIDTH = 630;
 const int SCREEN_HEIGHT = 700;
-const int PLAY_BUTTON_X = 300; const int PLAY_BUTTON_Y = 250;const int EXIT_BUTTON_X = 300;const int EXIT_BUTTON_Y = 300;
+const int PLAY_BUTTON_X = 270; const int PLAY_BUTTON_Y = 250;const int EXIT_BUTTON_X = 270;const int EXIT_BUTTON_Y = 300;
 const int GAME_OVER_X = 200, GAME_OVER_Y = 200, GAME_OVER_WIDTH = 250, GAME_OVER_HEIGHT = 197;
 const int BUTTON_WIDTH = 100;
 const int BUTTON_HEIGHT = 43;
@@ -33,7 +33,7 @@ public:
 	void render();
 	void QuitGame();
 
-	static void handleEndMaze(SDL_Renderer* renderer, Map& gameMap, player& nhanvat, int& countdown_time, int& last_time, SDL_Texture*& wallTexture,
+	static void handleEndMaze(SDL_Event e, SDL_Renderer* renderer, Map& gameMap, player& nhanvat, int& countdown_time, int& last_time, SDL_Texture*& wallTexture,
 		SDL_Texture*& roadTexture);
 	void handleEndTime(SDL_Renderer* renderer);
 	static void renderText(SDL_Renderer* renderer, TTF_Font* font, const char* text, SDL_Color textColor, SDL_Rect button);
