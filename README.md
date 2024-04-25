@@ -90,3 +90,4 @@ Firstly, user will see a menu. And then, if they press "Play" - they would go in
 
 ## Related links
 - Executable file from Google Drive: https://drive.google.com/file/d/1pSxiiP2DaNlNJLbmxrhUGznNF9Oy025K/view?usp=sharing
+- Introduction video: 
