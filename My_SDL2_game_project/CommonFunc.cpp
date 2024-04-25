@@ -240,21 +240,25 @@ void Game::handleEndMaze( SDL_Renderer* renderer, Map& gameMap, player& nhanvat,
                 if (x >= continueButton.x && x <= continueButton.x + continueButton.w &&
                     y >= continueButton.y && y <= continueButton.y + continueButton.h)
                 {
+                    SDL_DestroyTexture(wallTexture); // Free old textures
+                    SDL_DestroyTexture(roadTexture);
+
                     // Xu ly khi nguoi chon "Continue"
                     //running = false; // Thoát khỏi vòng lặp
                     SDL_FlushEvent(SDL_MOUSEBUTTONDOWN);
-                    countdown_time = TIME_LIMIT;
-                    last_time = SDL_GetTicks();
+                    /*countdown_time = TIME_LIMIT;
+                    last_time = SDL_GetTicks();*/
                     wallTexture = gameMap.loadRandomMapAndWall(renderer);
-                    //nhanvat.resetPosition();
                     roadTexture = gameMap.loadRandomRoad(renderer);
 
-                    sound.playRandom();
-
+                    if (!wallTexture || !roadTexture) {SDL_Log("Failed to load new random textures"); running = false;break;}
+                    countdown_time = TIME_LIMIT;
+                    last_time = SDL_GetTicks();
                     nhanvat.resetPosition();
+                    sound.playRandom();
+                    
                     gameMap.drawMap(renderer, wallTexture, roadTexture);
 
-                    
                     running = false;
                     break;
                 }

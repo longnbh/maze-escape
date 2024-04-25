@@ -3,7 +3,7 @@
 #include<iostream>
 #include <string>
 #include <SDL_mixer.h>
-const int numSound = 6;
+const int numSound = 9;
 
 class Sound
 {
