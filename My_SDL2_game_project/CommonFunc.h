@@ -29,14 +29,14 @@ public:
 	SDL_Window* CreateWindow(const char* title, int width, int height);
 	SDL_Renderer* CreateRenderer(SDL_Window* window);
 	void HandleEvents();
-	bool ShowMenu(SDL_Renderer* renderer);
+	bool ShowMenu(SDL_Renderer* renderer, highScore& hs);
 
 	bool outGame(SDL_Event& event);
 	void render();
 	void QuitGame();
 
 	static void handleEndMaze(SDL_Event e, SDL_Renderer* renderer, Map& gameMap, player& nhanvat, int& countdown_time, int& last_time, SDL_Texture*& wallTexture,
-		SDL_Texture*& roadTexture, highScore& hs, int score);
+		SDL_Texture*& roadTexture, highScore& hs, int score, Sound& sound);
 	void handleEndTime(SDL_Renderer* renderer, highScore& hs, int score);
 	static void renderText(SDL_Renderer* renderer, TTF_Font* font, const char* text, SDL_Color textColor, SDL_Rect button);
 

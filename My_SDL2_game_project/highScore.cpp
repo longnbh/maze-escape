@@ -54,19 +54,30 @@ std::vector<int> highScore::getHighScores() {
     return scores;
 }
 
-void displayHighScores(SDL_Renderer* renderer, highScore& hs, TTF_Font* font)
+void highScore::displayHighScores (SDL_Renderer* renderer, highScore& hs, TTF_Font* font)
 {
+    //SDL_RenderClear(renderer);
     std::vector<int> highScores = hs.getHighScores();
 
-    int yPosition = 200;  // Bắt đầu từ vị trí y này trên màn hình
-    for (int score : highScores) {
-        std::string scoreText = "Score: " + std::to_string(score);
+    int yPosition = 100;  // Bắt đầu từ vị trí y này trên màn hình
+    for (int score : highScores) 
+    {
+        std::string scoreText = "Highest score: " + std::to_string(score);
         SDL_Surface* textSurface = TTF_RenderText_Solid(font, scoreText.c_str(), { 255, 255, 255 });
+
+        if (textSurface == NULL) { std::cerr << "Unable to create high score texture from surface: " << SDL_GetError() << std::endl; continue; }
         SDL_Texture* textTexture = SDL_CreateTextureFromSurface(renderer, textSurface);
-        SDL_Rect textRect = { 100, yPosition, textSurface->w, textSurface->h };
-        SDL_RenderCopy(renderer, textTexture, NULL, &textRect);
+        if (textTexture == NULL) std::cerr << "Unable to high score texture from surface: " << SDL_GetError() << std::endl;
+        else {
+            SDL_Rect textRect = { 100, yPosition, textSurface->w, textSurface->h };
+            SDL_RenderCopy(renderer, textTexture, NULL, &textRect);
+            //SDL_FreeSurface(textSurface);
+            SDL_DestroyTexture(textTexture);
+            
+        }
         SDL_FreeSurface(textSurface);
-        SDL_DestroyTexture(textTexture);
-        yPosition += 30;  // Cập nhật vị trí y cho mỗi điểm
+        yPosition += 30;  // Cập nhật vị trí y cho mỗi điểm số cao
+        
     }
+    SDL_RenderPresent(renderer);
 }

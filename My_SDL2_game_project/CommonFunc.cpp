@@ -1,6 +1,5 @@
 ﻿#include "CommonFunc.h"
 #include "textObject.h"
-
 SDL_Renderer* renderer = nullptr;
 SDL_Window* window = nullptr;
 
@@ -57,7 +56,7 @@ SDL_Renderer* Game::CreateRenderer(SDL_Window* window) {
     return renderer;
 }
 
-bool Game::ShowMenu(SDL_Renderer* renderer)
+bool Game::ShowMenu(SDL_Renderer* renderer, highScore& hs)
 {
     // Load ảnh làm nền cho menu
     SDL_Texture* menuBackground = LoadImage(renderer, "img/menu.jpg");
@@ -97,7 +96,8 @@ bool Game::ShowMenu(SDL_Renderer* renderer)
         while (SDL_PollEvent(&event)) 
         {
             if (event.type == SDL_QUIT) { inMenu = false;break; }
-            else if (event.type == SDL_MOUSEBUTTONDOWN) {
+            else if (event.type == SDL_MOUSEBUTTONDOWN) 
+            {
                 int mouseX, mouseY;
                 SDL_GetMouseState(&mouseX, &mouseY);
                 if (mouseX >= PLAY_BUTTON_X && mouseX <= PLAY_BUTTON_X + BUTTON_WIDTH &&
@@ -109,14 +109,21 @@ bool Game::ShowMenu(SDL_Renderer* renderer)
                     break;
                 }
                 else if (mouseX >= EXIT_BUTTON_X && mouseX <= EXIT_BUTTON_X + BUTTON_WIDTH &&
-                    mouseY >= EXIT_BUTTON_Y && mouseY <= EXIT_BUTTON_Y + BUTTON_HEIGHT) {
+                    mouseY >= EXIT_BUTTON_Y && mouseY <= EXIT_BUTTON_Y + BUTTON_HEIGHT) 
+                {
                     // player chose "Exit"
                     return false; // Thoát khỏi hàm và kết thúc chương trình
+                }
+                else if (mouseX >= HS_BUTTON_X && mouseX <= HS_BUTTON_X + BUTTON_WIDTH &&
+                    mouseY >= HS_BUTTON_Y && mouseY <= HS_BUTTON_Y + 100)
+                {
+                    std::cout << "Mouse X: " << mouseX << " Mouse Y: " << mouseY << std::endl;
+                    highScore::displayHighScores(renderer, hs, font);
                 }
             }
         }
 
-        // Draw menu on screen
+        // Draw menu button on screen
         SDL_RenderClear(renderer);
         SDL_RenderCopy(renderer, menuBackground, NULL, NULL);
         SDL_Rect playButtonRect = { PLAY_BUTTON_X, PLAY_BUTTON_Y, BUTTON_WIDTH, BUTTON_HEIGHT };
@@ -124,7 +131,7 @@ bool Game::ShowMenu(SDL_Renderer* renderer)
         SDL_Rect exitButtonRect = { EXIT_BUTTON_X, EXIT_BUTTON_Y, BUTTON_WIDTH, BUTTON_HEIGHT };
         SDL_RenderCopy(renderer, exitButtonTexture, NULL, &exitButtonRect);
 
-        //Draw high score on screen
+        //Draw high score button on screen
         SDL_Rect hsButtonRect = { HS_BUTTON_X, HS_BUTTON_Y, 100, 100 };
         SDL_RenderCopy(renderer, highScoreTexture, NULL, &hsButtonRect);
         
@@ -162,8 +169,9 @@ bool Game::outGame(SDL_Event& event)
 }
 
 void Game::handleEndMaze(SDL_Event e, SDL_Renderer* renderer, Map& gameMap, player& nhanvat, int& countdown_time, int& last_time, SDL_Texture*& wallTexture, SDL_Texture*& roadTexture
-, highScore& hs, int score)
+, highScore& hs, int score,Sound& sound)
 {
+    //sound.stopSound();
     //SDL_Event e;
     bool running = true;
 
@@ -201,6 +209,9 @@ void Game::handleEndMaze(SDL_Event e, SDL_Renderer* renderer, Map& gameMap, play
                     wallTexture = gameMap.loadRandomMapAndWall(renderer);
                     //nhanvat.resetPosition();
                     roadTexture = gameMap.loadRandomRoad(renderer);
+
+                    sound.playRandom();
+
                     nhanvat.resetPosition();
                     gameMap.drawMap(renderer, wallTexture, roadTexture);
                     running = false;

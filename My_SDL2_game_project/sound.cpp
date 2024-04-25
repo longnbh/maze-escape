@@ -34,3 +34,14 @@ bool Sound::loadSound(const char* filename) {
 void Sound::playSound() {
     Mix_PlayChannel(-1, sound, 0);
 }
+
+void Sound::stopSound() { Mix_HaltChannel(-1); }
+
+void Sound::playRandom()
+{
+    srand(time(0));
+    int songIdx = rand() % numSound + 1;
+    std::string songName = "sound/round/stage" + std::to_string(songIdx) + ".wav";
+    if (!khoiTaoSound()) { return; } if (!loadSound(songName.c_str())) { return; }
+    playSound();
+}

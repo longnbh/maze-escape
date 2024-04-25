@@ -14,6 +14,8 @@ int main() {
     Game trochoi;
     Sound sound;
     highScore hs("highScore/highscores.txt");
+
+    srand(time(0));
     // Khoi tao SDL
     if (!trochoi.InitSDL()) { return 1; }
 
@@ -25,7 +27,7 @@ int main() {
     // Tao trinh ket xuat (renderer)
     SDL_Renderer* renderer = trochoi.CreateRenderer(window);if (!renderer) { return 1; }
 
-    bool startGame = trochoi.ShowMenu(renderer);
+    bool startGame = trochoi.ShowMenu(renderer, hs);
 
     if (!startGame) { trochoi.QuitGame(); return 0; }
 
@@ -63,6 +65,7 @@ int main() {
     scoreText.SetText("Score: 0"); scoreText.SetColor(Text::PURPLE_TEXT);
     int score_x = 400; int score_y = 610;
 
+    sound.playRandom();
     //vong lap game
     while (!quit)
     {
@@ -104,16 +107,19 @@ int main() {
 
             //di chuyen nhan vat
             nhanvat.moveCharacter(renderer, event);
-            nhanvat.render(renderer);
+            nhanvat.render(renderer);   
 
+            
 
             if (nhanvat.denCuoi(renderer))
             {
-                if (!sound.loadSound("sound/congrats.wav")) { return 1; }
+                sound.stopSound();
+                if (!sound.loadSound("sound/congrats.wav")) { cout << "Couldn't load congrats sound"; return 1; }
                 sound.playSound();
 
                 playerScore++;
-                Game::handleEndMaze(event,renderer, gameMap, nhanvat, countdown_time, last_time, wallTexture, roadTexture, hs, playerScore);
+                Game::handleEndMaze(event,renderer, gameMap, nhanvat, countdown_time, last_time, wallTexture, roadTexture, hs, playerScore,
+                    sound);
                 
                 scoreText.UpdateText(font, renderer, score_x, score_y, playerScore);
             }
