@@ -4,6 +4,7 @@
 * [INTRO](#introduction)
 * [STRUCTURE](#structure-and-techniques-used-inside)
 * [HOW TO DOWNLOAD TO PLAY](#set-up)
+* [HOW TO PLAY & EXIT GAME](#how-to-play)
 * [PREVIEW](#preview)
 * [MAIN FUNCTION](#main-function)
 * [REFERENCES](#references)
@@ -30,6 +31,15 @@ Firstly, user will see a menu. And then, if they press "Play" - they would go in
 - Extract that .rar file by right clicking, choose "Extract Here" or "Extract to + file name"
 - Click on the Debug folder (the Debug folder is in the same path as .vs folder). PAY ATTENTION: Not the Debug folder inside the My_SDL2_game_project folder
 - Run the .exe file to play the game. Happy playing!
+
+## HOW TO PLAY
+|   KEYS   |    FUNCTION   |
+|:--------:|:-------------:|
+|     ↑    |       UP      |
+|     ↓    |      DOWN     |
+|     ←    |      LEFT     |
+|     →    |     RIGHT     |
+|     Esc  |    Exit game  |
 
 ## PREVIEW
 ### MAIN MENU
