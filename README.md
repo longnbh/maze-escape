@@ -1,5 +1,5 @@
 # MAZE ESCAPE
-## ATTENTION: source code are in the folder "My_SDL2_game_project"!
+## [EXAMINER'S ATTENTION]: source code are in the folder "My_SDL2_game_project"!
 ## TABLE OF CONTENTS
 * [INTRO](#introduction)
 * [STRUCTURE](#structure-and-techniques-used-inside)
