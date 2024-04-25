@@ -1,15 +1,23 @@
 # MAZE ESCAPE
+## TABLE OF CONTENTS
+* [INTRO](#introduction)
+* [STRUCTURE](#structure-and-techniques-used-inside)
+* [PREVIEW](#preview)
+* [MAIN FUNCTION](#main-function)
+* [WRAP UP](#conclusion)
 
 ## INTRODUCTION
 - Name: Nguyen Ba Hoang Long
 - Student's ID: 23020680
 - Big Project: MAZE ESCAPE (INT2215_52 - Advanced Programming AY 23-24)
 
-## STRUCTURE & TECHNIQUES USED INSIDE
+## STRUCTURE AND TECHNIQUES USED INSIDE
 - 6 classes dividied through header files and implement them through .cpp files. All of them would be used in main.cpp (divide files technique)
 - Using basic data structures: vector, string, in-out file (fstream)
 - Drawing maps through 2D-arrays (stored in .txt files), and also handle collision detection there.
-- In main.cpp, I have declared variables of those classes, and then implement them based on the logic of the game
+- In main.cpp, I have declared variables of those classes, and then implement them based on the logic of the game.
+### Game logic:
+Firstly, user will see a menu. And then, if they press "Play" - they would go into their game. Otherwise, pressing "High score" would let them see the five recently high scores. If users win, they will be asked whether to continue or exit the game. If the former is true, a new map (and also new walls & roads) would be there to play. When the time is over, a "game over" screen would display.
 
 ## PREVIEW
 ### MAIN MENU
@@ -34,8 +42,6 @@
 
 ## CONCLUSION
 ### WHAT I HAVE LEARNED THROUGH THIS PROJECT
-- 
-
 ### FURTHER DEVELOPMENT THAT COULD BE IMPLEMENTED IN THE FUTURE
 - Choose levels accordingly (easy, medium, difficult)
 - Handle the movement of the player for smoother experience
