@@ -62,6 +62,7 @@ void highScore::displayHighScores (SDL_Renderer* renderer, highScore& hs, TTF_Fo
     int yPosition = 100;  // Bắt đầu từ vị trí y này trên màn hình
     for (int score : highScores) 
     {
+  
         std::string scoreText = "Highest score: " + std::to_string(score);
         SDL_Surface* textSurface = TTF_RenderText_Solid(font, scoreText.c_str(), { 255, 255, 255 });
 
@@ -73,11 +74,10 @@ void highScore::displayHighScores (SDL_Renderer* renderer, highScore& hs, TTF_Fo
             SDL_RenderCopy(renderer, textTexture, NULL, &textRect);
             //SDL_FreeSurface(textSurface);
             SDL_DestroyTexture(textTexture);
-            
         }
         SDL_FreeSurface(textSurface);
         yPosition += 30;  // Cập nhật vị trí y cho mỗi điểm số cao
         
     }
-    SDL_RenderPresent(renderer);
+    //SDL_RenderPresent(renderer);
 }

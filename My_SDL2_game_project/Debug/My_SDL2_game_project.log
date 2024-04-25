@@ -1,12 +1,13 @@
 ﻿  CommonFunc.cpp
 C:\Users\Admin\Desktop\My_SDL2_game_project\My_SDL2_game_project\CommonFunc.cpp(63,102): warning C4305: 'return': truncation from 'int' to 'bool'
-C:\Users\Admin\Desktop\My_SDL2_game_project\My_SDL2_game_project\CommonFunc.cpp(70,140): warning C4305: 'return': truncation from 'int' to 'bool'
-C:\Users\Admin\Desktop\My_SDL2_game_project\My_SDL2_game_project\CommonFunc.cpp(74,94): warning C4305: 'return': truncation from 'int' to 'bool'
-C:\Users\Admin\Desktop\My_SDL2_game_project\My_SDL2_game_project\CommonFunc.cpp(79,117): warning C4305: 'return': truncation from 'int' to 'bool'
-C:\Users\Admin\Desktop\My_SDL2_game_project\My_SDL2_game_project\CommonFunc.cpp(81,133): warning C4305: 'return': truncation from 'int' to 'bool'
-C:\Users\Admin\Desktop\My_SDL2_game_project\My_SDL2_game_project\CommonFunc.cpp(85,115): warning C4305: 'return': truncation from 'int' to 'bool'
-C:\Users\Admin\Desktop\My_SDL2_game_project\My_SDL2_game_project\CommonFunc.cpp(87,131): warning C4305: 'return': truncation from 'int' to 'bool'
-  sound.cpp
-C:\Users\Admin\Desktop\My_SDL2_game_project\My_SDL2_game_project\sound.cpp(42,15): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-  Generating Code...
+C:\Users\Admin\Desktop\My_SDL2_game_project\My_SDL2_game_project\CommonFunc.cpp(66,106): warning C4305: 'return': truncation from 'int' to 'bool'
+C:\Users\Admin\Desktop\My_SDL2_game_project\My_SDL2_game_project\CommonFunc.cpp(73,140): warning C4305: 'return': truncation from 'int' to 'bool'
+C:\Users\Admin\Desktop\My_SDL2_game_project\My_SDL2_game_project\CommonFunc.cpp(77,94): warning C4305: 'return': truncation from 'int' to 'bool'
+C:\Users\Admin\Desktop\My_SDL2_game_project\My_SDL2_game_project\CommonFunc.cpp(81,96): warning C4305: 'return': truncation from 'int' to 'bool'
+C:\Users\Admin\Desktop\My_SDL2_game_project\My_SDL2_game_project\CommonFunc.cpp(86,117): warning C4305: 'return': truncation from 'int' to 'bool'
+C:\Users\Admin\Desktop\My_SDL2_game_project\My_SDL2_game_project\CommonFunc.cpp(88,133): warning C4305: 'return': truncation from 'int' to 'bool'
+C:\Users\Admin\Desktop\My_SDL2_game_project\My_SDL2_game_project\CommonFunc.cpp(92,115): warning C4305: 'return': truncation from 'int' to 'bool'
+C:\Users\Admin\Desktop\My_SDL2_game_project\My_SDL2_game_project\CommonFunc.cpp(94,131): warning C4305: 'return': truncation from 'int' to 'bool'
+C:\Users\Admin\Desktop\My_SDL2_game_project\My_SDL2_game_project\CommonFunc.cpp(98,121): warning C4305: 'return': truncation from 'int' to 'bool'
+C:\Users\Admin\Desktop\My_SDL2_game_project\My_SDL2_game_project\CommonFunc.cpp(100,122): warning C4305: 'return': truncation from 'int' to 'bool'
   My_SDL2_game_project.vcxproj -> C:\Users\Admin\Desktop\My_SDL2_game_project\Debug\My_SDL2_game_project.exe

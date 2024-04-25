@@ -62,6 +62,9 @@ bool Game::ShowMenu(SDL_Renderer* renderer, highScore& hs)
     SDL_Texture* menuBackground = LoadImage(renderer, "img/menu.jpg");
     if (!menuBackground) { std::cerr << "Failed to load menu background image!" << std::endl;return -1; }
 
+    SDL_Texture* hsBackground = LoadImage(renderer, "img/background.png");
+    if (!hsBackground) { std::cerr << "Failed to load high score background image!" << std::endl;return -1; }
+
     // Load ảnh cho nút "Play game" và "Exit"
     SDL_Texture* playButtonTexture = LoadImage(renderer, "img/play_button.png");
     SDL_Texture* exitButtonTexture = LoadImage(renderer, "img/exit_button.png");
@@ -73,8 +76,12 @@ bool Game::ShowMenu(SDL_Renderer* renderer, highScore& hs)
     TTF_Font* font = TTF_OpenFont("fonts/SNAP.ttf", 36); // choose size
     if (!font) { std::cerr << "Failed to load font: " << TTF_GetError() << std::endl;return -1; }
 
+    //load font for high score section
+    TTF_Font* hsfont = TTF_OpenFont("fonts/Buxton.ttf", 36); // choose size
+    if (!hsfont) { std::cerr << "Failed to load font: " << TTF_GetError() << std::endl;return -1; }
+
     //create surface contains Game name
-    SDL_Color textColor = { 255, 255, 255 };
+    SDL_Color textColor = { 144, 238, 144 };
     SDL_Surface* gameNameSurface = TTF_RenderText_Solid(font, "MAZE ESCAPE GAME!", textColor);
     if (!gameNameSurface) { std::cerr << "Failed to render game name text: " << TTF_GetError() << std::endl;return -1; }
     SDL_Texture* gameNameTexture = SDL_CreateTextureFromSurface(renderer, gameNameSurface);
@@ -87,9 +94,17 @@ bool Game::ShowMenu(SDL_Renderer* renderer, highScore& hs)
     if (!myNameTexture) { std::cerr << "Failed to create texture from your name surface: " << SDL_GetError() << std::endl;return -1; }
 
 
+    SDL_Surface* instructionSurface = TTF_RenderText_Solid(hsfont, "Tap to back to menu", textColor);
+    if (!instructionSurface) {std::cerr << "Failed to render instruction text: " << TTF_GetError() << std::endl;return -1;    }
+    SDL_Texture* instructionTexture = SDL_CreateTextureFromSurface(renderer, instructionSurface);
+    if (!instructionTexture) { std::cerr << "Failed to render instruction text: " << TTF_GetError() << std::endl;return -1; }
+
+
+
     bool startGame = false; //check if player want to start the game
 
     bool inMenu = true;
+    MenuState menuState = MAIN_MENU;
     while (inMenu) 
     {
         SDL_Event event;
@@ -100,6 +115,8 @@ bool Game::ShowMenu(SDL_Renderer* renderer, highScore& hs)
             {
                 int mouseX, mouseY;
                 SDL_GetMouseState(&mouseX, &mouseY);
+                if (menuState == MAIN_MENU)
+                { 
                 if (mouseX >= PLAY_BUTTON_X && mouseX <= PLAY_BUTTON_X + BUTTON_WIDTH &&
                     mouseY >= PLAY_BUTTON_Y && mouseY <= PLAY_BUTTON_Y + BUTTON_HEIGHT) 
                 {
@@ -117,37 +134,55 @@ bool Game::ShowMenu(SDL_Renderer* renderer, highScore& hs)
                 else if (mouseX >= HS_BUTTON_X && mouseX <= HS_BUTTON_X + BUTTON_WIDTH &&
                     mouseY >= HS_BUTTON_Y && mouseY <= HS_BUTTON_Y + 100)
                 {
-                    std::cout << "Mouse X: " << mouseX << " Mouse Y: " << mouseY << std::endl;
-                    highScore::displayHighScores(renderer, hs, font);
+                    std::cout << "Tapped on highscore button";
+                    menuState = HIGH_SCORES;
+                    //highScore::displayHighScores(renderer, hs, font);
+                }
+                }
+                else if (menuState == HIGH_SCORES) {
+                    menuState = MAIN_MENU;
                 }
             }
         }
 
-        // Draw menu button on screen
         SDL_RenderClear(renderer);
-        SDL_RenderCopy(renderer, menuBackground, NULL, NULL);
-        SDL_Rect playButtonRect = { PLAY_BUTTON_X, PLAY_BUTTON_Y, BUTTON_WIDTH, BUTTON_HEIGHT };
-        SDL_RenderCopy(renderer, playButtonTexture, NULL, &playButtonRect);
-        SDL_Rect exitButtonRect = { EXIT_BUTTON_X, EXIT_BUTTON_Y, BUTTON_WIDTH, BUTTON_HEIGHT };
-        SDL_RenderCopy(renderer, exitButtonTexture, NULL, &exitButtonRect);
 
-        //Draw high score button on screen
-        SDL_Rect hsButtonRect = { HS_BUTTON_X, HS_BUTTON_Y, 100, 100 };
-        SDL_RenderCopy(renderer, highScoreTexture, NULL, &hsButtonRect);
-        
+        // Draw menu button on screen
+        if (menuState == MAIN_MENU)
+        {
+            SDL_RenderCopy(renderer, menuBackground, NULL, NULL);
+            SDL_Rect playButtonRect = { PLAY_BUTTON_X, PLAY_BUTTON_Y, BUTTON_WIDTH, BUTTON_HEIGHT };
+            SDL_RenderCopy(renderer, playButtonTexture, NULL, &playButtonRect);
+            SDL_Rect exitButtonRect = { EXIT_BUTTON_X, EXIT_BUTTON_Y, BUTTON_WIDTH, BUTTON_HEIGHT };
+            SDL_RenderCopy(renderer, exitButtonTexture, NULL, &exitButtonRect);
 
-        //Draw credits on screen
-        SDL_Rect gameNameRect = { 85, 50, gameNameSurface->w, gameNameSurface->h };
-        SDL_RenderCopy(renderer, gameNameTexture, NULL, &gameNameRect);
-        int nameX = (EXIT_BUTTON_X + BUTTON_WIDTH / 2) - (myNameSurface->w / 2);
-        SDL_Rect NameRect = { nameX, 100, myNameSurface->w, myNameSurface->h };
-        SDL_RenderCopy(renderer, myNameTexture, NULL, &NameRect);
+            //Draw high score button on screen
+            SDL_Rect hsButtonRect = { HS_BUTTON_X, HS_BUTTON_Y, 100, 100 };
+            SDL_RenderCopy(renderer, highScoreTexture, NULL, &hsButtonRect);
+
+            //Draw credits on screen
+            SDL_Rect gameNameRect = { 85, 50, gameNameSurface->w, gameNameSurface->h };
+            SDL_RenderCopy(renderer, gameNameTexture, NULL, &gameNameRect);
+            int nameX = (EXIT_BUTTON_X + BUTTON_WIDTH / 2) - (myNameSurface->w / 2);
+            SDL_Rect NameRect = { nameX, 100, myNameSurface->w, myNameSurface->h };
+            SDL_RenderCopy(renderer, myNameTexture, NULL, &NameRect);
+        }
+        else if (menuState == HIGH_SCORES)
+        {
+
+            SDL_RenderCopy(renderer, hsBackground, NULL, NULL);
+            
+            highScore::displayHighScores(renderer, hs, hsfont);
+            SDL_Rect instructionRect = { 50, 450, instructionSurface->w, instructionSurface->h };
+            SDL_RenderCopy(renderer, instructionTexture, NULL, &instructionRect);
+        }
         //cap nhat man hinh
         SDL_RenderPresent(renderer);
     }
 
     // Giải phóng bộ nhớ khi đã sử dụng xong
     SDL_DestroyTexture(menuBackground);
+    SDL_DestroyTexture(hsBackground);
     SDL_DestroyTexture(playButtonTexture);
     SDL_DestroyTexture(exitButtonTexture);
     SDL_DestroyTexture(highScoreTexture);
@@ -189,7 +224,7 @@ void Game::handleEndMaze(SDL_Event e, SDL_Renderer* renderer, Map& gameMap, play
 
     while (running)
     {
-        while (SDL_PollEvent(&e))
+        while (SDL_PollEvent(&e))   
         {
             if (e.type == SDL_QUIT)
             {

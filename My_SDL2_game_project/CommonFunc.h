@@ -18,6 +18,12 @@ const int GAME_OVER_X = 200, GAME_OVER_Y = 200, GAME_OVER_WIDTH = 250, GAME_OVER
 const int BUTTON_WIDTH = 100;
 const int BUTTON_HEIGHT = 43;
 
+enum MenuState
+{
+	MAIN_MENU,
+	HIGH_SCORES
+};
+
 
 class Game
 {
