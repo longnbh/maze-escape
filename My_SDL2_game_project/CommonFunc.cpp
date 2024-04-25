@@ -205,7 +205,7 @@ bool Game::outGame(SDL_Event& event)
     return false;
 }
 
-void Game::handleEndMaze(SDL_Event e, SDL_Renderer* renderer, Map& gameMap, player& nhanvat, int& countdown_time, int& last_time, SDL_Texture*& wallTexture, SDL_Texture*& roadTexture
+void Game::handleEndMaze( SDL_Renderer* renderer, Map& gameMap, player& nhanvat, int& countdown_time, int& last_time, SDL_Texture*& wallTexture, SDL_Texture*& roadTexture
 , highScore& hs, int score,Sound& sound)
 {
     //sound.stopSound();
@@ -226,6 +226,7 @@ void Game::handleEndMaze(SDL_Event e, SDL_Renderer* renderer, Map& gameMap, play
 
     while (running)
     {
+        SDL_Event e;
         while (SDL_PollEvent(&e))   
         {
             if (e.type == SDL_QUIT)
@@ -241,7 +242,7 @@ void Game::handleEndMaze(SDL_Event e, SDL_Renderer* renderer, Map& gameMap, play
                 {
                     // Xu ly khi nguoi chon "Continue"
                     //running = false; // Thoát khỏi vòng lặp
-                    
+                    SDL_FlushEvent(SDL_MOUSEBUTTONDOWN);
                     countdown_time = TIME_LIMIT;
                     last_time = SDL_GetTicks();
                     wallTexture = gameMap.loadRandomMapAndWall(renderer);
@@ -253,7 +254,7 @@ void Game::handleEndMaze(SDL_Event e, SDL_Renderer* renderer, Map& gameMap, play
                     nhanvat.resetPosition();
                     gameMap.drawMap(renderer, wallTexture, roadTexture);
 
-                    SDL_FlushEvent(SDL_MOUSEBUTTONDOWN);
+                    
                     running = false;
                     break;
                 }

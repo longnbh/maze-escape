@@ -118,7 +118,7 @@ int main() {
                 sound.playSound();
 
                 playerScore++;
-                Game::handleEndMaze(event,renderer, gameMap, nhanvat, countdown_time, last_time, wallTexture, roadTexture, hs, playerScore,
+                Game::handleEndMaze(renderer, gameMap, nhanvat, countdown_time, last_time, wallTexture, roadTexture, hs, playerScore,
                     sound);
                 
                 scoreText.UpdateText(font, renderer, score_x, score_y, playerScore);
