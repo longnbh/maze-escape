@@ -5,7 +5,7 @@
 #include "CommonFunc.h"
 #include<SDL_ttf.h>
 #include <string>
-const int TIME_LIMIT = 30;
+const int TIME_LIMIT = 25;
 
 class Text
 {

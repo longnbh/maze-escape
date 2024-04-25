@@ -22,12 +22,12 @@ int main() {
     if (!sound.khoiTaoSound()) { return 1; }
 
     // Tao cua so
-    SDL_Window* window = trochoi.CreateWindow("Maze escape", SCREEN_WIDTH, SCREEN_HEIGHT); if (!window) { return 1; }
+    SDL_Window* window = trochoi.CreateWindow("Maze Escape v1.0", SCREEN_WIDTH, SCREEN_HEIGHT); if (!window) { return 1; }
 
     // Tao trinh ket xuat (renderer)
     SDL_Renderer* renderer = trochoi.CreateRenderer(window);if (!renderer) { return 1; }
 
-    bool startGame = trochoi.ShowMenu(renderer, hs);
+    bool startGame = trochoi.ShowMenu(renderer, hs, sound);
 
     if (!startGame) { trochoi.QuitGame(); return 0; }
 
@@ -38,7 +38,7 @@ int main() {
     SDL_Texture* roadTexture = IMG_LoadTexture(renderer, "img/road/road2.png");
     //tao nhan vat
     player nhanvat;
-    nhanvat.createCharacter(renderer, "img/player/player3.PNG");
+    nhanvat.createCharacter(renderer, "img/player/player2.PNG");
 
     SDL_Event event;
     bool quit = false;
@@ -81,7 +81,7 @@ int main() {
         if (countdown_time <= 0)
         {
             //Game::handleEndMaze(renderer,gameMap,nhanvat, countdown_time, last_time, wallTexture);
-            trochoi.handleEndTime(renderer,hs,playerScore);
+            trochoi.handleEndTime(renderer,hs,playerScore,sound);
             quit = true; // Thoát khỏi vòng lặp sự kiện
             
             break; // Thoát khỏi vòng lặp game

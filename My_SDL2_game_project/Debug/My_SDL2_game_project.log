@@ -1,13 +1,9 @@
-﻿  CommonFunc.cpp
-C:\Users\Admin\Desktop\My_SDL2_game_project\My_SDL2_game_project\CommonFunc.cpp(63,102): warning C4305: 'return': truncation from 'int' to 'bool'
-C:\Users\Admin\Desktop\My_SDL2_game_project\My_SDL2_game_project\CommonFunc.cpp(66,106): warning C4305: 'return': truncation from 'int' to 'bool'
-C:\Users\Admin\Desktop\My_SDL2_game_project\My_SDL2_game_project\CommonFunc.cpp(73,140): warning C4305: 'return': truncation from 'int' to 'bool'
-C:\Users\Admin\Desktop\My_SDL2_game_project\My_SDL2_game_project\CommonFunc.cpp(77,94): warning C4305: 'return': truncation from 'int' to 'bool'
-C:\Users\Admin\Desktop\My_SDL2_game_project\My_SDL2_game_project\CommonFunc.cpp(81,96): warning C4305: 'return': truncation from 'int' to 'bool'
-C:\Users\Admin\Desktop\My_SDL2_game_project\My_SDL2_game_project\CommonFunc.cpp(86,117): warning C4305: 'return': truncation from 'int' to 'bool'
-C:\Users\Admin\Desktop\My_SDL2_game_project\My_SDL2_game_project\CommonFunc.cpp(88,133): warning C4305: 'return': truncation from 'int' to 'bool'
-C:\Users\Admin\Desktop\My_SDL2_game_project\My_SDL2_game_project\CommonFunc.cpp(92,115): warning C4305: 'return': truncation from 'int' to 'bool'
-C:\Users\Admin\Desktop\My_SDL2_game_project\My_SDL2_game_project\CommonFunc.cpp(94,131): warning C4305: 'return': truncation from 'int' to 'bool'
-C:\Users\Admin\Desktop\My_SDL2_game_project\My_SDL2_game_project\CommonFunc.cpp(98,121): warning C4305: 'return': truncation from 'int' to 'bool'
-C:\Users\Admin\Desktop\My_SDL2_game_project\My_SDL2_game_project\CommonFunc.cpp(100,122): warning C4305: 'return': truncation from 'int' to 'bool'
+﻿  main.cpp
+C:\Users\Admin\Desktop\My_SDL2_game_project\My_SDL2_game_project\main.cpp(18,15): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+  map.cpp
+C:\Users\Admin\Desktop\My_SDL2_game_project\My_SDL2_game_project\map.cpp(71,19): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Users\Admin\Desktop\My_SDL2_game_project\My_SDL2_game_project\map.cpp(77,19): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Users\Admin\Desktop\My_SDL2_game_project\My_SDL2_game_project\map.cpp(89,19): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+  textObject.cpp
+  Generating Code...
   My_SDL2_game_project.vcxproj -> C:\Users\Admin\Desktop\My_SDL2_game_project\Debug\My_SDL2_game_project.exe

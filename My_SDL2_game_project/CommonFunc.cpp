@@ -56,13 +56,13 @@ SDL_Renderer* Game::CreateRenderer(SDL_Window* window) {
     return renderer;
 }
 
-bool Game::ShowMenu(SDL_Renderer* renderer, highScore& hs)
+bool Game::ShowMenu(SDL_Renderer* renderer, highScore& hs, Sound& sound)
 {
     // Load ảnh làm nền cho menu
-    SDL_Texture* menuBackground = LoadImage(renderer, "img/menu.jpg");
+    SDL_Texture* menuBackground = LoadImage(renderer, "img/background.png");
     if (!menuBackground) { std::cerr << "Failed to load menu background image!" << std::endl;return -1; }
 
-    SDL_Texture* hsBackground = LoadImage(renderer, "img/background.png");
+    SDL_Texture* hsBackground = LoadImage(renderer, "img/menu.jpg");
     if (!hsBackground) { std::cerr << "Failed to load high score background image!" << std::endl;return -1; }
 
     // Load ảnh cho nút "Play game" và "Exit"
@@ -81,7 +81,7 @@ bool Game::ShowMenu(SDL_Renderer* renderer, highScore& hs)
     if (!hsfont) { std::cerr << "Failed to load font: " << TTF_GetError() << std::endl;return -1; }
 
     //create surface contains Game name
-    SDL_Color textColor = { 144, 238, 144 };
+    SDL_Color textColor = { 139, 0, 139 };
     SDL_Surface* gameNameSurface = TTF_RenderText_Solid(font, "MAZE ESCAPE GAME!", textColor);
     if (!gameNameSurface) { std::cerr << "Failed to render game name text: " << TTF_GetError() << std::endl;return -1; }
     SDL_Texture* gameNameTexture = SDL_CreateTextureFromSurface(renderer, gameNameSurface);
@@ -93,13 +93,14 @@ bool Game::ShowMenu(SDL_Renderer* renderer, highScore& hs)
     SDL_Texture* myNameTexture = SDL_CreateTextureFromSurface(renderer, myNameSurface);
     if (!myNameTexture) { std::cerr << "Failed to create texture from your name surface: " << SDL_GetError() << std::endl;return -1; }
 
-
-    SDL_Surface* instructionSurface = TTF_RenderText_Solid(hsfont, "Tap to back to menu", textColor);
+    SDL_Color prompt_color = { 12, 12, 13 };
+    SDL_Surface* instructionSurface = TTF_RenderText_Solid(hsfont, "Tap anywhere to back to menu", prompt_color);
     if (!instructionSurface) {std::cerr << "Failed to render instruction text: " << TTF_GetError() << std::endl;return -1;    }
     SDL_Texture* instructionTexture = SDL_CreateTextureFromSurface(renderer, instructionSurface);
     if (!instructionTexture) { std::cerr << "Failed to render instruction text: " << TTF_GetError() << std::endl;return -1; }
 
-
+    sound.loadSound("sound/background.wav");
+    sound.playSound();
 
     bool startGame = false; //check if player want to start the game
 
@@ -121,6 +122,7 @@ bool Game::ShowMenu(SDL_Renderer* renderer, highScore& hs)
                     mouseY >= PLAY_BUTTON_Y && mouseY <= PLAY_BUTTON_Y + BUTTON_HEIGHT) 
                 {
                     // player chose "Play game"
+                    sound.stopSound();
                     startGame = true;
                     inMenu = false;
                     break;
@@ -173,7 +175,7 @@ bool Game::ShowMenu(SDL_Renderer* renderer, highScore& hs)
             SDL_RenderCopy(renderer, hsBackground, NULL, NULL);
             
             highScore::displayHighScores(renderer, hs, hsfont);
-            SDL_Rect instructionRect = { 50, 450, instructionSurface->w, instructionSurface->h };
+            SDL_Rect instructionRect = { 130, 580, instructionSurface->w, instructionSurface->h };
             SDL_RenderCopy(renderer, instructionTexture, NULL, &instructionRect);
         }
         //cap nhat man hinh
@@ -210,8 +212,8 @@ void Game::handleEndMaze(SDL_Event e, SDL_Renderer* renderer, Map& gameMap, play
     //SDL_Event e;
     bool running = true;
 
-    SDL_Rect continueButton = { 120, 550, 200, 50 };
-    SDL_Rect exitButton = { 370, 550, 200, 50 };
+    SDL_Rect continueButton = { 90, 530, 200, 50 };
+    SDL_Rect exitButton = { 340, 530, 200, 50 };
 
     // Mo font ngoai vong lap
     TTF_Font* font = TTF_OpenFont("fonts/tahoma.ttf", 24);
@@ -239,6 +241,7 @@ void Game::handleEndMaze(SDL_Event e, SDL_Renderer* renderer, Map& gameMap, play
                 {
                     // Xu ly khi nguoi chon "Continue"
                     //running = false; // Thoát khỏi vòng lặp
+                    
                     countdown_time = TIME_LIMIT;
                     last_time = SDL_GetTicks();
                     wallTexture = gameMap.loadRandomMapAndWall(renderer);
@@ -249,6 +252,8 @@ void Game::handleEndMaze(SDL_Event e, SDL_Renderer* renderer, Map& gameMap, play
 
                     nhanvat.resetPosition();
                     gameMap.drawMap(renderer, wallTexture, roadTexture);
+
+                    SDL_FlushEvent(SDL_MOUSEBUTTONDOWN);
                     running = false;
                     break;
                 }
@@ -269,7 +274,7 @@ void Game::handleEndMaze(SDL_Event e, SDL_Renderer* renderer, Map& gameMap, play
 
 
         SDL_Texture* winBgr = LoadImage(renderer, "img/win.jpg");
-        if (!winBgr) { std::cerr << "Failed to load winner's image!" << std::endl;return; }
+        if (!winBgr) { std::cerr << "Failed to load winner's image!" << std::endl; break; }
         SDL_RenderCopy(renderer, winBgr, NULL, NULL);
 
 
@@ -303,12 +308,12 @@ void Game::renderText(SDL_Renderer* renderer, TTF_Font* font, const char* text, 
 }
 
 //xu ly khi het thoi gian
-void Game::handleEndTime(SDL_Renderer* renderer, highScore& hs, int score)
+void Game::handleEndTime(SDL_Renderer* renderer, highScore& hs, int score, Sound& endSound)
 {
     SDL_Event e;
     bool running = true;
 
-    SDL_Rect exitButton = { 225, 400, 200, 50 };
+    SDL_Rect exitButton = { 200, 400, 200, 50 };
 
     // Load font
     TTF_Font* font = TTF_OpenFont("fonts/tahoma.ttf", 24);
@@ -322,7 +327,8 @@ void Game::handleEndTime(SDL_Renderer* renderer, highScore& hs, int score)
     if (!gameOverTexture) {
         std::cerr << "Failed to load game over image!" << std::endl; return;
     }
-    Sound endSound; if (!endSound.khoiTaoSound()) { return; } if (!endSound.loadSound("sound/game_over.wav")) { return; }
+    endSound.stopSound();
+    if (!endSound.khoiTaoSound()) { return; } if (!endSound.loadSound("sound/game_over.wav")) { return; }
     endSound.playSound();
 
     while (running)
