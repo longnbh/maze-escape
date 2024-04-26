@@ -127,3 +127,4 @@ In the end, I want to show my gratitude for my parents, relatives, my roomates, 
 - My roomates in dormitory and from K68J class
 
 どうもありがとうございました🥰
+# THANK YOU FOR READING THIS SMALL PIECE OF CLUMSY README! I APPRECIATE YOUR PRECIOUS TIME TO READ UNTIL NOW! 🙏🙌
