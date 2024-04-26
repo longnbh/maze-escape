@@ -39,8 +39,8 @@ Firstly, user will see a menu. And then, if they press "Play" - they would go in
 
 ## 3. SET UP
 - First, go to the Google Drive link in the section "LINKS"
-- Download the .rar file (the name should be: My_SDL2_game_project.rar)
-- Extract that .rar file by right clicking, choose "Extract Here" or "Extract to + file name"
+- Download the .zip file (the name should be: My_SDL2_game_project.zip)
+- Extract that .zip file by right clicking, choose "Extract Here" or "Extract to + file name"
 - Click on the Debug folder (the Debug folder is in the same path as .vs folder). PAY ATTENTION: Not the Debug folder inside the My_SDL2_game_project folder
 - Run the .exe file to play the game. Happy playing!
 
@@ -116,7 +116,7 @@ the target is very simple: go to the destined place (dart shaped) from the begin
 - Player might not only go straight to the destination, but also required to use weapons to overcome threats on their way.
 - Some baits as: coins, traps would be likely to implement in my further improvement!
 ## 9. RELATED LINKS
-- Executable file from Google Drive: https://drive.google.com/file/d/1pSxiiP2DaNlNJLbmxrhUGznNF9Oy025K/view?usp=sharing
+- Executable file from Google Drive: https://drive.google.com/file/d/1Vap-BF0gg4-7VfT7YRuDd1ta9SGtpOGl/view?usp=sharing
 - Introduction video: https://youtu.be/Un1mXo9wpGw
 ## 10. SPECIAL THANKS:
 In the end, I want to show my gratitude for my parents, relatives, my roomates, friends and all helpful people around me for joining and helping me so much in the process of finishing this project: from the smallest thing like ideas, advices to macroscopic ones as source code. I also value and feel grateful for the helpfulness from our teachers and our mentor for giving kindly constructive ideas and advices for me.
