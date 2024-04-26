@@ -1,6 +1,6 @@
 # MAZE ESCAPE😵ꡙ‍ ꡌ‍ ꡚ‍😵
 ## [EXAMINER'S ATTENTION]: source code are in the folder "My_SDL2_game_project"!
-## [LINK ATTENTION]: all referral links of my games are in the section 9 
+## [LINK ATTENTION]: all referral links of my games (youtube link, .zip files) are in the section 9
 
 ## TABLE OF CONTENTS
 * [1. INTRO](#1-introduction)
@@ -117,7 +117,7 @@ the target is very simple: go to the destined place (dart shaped) from the begin
 - Some baits as: coins, traps would be likely to implement in my further improvement!
 ## 9. RELATED LINKS
 - Executable file from Google Drive: https://drive.google.com/file/d/1pSxiiP2DaNlNJLbmxrhUGznNF9Oy025K/view?usp=sharing
-- Introduction video:
+- Introduction video: https://youtu.be/Un1mXo9wpGw
 ## 10. SPECIAL THANKS:
 In the end, I want to show my gratitude for my parents, relatives, my roomates, friends and all helpful people around me for joining and helping me so much in the process of finishing this project: from the smallest thing like ideas, advices to macroscopic ones as source code. I also value and feel grateful for the helpfulness from our teachers and our mentor for giving kindly constructive ideas and advices for me.
 ### Special thanks to these heroes:
