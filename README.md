@@ -1,5 +1,6 @@
 # MAZE ESCAPE
 ## [EXAMINER'S ATTENTION]: source code are in the folder "My_SDL2_game_project"!
+## [LINK ATTENTION]: all referral links of my games are in the section 9 
 
 ## TABLE OF CONTENTS
 * [1. INTRO](#1-introduction)
@@ -11,10 +12,12 @@
 * [7. REFERENCES](#7-references)
 * [8. WRAP UP](#8-conclusion)
 * [9. LINKS](#9-related-links)
+* [10. SPECIAL THANKS](#10-special-thanks)
 
 ## 1. INTRODUCTION
 - **Name:** Nguyen Ba Hoang Long
 - **School:** University of Engineering and Technology - Vietnam National University, Hanoi (VNU-UET)
+- **Class:** QH-2023-I/CQ-J (K68J)
 - **Student's ID:** 23020680
 - **Big Project:** MAZE ESCAPE (INT2215_52 - Advanced Programming AY 23-24)
 
@@ -92,7 +95,7 @@ the target is very simple: go to the destined place (dart shaped) from the begin
 - Some buttons are collected from Google Images online.
 
 ## 8. CONCLUSION
-### WHAT I HAVE LEARNED THROUGH THIS PROJECT
+### WHAT I HAVE LEARNED THROUGH THIS PROJECT: through two challenging months, I have experienced so much things to learn
 - Logical thinking, writing code by myself (not very clean though..) and building a whole project (which is executable) from the bottom
 - I have broaden my knowledge about using Version Control system like Git, Git Bash and GitHub, which I have not known before!
 - How to be creative in brainstorming ideas, adding vivid images and sounds from YouTube (and also show respect for their effort)
@@ -100,6 +103,10 @@ the target is very simple: go to the destined place (dart shaped) from the begin
 - Gaining valuable insights into SDL2: popular functions for loading sounds, rendering images and more than that!
 - Learned how to get my code built structurally and neatly arranged, for smoother further maintenance and improvements.
 - How to manage time effectively and also, overcome stresses when building a project, which is essential for my future career.
+### IMPERFECTIONS:
+- Some implementation files are lengthy, not clean at all
+- Some functions are repeated because of they have not been synthesized into a single complete function for usage.
+- Comments in my source code are hybrid: English & Vietnamese, which might cause some problems to be understandable to other developers who read my source.
 ### FURTHER DEVELOPMENT THAT COULD BE IMPLEMENTED IN THE FUTURE
 #### 1. Choose levels accordingly (easy, medium, difficult)
 - Each level will be a different maze based on its difficulty.
@@ -110,4 +117,8 @@ the target is very simple: go to the destined place (dart shaped) from the begin
 
 ## 9. RELATED LINKS
 - Executable file from Google Drive: https://drive.google.com/file/d/1pSxiiP2DaNlNJLbmxrhUGznNF9Oy025K/view?usp=sharing
-- Introduction video: 
+- Introduction video:
+## 10. SPECIAL THANKS:
+In the end, I want to show my gratitude for my parents, relatives, my roomates, friends and all helpful people around me for joining and helping me so much in the process of finishing this project: from the smallest thing like ideas, advices to macroscopic ones as source code. I also value and feel grateful for the helpfulness from our teachers - Mr. Le Duc Trong, Mr. Tran Truong Thuy and our super-kind mentor - Mr. Phan Anh Tu, for giving kindly constructive ideas and advices for me. 
+
+どうもありがとうございました🥰
