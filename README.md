@@ -1,15 +1,15 @@
 # MAZE ESCAPE😵ꡙ‍ ꡌ‍ ꡚ‍😵
-## [EXAMINER'S ATTENTION]: source code are in the folder "My_SDL2_game_project"!
-## [LINK ATTENTION]: all referral links of my games (youtube link, .zip files) are in the section 9
+## [*ATTENTION FOR EXAMINERS*]: source code are in the folder "My_SDL2_game_project"!
+## [*URLS*]: all referral links of my games (youtube demo vide, .zip files) are in the section 9 on the Table of Contents
 
 ## TABLE OF CONTENTS
 * [1. INTRO](#1-introduction)
-* [2. STRUCTURE](#2-structure-and-techniques-used-inside)
-* [3. HOW TO DOWNLOAD TO PLAY](#3-set-up)
+* [2. STRUCTURES & TECHNIQUES](#2-structure-and-techniques-used-inside)
+* [3. HOW TO DOWNLOAD MY GAME](#3-set-up)
 * [4. HOW TO PLAY & EXIT GAME](#4-how-to-play)
 * [5. PREVIEW](#5-preview)
 * [6. MAIN FUNCTION](#6-main-function)
-* [7. REFERENCES](#7-references)
+* [7. REFERENCES & DOCUMENTATIONS](#7-references)
 * [8. WRAP UP](#8-conclusion)
 * [9. LINKS](#9-related-links)
 * [10. SPECIAL THANKS](#10-special-thanks)
@@ -80,8 +80,8 @@ the target is very simple: go to the destined place (dart shaped) from the begin
 ## 7. REFERENCES
 ### CODE IMPLEMENTATION
 - Writing code almost on my own, arranging codes and drawing, etc by myself. That's why they are not "clean" at all...
-- SDL Wiki (https://wiki.libsdl.org/wiki/index): to know which functions implement the thing I want (load an audio, render an image, halt the music, etc)
-- Learned how to write code in main.cpp from LazyFoo (https://lazyfoo.net/tutorials/SDL/) and some advice from my roomate
+- SDL Wiki (https://wiki.libsdl.org/wiki/index): a documentation I have read thousand of times to know which functions implement the thing I want (load an audio, render an image, halt the music, etc)
+- Learned how to arrange code in main.cpp from LazyFoo (https://lazyfoo.net/tutorials/SDL/) (and some little advice from my roomate)
 - Assistance of fixing some bugs from AI-powered tools such as ChatGPT. Assistance of some techniques from our beloved mentor - Mr. Phan Anh Tu :3
 ### SOUNDS
 - https://pixabay.com/
@@ -103,11 +103,11 @@ the target is very simple: go to the destined place (dart shaped) from the begin
 - Gaining valuable insights into SDL2: popular functions for loading sounds, rendering images and more than that!
 - Learned how to get my code built structurally and neatly arranged, for smoother further maintenance and improvements.
 - How to manage time effectively and also, overcome stresses when building a project, which is essential for my future career.
-### IMPERFECTIONS:
+### MY IMPERFECTIONS:
 - Some implementation files are lengthy, not clean at all
 - Some functions are repeated because of they have not been synthesized into a single complete function for usage.
 - Comments in my source code are hybrid: English & Vietnamese, which might cause some problems to be understandable to other developers who read my source.
-### FURTHER DEVELOPMENT THAT COULD BE IMPLEMENTED IN THE FUTURE
+### FURTHER DEVELOPMENT THAT COULD BE OPERATED IN THE FUTURE
 #### 1. Choose levels accordingly (easy, medium, difficult)
 - Each level will be a different maze based on its difficulty.
 - High levels probably would be tougher to gain a victory
@@ -119,12 +119,13 @@ the target is very simple: go to the destined place (dart shaped) from the begin
 - Executable file from Google Drive: https://drive.google.com/file/d/1Vap-BF0gg4-7VfT7YRuDd1ta9SGtpOGl/view?usp=sharing
 - Introduction video: https://youtu.be/Un1mXo9wpGw
 ## 10. SPECIAL THANKS:
-In the end, I want to show my gratitude for my parents, relatives, my roomates, friends and all helpful people around me for joining and helping me so much in the process of finishing this project: from the smallest thing like ideas, advices to macroscopic ones as source code. I also value and feel grateful for the helpfulness from our teachers and our mentor for giving kindly constructive ideas and advices for me.
+In the end, I want to show my gratitude for my parents, relatives, my roomates, friends and all helpful people around me for joining and helping me so much (both technically and mentally) in the process of finishing this project: from the smallest thing like ideas, advices to macroscopic ones as source code. I also value and feel grateful for the helpfulness from our teachers and our mentor for giving kindly constructive ideas and advices for me.
 ### Special thanks to these heroes:
 - Mr. Le Duc Trong
 - Mr. Tran Truong Thuy
-- Mr. Phan Anh Tu - our kind mentor, who helped and gave me so much advice that I could ever imagine
+- Mr. Phan Anh Tu - our kind mentor, who helped and gave me far more advice than I could ever imagine
 - My roomates in dormitory and from K68J class
+- And thanks to myself, for not ever giving up 😂
 
 どうもありがとうございました🥰
-# THANK YOU FOR READING THIS SMALL PIECE OF CLUMSY README! I APPRECIATE YOUR PRECIOUS TIME TO READ UNTIL NOW! 🙏🙌
+# THANK YOU FOR TAKING THE TIME TO READ THIS CLUMSY README! I APPRECIATE YOUR ATTENTION TO THIS DOCUMENT! 🙏🙌
