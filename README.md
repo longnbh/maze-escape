@@ -12,10 +12,10 @@
 * [LINKS](#related-links)
 
 ## INTRODUCTION
-- Name: Nguyen Ba Hoang Long
-- School: University of Engineering and Technology - Vietnam National University, Hanoi (VNU-UET)
-- Student's ID: 23020680
-- Big Project: MAZE ESCAPE (INT2215_52 - Advanced Programming AY 23-24)
+- **Name:** Nguyen Ba Hoang Long
+- **School:** University of Engineering and Technology - Vietnam National University, Hanoi (VNU-UET)
+- **Student's ID:** 23020680
+- **Big Project:** MAZE ESCAPE (INT2215_52 - Advanced Programming AY 23-24)
 
 ## STRUCTURE AND TECHNIQUES USED INSIDE
 - 6 classes dividied through header files and implement them through .cpp files. All of them would be used in main.cpp (divide files technique)
