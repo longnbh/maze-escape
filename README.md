@@ -3,15 +3,30 @@
 ## [*URLS*]: all referral links of my games (youtube demo vide, .zip files) are in the section 9 on the Table of Contents
 
 ## TABLE OF CONTENTS
-* [1. INTRO](#1-introduction)
+* [1. INTRO OF MYSELF](#1-introduction)
 * [2. STRUCTURES & TECHNIQUES](#2-structure-and-techniques-used-inside)
+  * [Structure](#structure)
+  * [Techniques](#techniques-used)
+  * [Logic of the game](#game-logic) 
 * [3. HOW TO DOWNLOAD MY GAME](#3-set-up)
+  * [Method 1](#method-1)
+  * [Method 2](#method-2)
 * [4. HOW TO PLAY & EXIT GAME](#4-how-to-play)
+  * [Moving](#moving)
+  * [Mission](#main-mission)
 * [5. PREVIEW](#5-preview)
 * [6. MAIN FUNCTION](#6-main-function)
 * [7. REFERENCES & DOCUMENTATIONS](#7-references)
+  * [Code](#code-implementation)
+  * [Sounds](#sounds)
+  * [Graphics](#graphics)
 * [8. WRAP UP](#8-conclusion)
+  * [Key takeaways](#what-i-have-learned-through-this-project)
+  * [Imperfections](#my-imperfections)
+  * [Further improvements](#further-development-that-could-be-operated-in-the-future)
 * [9. LINKS](#9-related-links)
+  *[Executable](#executable-file-from-google-drive)
+  *[Demo Video](#introduction-demo-video)
 * [10. SPECIAL THANKS](#10-special-thanks)
 
 ## 1. INTRODUCTION
@@ -22,12 +37,12 @@
 - **Big Project:** MAZE ESCAPE (INT2215_52 - Advanced Programming AY 23-24)
 
 ## 2. STRUCTURE AND TECHNIQUES USED INSIDE
-- Structure
+### Structure
   - Main menu with 3 options: Play, Exit and High scores (to see 5 most recent highest scores)
   - After tapping Play, screen will jump on the main gameplay with a maze and one single character. Time given is 30 seconds.
   - If the player wins, a prompt will be available to ask them whether to continue or exit the game.
   - If the time is over, a "Game over" notification will be displayed and a button "Exit" to quit game :(
-- Techniques used
+### Techniques used
   - Variables, loop (for with iterator, while) for game loop and others, control structure (if-else)
   - Files dividing techniques: 6 classes divided through declaration in header files and implementation through .cpp files. ALl of them would be used in main.cpp after all
   - Basic data structures: vector, string, in-out file (fstream), 2D arrays.
@@ -37,12 +52,32 @@
 ### Game logic:
 Firstly, user will see a menu. And then, if they press "Play" - they would go into their game. Otherwise, pressing "High score" would let them see the five recently high scores. If users win, they will be asked whether to continue or exit the game. If the former is true, a new map (and also new walls & roads) would be there to play. When the time is over, a "game over" screen would display.
 
-## 3. SET UP
-- First, go to the Google Drive link in the section "LINKS"
-- Download the .zip file (the name should be: My_SDL2_game_project.zip)
-- Extract that .zip file by right clicking, choose "Extract Here" or "Extract to + file name"
-- Click on the Debug folder (the Debug folder is in the same path as .vs folder). PAY ATTENTION: Not the Debug folder inside the My_SDL2_game_project folder
-- Run the .exe file to play the game. Happy playing!
+## 3. SET UP:
+there are two methods that you could do to download to your PCs (up to you)
+### Method 1:
+- Step 1: go to the path in your computer that you want to put my project in. Example below is the folder Example:
+![image](https://github.com/longnbh/maze-escape/assets/160746808/c98b8a96-aab0-42d0-8c25-9ac02535c173)
+- Step 2: tap on the path above
+![image](https://github.com/longnbh/maze-escape/assets/160746808/8f034b26-00bc-4cb8-99f4-0f2c0fa2c042)
+- Step 3: type "cmd" and press Enter. A command prompt terminal would pop up. Clone this repo to your machine by typing:
+```
+git clone https://github.com/longnbh/maze-escape.git
+```
+- Step 4: you should see the folder "maze-escape" as below. Go to this folder until you see the folder Debug, click on the Debug folder
+![image](https://github.com/longnbh/maze-escape/assets/160746808/230c9527-f890-4b70-ac45-8ac76746f7c3)
+- Step 5: Run the .exe file and the program should run!
+![image](https://github.com/longnbh/maze-escape/assets/160746808/d9da9530-863f-4dd5-842b-2cb2f1611c44)
+### Method 2:
+- Step 1: go to the Google Drive link in the section "9. LINKS" above
+- Step 2: Download the .zip file (the name should be: My_SDL2_game_project.zip)
+![image](https://github.com/longnbh/maze-escape/assets/160746808/66adf213-8ea6-4f3e-8e12-bcb7b237c71e)
+- Step 3: Extract that .zip file by right clicking, choose "Extract Here" or "Extract to + file name" (winRAR using is preferable)
+![image](https://github.com/longnbh/maze-escape/assets/160746808/f9aa820f-5628-4188-bda1-6e85a4cf68a8)
+- Click on the Debug folder (the Debug folder is in the same path as .vs folder) - same as the up above method .
+![image](https://github.com/longnbh/maze-escape/assets/160746808/bcfbe92c-4835-4b9e-871a-6c3c7d3e1940)
+PAY ATTENTION: Not the Debug folder inside the My_SDL2_game_project folder
+![image](https://github.com/longnbh/maze-escape/assets/160746808/9b19260d-7fc0-4e75-8c5b-175c20259fed)
+- Run the .exe file in that Debug folder to play the game. Happy playing!
 
 ## 4. HOW TO PLAY
 ### Moving
@@ -95,7 +130,8 @@ the target is very simple: go to the destined place (dart shaped) from the begin
 - Some buttons are collected from Google Images online.
 
 ## 8. CONCLUSION
-### WHAT I HAVE LEARNED THROUGH THIS PROJECT: through two challenging months, I have experienced so much things to learn
+### WHAT I HAVE LEARNED THROUGH THIS PROJECT: 
+*Through two challenging months, I have experienced so much things to learn*
 - Logical thinking, writing code by myself (not very clean though..) and building a whole project (which is executable) from the bottom
 - I have broaden my knowledge about using Version Control system like Git, Git Bash and GitHub, which I have not known before!
 - How to be creative in brainstorming ideas, adding vivid images and sounds from YouTube (and also show respect for their effort)
@@ -116,8 +152,10 @@ the target is very simple: go to the destined place (dart shaped) from the begin
 - Player might not only go straight to the destination, but also required to use weapons to overcome threats on their way.
 - Some baits as: coins, traps would be likely to implement in my further improvement!
 ## 9. RELATED LINKS
-- Executable file from Google Drive: https://drive.google.com/file/d/1Vap-BF0gg4-7VfT7YRuDd1ta9SGtpOGl/view?usp=sharing
-- Introduction video: https://youtu.be/Un1mXo9wpGw
+### Executable file from Google Drive: 
+https://drive.google.com/file/d/1Vap-BF0gg4-7VfT7YRuDd1ta9SGtpOGl/view?usp=sharing
+### Introduction demo video: 
+https://youtu.be/Un1mXo9wpGw
 ## 10. SPECIAL THANKS:
 In the end, I want to show my gratitude for my parents, relatives, my roomates, friends and all helpful people around me for joining and helping me so much (both technically and mentally) in the process of finishing this project: from the smallest thing like ideas, advices to macroscopic ones as source code. I also value and feel grateful for the helpfulness from our teachers and our mentor for giving kindly constructive ideas and advices for me.
 ### Special thanks to these heroes:
