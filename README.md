@@ -22,18 +22,18 @@
 - **Big Project:** MAZE ESCAPE (INT2215_52 - Advanced Programming AY 23-24)
 
 ## 2. STRUCTURE AND TECHNIQUES USED INSIDE
-- Techniques used
-  - Variables, loop (for with iterator, while) for game loop and others, control structure (if-else)
-  - Files dividing techniques: 6 classes divided through declaration in header files and implementation through .cpp files. ALl of them would be used in main.cpp later
-  - Basic data structures: vector, string, in-out file (fstream), 2D arrays.
-  - Class: constructor and destructor
-  - Random numbers generator
-  - Some basic functions in the library SDL, along with the use of various pointers
 - Structure
   - Main menu with 3 options: Play, Exit and High scores (to see 5 most recent highest scores)
   - After tapping Play, screen will jump on the main gameplay with a maze and one single character. Time given is 30 seconds.
   - If the player wins, a prompt will be available to ask them whether to continue or exit the game.
   - If the time is over, a "Game over" notification will be displayed and a button "Exit" to quit game :(
+- Techniques used
+  - Variables, loop (for with iterator, while) for game loop and others, control structure (if-else)
+  - Files dividing techniques: 6 classes divided through declaration in header files and implementation through .cpp files. ALl of them would be used in main.cpp after all
+  - Basic data structures: vector, string, in-out file (fstream), 2D arrays.
+  - Class: constructor and destructor
+  - Random numbers generator
+  - Some basic functions in the library SDL, along with the use of various pointers
 ### Game logic:
 Firstly, user will see a menu. And then, if they press "Play" - they would go into their game. Otherwise, pressing "High score" would let them see the five recently high scores. If users win, they will be asked whether to continue or exit the game. If the former is true, a new map (and also new walls & roads) would be there to play. When the time is over, a "game over" screen would display.
 
@@ -110,15 +110,20 @@ the target is very simple: go to the destined place (dart shaped) from the begin
 ### FURTHER DEVELOPMENT THAT COULD BE IMPLEMENTED IN THE FUTURE
 #### 1. Choose levels accordingly (easy, medium, difficult)
 - Each level will be a different maze based on its difficulty.
+- High levels probably would be tougher to gain a victory
 #### 2. Handle the movement of the player for smoother experience
 #### 3. Adding threats and providing players with weapons and limit their lives in one single play
 - Player might not only go straight to the destination, but also required to use weapons to overcome threats on their way.
 - Some baits as: coins, traps would be likely to implement in my further improvement!
-
 ## 9. RELATED LINKS
 - Executable file from Google Drive: https://drive.google.com/file/d/1pSxiiP2DaNlNJLbmxrhUGznNF9Oy025K/view?usp=sharing
 - Introduction video:
 ## 10. SPECIAL THANKS:
-In the end, I want to show my gratitude for my parents, relatives, my roomates, friends and all helpful people around me for joining and helping me so much in the process of finishing this project: from the smallest thing like ideas, advices to macroscopic ones as source code. I also value and feel grateful for the helpfulness from our teachers - Mr. Le Duc Trong, Mr. Tran Truong Thuy and our super-kind mentor - Mr. Phan Anh Tu, for giving kindly constructive ideas and advices for me. 
+In the end, I want to show my gratitude for my parents, relatives, my roomates, friends and all helpful people around me for joining and helping me so much in the process of finishing this project: from the smallest thing like ideas, advices to macroscopic ones as source code. I also value and feel grateful for the helpfulness from our teachers and our mentor for giving kindly constructive ideas and advices for me.
+### Special thanks to these heroes:
+- Mr. Le Duc Trong
+- Mr. Tran Truong Thuy
+- Mr. Phan Anh Tu - our kind mentor, who helped and gave me so much advice that I could ever imagine
+- My roomates in dormitory and from K68J class
 
 どうもありがとうございました🥰
