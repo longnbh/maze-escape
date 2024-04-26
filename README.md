@@ -36,7 +36,7 @@
 * [10. SPECIAL THANKS](#10-special-thanks)
 
 ## 1. INTRODUCTION
-- **Name:** Nguyen Ba Hoang Long
+- **Name of author:** Nguyen Ba Hoang Long
 - **School:** University of Engineering and Technology - Vietnam National University, Hanoi (VNU-UET)
 - **Class:** QH-2023-I/CQ-J (K68J)
 - **Student's ID:** 23020680
