@@ -1,38 +1,48 @@
 # MAZE ESCAPE
 ## [EXAMINER'S ATTENTION]: source code are in the folder "My_SDL2_game_project"!
-## TABLE OF CONTENTS
-* [INTRO](#introduction)
-* [STRUCTURE](#structure-and-techniques-used-inside)
-* [HOW TO DOWNLOAD TO PLAY](#set-up)
-* [HOW TO PLAY & EXIT GAME](#how-to-play)
-* [PREVIEW](#preview)
-* [MAIN FUNCTION](#main-function)
-* [REFERENCES](#references)
-* [WRAP UP](#conclusion)
-* [LINKS](#related-links)
 
-## INTRODUCTION
+## TABLE OF CONTENTS
+* [1. INTRO](#1-introduction)
+* [2. STRUCTURE](#2-structure-and-techniques-used-inside)
+* [3. HOW TO DOWNLOAD TO PLAY](#3-set-up)
+* [4. HOW TO PLAY & EXIT GAME](#4-how-to-play)
+* [5. PREVIEW](#5-preview)
+* [6. MAIN FUNCTION](#6-main-function)
+* [7. REFERENCES](#7-references)
+* [8. WRAP UP](#8-conclusion)
+* [9. LINKS](#9-related-links)
+
+## 1. INTRODUCTION
 - **Name:** Nguyen Ba Hoang Long
 - **School:** University of Engineering and Technology - Vietnam National University, Hanoi (VNU-UET)
 - **Student's ID:** 23020680
 - **Big Project:** MAZE ESCAPE (INT2215_52 - Advanced Programming AY 23-24)
 
-## STRUCTURE AND TECHNIQUES USED INSIDE
-- 6 classes dividied through header files and implement them through .cpp files. All of them would be used in main.cpp (divide files technique)
-- Using basic data structures: vector, string, in-out file (fstream)
-- Drawing maps through 2D-arrays (stored in .txt files), and also handle collision detection there.
-- In main.cpp, I have declared variables of those classes, and then implement them based on the logic of the game.
+## 2. STRUCTURE AND TECHNIQUES USED INSIDE
+- Techniques used
+  - Variables, loop (for with iterator, while) for game loop and others, control structure (if-else)
+  - Files dividing techniques: 6 classes divided through declaration in header files and implementation through .cpp files. ALl of them would be used in main.cpp later
+  - Basic data structures: vector, string, in-out file (fstream), 2D arrays.
+  - Class: constructor and destructor
+  - Random numbers generator
+  - Some basic functions in the library SDL, along with the use of various pointers
+- Structure
+  - Main menu with 3 options: Play, Exit and High scores (to see 5 most recent highest scores)
+  - After tapping Play, screen will jump on the main gameplay with a maze and one single character. Time given is 30 seconds.
+  - If the player wins, a prompt will be available to ask them whether to continue or exit the game.
+  - If the time is over, a "Game over" notification will be displayed and a button "Exit" to quit game :(
 ### Game logic:
 Firstly, user will see a menu. And then, if they press "Play" - they would go into their game. Otherwise, pressing "High score" would let them see the five recently high scores. If users win, they will be asked whether to continue or exit the game. If the former is true, a new map (and also new walls & roads) would be there to play. When the time is over, a "game over" screen would display.
 
-## SET UP
+## 3. SET UP
 - First, go to the Google Drive link in the section "LINKS"
 - Download the .rar file (the name should be: My_SDL2_game_project.rar)
 - Extract that .rar file by right clicking, choose "Extract Here" or "Extract to + file name"
 - Click on the Debug folder (the Debug folder is in the same path as .vs folder). PAY ATTENTION: Not the Debug folder inside the My_SDL2_game_project folder
 - Run the .exe file to play the game. Happy playing!
 
-## HOW TO PLAY
+## 4. HOW TO PLAY
+### Moving
 |   KEYS   |    FUNCTION   |
 |:--------:|:-------------:|
 |     ↑    |       UP      |
@@ -40,8 +50,10 @@ Firstly, user will see a menu. And then, if they press "Play" - they would go in
 |     ←    |      LEFT     |
 |     →    |     RIGHT     |
 |     Esc  |    Exit game  |
+### Main mission:
+the target is very simple: go to the destined place (dart shaped) from the beginning before the time's over.
 
-## PREVIEW
+## 5. PREVIEW
 ### MAIN MENU
 - btw, NBHL is the acronym of my name :)
 ![main_menu](https://github.com/longnbh/maze-escape/assets/160746808/4698909e-35b5-4869-bdfc-dfcd376c1bec)
@@ -56,38 +68,46 @@ Firstly, user will see a menu. And then, if they press "Play" - they would go in
 ### GAME OVER SCREEN
 ![game_over](https://github.com/longnbh/maze-escape/assets/160746808/70e9b70d-93ce-4fad-99c5-bc7dd30de276)
 
-## MAIN FUNCTION
-- Mission: pass the maze in a given number amount of time
+## 6. MAIN FUNCTION
+- Hovering the character throughout the labyrinth, the character would bump into the walls if they come near to those walls.
 - When playing, users could hear epic sounds & thrilling music, which make players motivated and arouse them to move faster
-- The time is limited, so users need to figure out the labyrinths as soon as possible.
+- The time is limited, so players need to figure out the labyrinths as soon as possible, which is pretty strained for them
 - Other function: 5 highest scores recently (code by the "vector" data structure)
 
-## REFERENCES
+## 7. REFERENCES
 ### CODE IMPLEMENTATION
+- Writing code almost on my own, arranging codes and drawing, etc by myself. That's why they are not "clean" at all...
 - SDL Wiki (https://wiki.libsdl.org/wiki/index): to know which functions implement the thing I want (load an audio, render an image, halt the music, etc)
 - Learned how to write code in main.cpp from LazyFoo (https://lazyfoo.net/tutorials/SDL/) and some advice from my roomate
-- Writing code almost on my own, arranging codes and drawing, etc by myself. That's why they are not "clean" at all...
 - Assistance of fixing some bugs from AI-powered tools such as ChatGPT. Assistance of some techniques from our beloved mentor - Mr. Phan Anh Tu :3
 ### SOUNDS
-- Pixabay.com and YouTube: all NoCopyright ('cause I appreciate artists' work of arts)
+- https://pixabay.com/
+- NoCopyrightSounds from YouTube
 - Some trivial sound effects are gathered randomly from Internet
 ### GRAPHICS
-- Mainly from itch.io: https://itch.io/game-assets
+- Software used to create maps: Tiled and aseprite to edit them.
+- Website to create maze: https://www.mazegenerator.net/
+- Characters, roads and walls: https://itch.io/game-assets
+- UI and Menu: https://www.shutterstock.com/
 - Some buttons are collected from Google Images online.
 
-## CONCLUSION
+## 8. CONCLUSION
 ### WHAT I HAVE LEARNED THROUGH THIS PROJECT
-- Logical thinking, writing code (not very clean though..) and building a whole project
+- Logical thinking, writing code by myself (not very clean though..) and building a whole project (which is executable) from the bottom
+- I have broaden my knowledge about using Version Control system like Git, Git Bash and GitHub, which I have not known before!
 - How to be creative in brainstorming ideas, adding vivid images and sounds from YouTube (and also show respect for their effort)
 - Setting up linker settings and other libraries for my project
 - Gaining valuable insights into SDL2: popular functions for loading sounds, rendering images and more than that!
 - Learned how to get my code built structurally and neatly arranged, for smoother further maintenance and improvements.
 - How to manage time effectively and also, overcome stresses when building a project, which is essential for my future career.
 ### FURTHER DEVELOPMENT THAT COULD BE IMPLEMENTED IN THE FUTURE
-- Choose levels accordingly (easy, medium, difficult)
-- Handle the movement of the player for smoother experience
-- Adding threats and providing players with weapons and limit their lives in one single play
+#### 1. Choose levels accordingly (easy, medium, difficult)
+- Each level will be a different maze based on its difficulty.
+#### 2. Handle the movement of the player for smoother experience
+#### 3. Adding threats and providing players with weapons and limit their lives in one single play
+- Player might not only go straight to the destination, but also required to use weapons to overcome threats on their way.
+- Some baits as: coins, traps would be likely to implement in my further improvement!
 
-## Related links
+## 9. RELATED LINKS
 - Executable file from Google Drive: https://drive.google.com/file/d/1pSxiiP2DaNlNJLbmxrhUGznNF9Oy025K/view?usp=sharing
 - Introduction video: 
