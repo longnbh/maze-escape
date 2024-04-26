@@ -1,4 +1,4 @@
-# MAZE ESCAPE
+# MAZE ESCAPE😵ꡙ‍ ꡌ‍ ꡚ‍😵
 ## [EXAMINER'S ATTENTION]: source code are in the folder "My_SDL2_game_project"!
 ## [LINK ATTENTION]: all referral links of my games are in the section 9 
 
